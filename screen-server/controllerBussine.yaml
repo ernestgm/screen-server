@@ -1,0 +1,15 @@
+controllers:
+  Bussine:
+    index:
+      query: all
+      render: bussine.index with:bussines
+    create:
+      find: user.id
+      render: bussine.create with:user
+    store:
+      validate: name, description
+      save: bussine
+      redirect: bussine.show
+    show:
+      query: all:bussines
+      render: bussine.show with:bussine
