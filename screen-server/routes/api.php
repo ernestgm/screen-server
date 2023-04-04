@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\BussineController; 
+use App\Http\Controllers\BussineController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,14 +17,19 @@ use App\Http\Controllers\BussineController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::middleware('auth:sanctum')->group(function () {
+    Route::prefix('v1')->group(function () {
 
+        Route::controller(UserController::class)->group(function () {
+            Route::get('/users', 'show');
+            Route::post('/user', 'store');
+            Route::post('/login', 'login')->withoutMiddleware('auth:sanctum');
+            Route::post('/logout', 'logout');
+        });
 
-Route::prefix('v1')->group(function () {
-    Route::controller(BussineController::class)->group(function () {
-        Route::get('/bussines', 'show');
-        Route::post('/bussine', 'store');
+        Route::controller(BussineController::class)->group(function () {
+            Route::get('/bussines', 'show');
+            Route::post('/bussine', 'store');
+        });
     });
 });
