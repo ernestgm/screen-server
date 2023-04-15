@@ -17,12 +17,15 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::middleware('auth:sanctum')->group(function () {
+Route::middleware(['auth:sanctum', 'cors'])->group(function () {
     Route::prefix('v1')->group(function () {
 
         Route::controller(UserController::class)->group(function () {
             Route::get('/users', 'show');
+            Route::get('/user/{user}', 'getUser');
             Route::post('/user', 'store');
+            Route::put('/users/{user}', 'update');
+            Route::delete('/users', 'deleteByIds');
             Route::post('/login', 'login')->withoutMiddleware('auth:sanctum');
             Route::post('/logout', 'logout');
         });
