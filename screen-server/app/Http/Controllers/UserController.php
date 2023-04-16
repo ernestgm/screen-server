@@ -26,7 +26,7 @@ class UserController extends Controller
     {
         if(Auth::attempt(['email' => request('email'), 'password' => request('password')])){
             $user = Auth::user();
-            $success['user'] = $user;
+            $success['user'] = User::with('role')->find($user->id);
             $success['token'] =  $user->createToken('screen_app')->plainTextToken;
             return response()->json(['success' => $success], $this-> successStatus);
         }
@@ -41,7 +41,7 @@ class UserController extends Controller
         return response()->json(['success' => 'success']);
     }
 
-    public function store(UserStoreRequest $request)
+    public function store(UserStoreRequest $request): JsonResponse
     {
         $request->validated();
         $input = $request->all();
@@ -51,9 +51,9 @@ class UserController extends Controller
         return response()->json(['success'=>'success'], $this->successStatus);
     }
 
-    public function update(UserStoreRequest $request, User $user)
+    public function update(UserStoreRequest $request, User $user): JsonResponse
     {
-        $request->validate();
+        $request->validated();
         $input = $request->all();
         $input['password'] = bcrypt($input['password']);
         $user->update($input);
@@ -61,19 +61,20 @@ class UserController extends Controller
         return response()->json(['success'=>'success'], $this->successStatus);
     }
 
-    public function getUser(Request $request, User $user)
+    public function show(Request $request, User $user): JsonResponse
     {
         return response()->json([
             'success'=> true,
-            'data' => $user
+            'data' => User::with('role')->find($user->id)
         ]);
     }
 
-    public function show(Request $request, User $user)
+    public function all(Request $request, User $user): JsonResponse
     {
-        $users = User::all()->filter(function($item) {
+        $users = User::with('role')->get()->filter(function($item) {
             return $item['id'] != Auth::id();
         });
+
 
         return response()->json([
             'success'=> true,

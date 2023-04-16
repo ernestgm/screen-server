@@ -21,7 +21,8 @@ class User extends Authenticated
         'name',
         'lastname',
         'email',
-        'password'
+        'password',
+        'role_id'
     ];
 
     /**
@@ -33,8 +34,13 @@ class User extends Authenticated
         'id' => 'integer',
     ];
 
-    public function id(): BelongsTo
+    public function bussine(): BelongsTo
     {
         return $this->belongsTo(Bussine::class);
+    }
+
+    public function role(): BelongsTo
+    {
+        return $this->belongsTo(Role::class);
     }
 }

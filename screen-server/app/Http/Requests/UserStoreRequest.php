@@ -27,6 +27,7 @@ class UserStoreRequest extends FormRequest
             'password' => ['required', 'string'],
             'c_password' => ['required', 'same:password'],
             'email' => ['required', 'string', 'unique:users'],
+            'role_id' => ['required', 'integer'],
         ];
     }
 
@@ -44,7 +45,6 @@ class UserStoreRequest extends FormRequest
 
 
     public function messages(): array
-
     {
         return [
             'c_password.same:password' => 'The password fields must be match.',
