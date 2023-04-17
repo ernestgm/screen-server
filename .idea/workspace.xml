@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="aa424c5c-a623-4874-b452-1c40948fda22" name="Changes" comment="User role management" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
+    <pharConfigPath>$PROJECT_DIR$/screen-server/composer.json</pharConfigPath>
+    <execution />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="develop" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration">
+    <include_path>
+      <path value="$PROJECT_DIR$/screen-server/vendor/ralouphie/getallheaders" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/graham-campbell/result-type" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/sebastian/type" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/symfony/deprecation-contracts" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/hamcrest/hamcrest-php" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/sebastian/diff" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/symfony/polyfill-mbstring" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/sebastian/lines-of-code" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/symfony/finder" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/sebastian/object-enumerator" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/symfony/routing" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/sebastian/comparator" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/symfony/polyfill-intl-grapheme" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/sebastian/code-unit" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/symfony/css-selector" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/sebastian/exporter" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/symfony/polyfill-intl-normalizer" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/sebastian/cli-parser" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/symfony/polyfill-php80" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/sebastian/version" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/symfony/mailer" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/sebastian/complexity" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/symfony/mime" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/sebastian/recursion-context" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/symfony/polyfill-ctype" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/sebastian/environment" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/symfony/polyfill-php72" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/sebastian/global-state" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/symfony/error-handler" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/sebastian/code-unit-reverse-lookup" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/phpunit/php-code-coverage" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/symfony/event-dispatcher-contracts" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/sebastian/object-reflector" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/phpunit/php-file-iterator" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/symfony/polyfill-intl-idn" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/phpunit/php-invoker" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/symfony/console" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/phpunit/php-text-template" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/symfony/event-dispatcher" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/phpunit/phpunit" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/symfony/var-dumper" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/phpunit/php-timer" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/symfony/http-foundation" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/symfony/uid" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/symfony/http-kernel" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/laravel-shift/blueprint" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/dflydev/dot-access-data" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/symfony/translation-contracts" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/laravel-shift/faker-registry" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/symfony/service-contracts" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/symfony/string" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/symfony/yaml" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/symfony/translation" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/symfony/process" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/symfony/polyfill-uuid" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/nikic/php-parser" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/psr/simple-cache" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/psr/http-factory" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/psr/container" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/psr/http-client" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/psr/http-message" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/psr/event-dispatcher" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/psr/cache" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/psr/log" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/egulias/email-validator" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/guzzlehttp/uri-template" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/guzzlehttp/psr7" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/guzzlehttp/guzzle" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/guzzlehttp/promises" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/filp/whoops" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/phar-io/version" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/phar-io/manifest" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/composer" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/theseer/tokenizer" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/nunomaduro/termwind" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/nunomaduro/collision" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/psy/psysh" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/fakerphp/faker" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/vlucas/phpdotenv" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/brick/math" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/spatie/backtrace" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/spatie/ignition" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/spatie/flare-client-php" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/doctrine/lexer" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/spatie/laravel-ignition" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/doctrine/deprecations" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/doctrine/event-manager" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/doctrine/cache" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/doctrine/inflector" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/doctrine/dbal" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/league/config" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/league/commonmark" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/league/mime-type-detection" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/voku/portable-ascii" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/league/flysystem" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/fruitcake/php-cors" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/laravel/sail" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/laravel/framework" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/laravel/sanctum" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/laravel/tinker" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/tijsverkoyen/css-to-inline-styles" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/laravel/serializable-closure" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/laravel/pint" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/webmozart/assert" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/phpoption/phpoption" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/nette/schema" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/nette/utils" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/nesbot/carbon" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/ramsey/collection" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/ramsey/uuid" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/monolog/monolog" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/myclabs/deep-copy" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/mockery/mockery" />
+      <path value="$PROJECT_DIR$/screen-server/vendor/dragonmantank/cron-expression" />
+    </include_path>
+  </component>
+  <component name="ProjectId" id="2NvI8UQnTsHDvOAx0GQ0USgRZKK" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/ernes/Documents/proyect/react/screen-frontend&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="aa424c5c-a623-4874-b452-1c40948fda22" name="Changes" comment="" />
+      <created>1680537970190</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1680537970190</updated>
+      <workItem from="1680537971825" duration="8321000" />
+      <workItem from="1680967785746" duration="3986000" />
+      <workItem from="1681074683758" duration="6944000" />
+      <workItem from="1681579421793" duration="19959000" />
+      <workItem from="1681696394227" duration="1323000" />
+    </task>
+    <task id="LOCAL-00001" summary="User Register and Authentication">
+      <created>1680625138626</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1680625138626</updated>
+    </task>
+    <task id="LOCAL-00002" summary="User Register and Authentication">
+      <created>1680625242212</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1680625242212</updated>
+    </task>
+    <task id="LOCAL-00003" summary="User Register and Authentication, update, delete">
+      <created>1681580705739</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1681580705739</updated>
+    </task>
+    <task id="LOCAL-00004" summary="User role management">
+      <created>1681686932578</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1681686932578</updated>
+    </task>
+    <task id="LOCAL-00005" summary="User role management">
+      <created>1681699635688</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1681699635688</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_NEW_TODO" value="false" />
+    <MESSAGE value="User Register and Authentication" />
+    <MESSAGE value="User Register and Authentication, update, delete" />
+    <MESSAGE value="User role management" />
+    <option name="LAST_COMMIT_MESSAGE" value="User role management" />
+  </component>
+</project>
