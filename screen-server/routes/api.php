@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\RolesController;
 use App\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -19,7 +20,7 @@ use App\Http\Controllers\UserController;
 
 Route::middleware(['auth:sanctum', 'cors'])->group(function () {
     Route::prefix('v1')->group(function () {
-
+        //Users
         Route::controller(UserController::class)->group(function () {
             Route::get('/users', 'all');
             Route::get('/user/{user}', 'show');
@@ -28,7 +29,14 @@ Route::middleware(['auth:sanctum', 'cors'])->group(function () {
             Route::delete('/users', 'deleteByIds');
             Route::post('/login', 'login')->withoutMiddleware('auth:sanctum');
             Route::post('/logout', 'logout');
+
         });
+        //Roles
+        Route::controller(RolesController::class)->group(function () {
+            Route::get('/roles', 'all');
+        });
+
+
 
         Route::controller(BussineController::class)->group(function () {
             Route::get('/bussines', 'show');
