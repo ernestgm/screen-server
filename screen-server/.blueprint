@@ -1,10 +1,10 @@
 created:
-    - app/Http/Controllers/BussineController.php
-    - tests/Feature/Http/Controllers/BussineControllerTest.php
-    - app/Http/Requests/BussineStoreRequest.php
-    - resources/views/bussine/index.blade.php
-    - resources/views/bussine/create.blade.php
-    - resources/views/bussine/show.blade.php
+    - app/Http/Controllers/UserController.php
+    - tests/Feature/Http/Controllers/UserControllerTest.php
+    - app/Http/Requests/UserStoreRequest.php
+    - resources/views/user/index.blade.php
+    - resources/views/user/create.blade.php
+    - resources/views/user/show.blade.php
 updated:
     - routes/web.php
 models:
