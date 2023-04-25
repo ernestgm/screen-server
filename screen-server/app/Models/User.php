@@ -34,9 +34,9 @@ class User extends Authenticated
         'id' => 'integer',
     ];
 
-    public function bussine(): BelongsTo
+    public function business(): BelongsTo
     {
-        return $this->belongsTo(Bussine::class);
+        return $this->belongsTo(Business::class);
     }
 
     public function role(): BelongsTo

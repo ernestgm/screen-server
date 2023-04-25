@@ -4,7 +4,7 @@ use App\Http\Controllers\RolesController;
 use App\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\BussineController;
+use App\Http\Controllers\BusinessController;
 use App\Http\Controllers\UserController;
 
 /*
@@ -35,12 +35,13 @@ Route::middleware(['auth:sanctum', 'cors'])->group(function () {
         Route::controller(RolesController::class)->group(function () {
             Route::get('/roles', 'all');
         });
-
-
-
-        Route::controller(BussineController::class)->group(function () {
-            Route::get('/bussines', 'show');
-            Route::post('/bussine', 'store');
+        //Business CRUD
+        Route::controller(BusinessController::class)->group(function () {
+            Route::get('/business/{business}', 'show');
+            Route::get('/businesses', 'all');
+            Route::post('/business', 'store');
+            Route::put('/business/update/{business}', 'update');
+            Route::delete('/businesses', 'delete');
         });
     });
 });

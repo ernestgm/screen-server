@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -11,11 +12,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('areas', function (Blueprint $table) {
-            $table->id()->foreign('Business.id');
-            $table->text('name');
-            $table->timestamps();
-        });
+        DB::table('users')->insert([
+            [
+                'name' => 'Ernesto',
+                'lastname' => 'Gonzalez Martin',
+                'email' => 'ernestgm2006@gmail.com',
+                'password' => bcrypt('Admin.2023'),
+                'role_id' => 1
+            ]
+        ]);
     }
 
     /**
@@ -23,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('areas');
+        //
     }
 };

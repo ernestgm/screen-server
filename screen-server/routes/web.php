@@ -16,9 +16,3 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-
-
-//Route::resource('bussine', App\Http\Controllers\BussineController::class)->except('edit', 'update', 'destroy');
-
-
-Route::resource('user', App\Http\Controllers\UserController::class)->except('edit', 'update', 'destroy');

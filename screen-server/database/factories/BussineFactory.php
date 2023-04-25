@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
-use App\Models\Bussine;
+use App\Models\Business;
 
 class BussineFactory extends Factory
 {
@@ -13,7 +13,7 @@ class BussineFactory extends Factory
      *
      * @var string
      */
-    protected $model = Bussine::class;
+    protected $model = Business::class;
 
     /**
      * Define the model's default state.

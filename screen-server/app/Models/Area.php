@@ -30,6 +30,6 @@ class Area extends Model
 
     public function id(): BelongsTo
     {
-        return $this->belongsTo(Bussine::class);
+        return $this->belongsTo(Business::class);
     }
 }

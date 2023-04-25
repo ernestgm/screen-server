@@ -6,7 +6,7 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class UserStoreRequest extends FormRequest
+class GeoLocationStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,12 +22,9 @@ class UserStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string'],
-            'lastname' => ['required', 'string'],
-            'password' => ['required', 'string'],
-            'c_password' => ['required', 'same:password'],
-            'email' => ['required', 'string', 'unique:users'],
-            'role_id' => ['required', 'integer'],
+            'address' => ['required', 'string'],
+            'latitude' => ['required', 'double'],
+            'longitude' => ['required', 'double'],
         ];
     }
 
@@ -39,14 +36,5 @@ class UserStoreRequest extends FormRequest
             'message'   => 'Validation errors',
             'data'      => $validator->errors()
         ]));
-    }
-
-
-
-    public function messages(): array
-    {
-        return [
-            'c_password.same:password' => 'The password fields must be match.',
-        ];
     }
 }

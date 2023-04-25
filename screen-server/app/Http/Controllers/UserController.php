@@ -14,9 +14,6 @@ use Illuminate\View\View;
 class UserController extends Controller
 {
 
-    public $successStatus = 200;
-    public $unauthorisedStatus = 401;
-
     public function create(Request $request): View
     {
         return view('user.create');
@@ -28,10 +25,10 @@ class UserController extends Controller
             $user = Auth::user();
             $success['user'] = User::with('role')->find($user->id);
             $success['token'] =  $user->createToken('screen_app')->plainTextToken;
-            return response()->json(['success' => $success], $this-> successStatus);
+            return response()->json(['success' => $success], app('SUCCESS_STATUS'));
         }
         else{
-            return response()->json(['error'=>'Unauthorised'], $this->unauthorisedStatus);
+            return response()->json(['error'=>'Unauthorised'], app('UNAUTHORIZED_STATUS'));
         }
     }
 
@@ -48,7 +45,7 @@ class UserController extends Controller
         $input['password'] = bcrypt($input['password']);
         User::create($input);
 
-        return response()->json(['success'=>'success'], $this->successStatus);
+        return response()->json(['success'=>'success'], app('SUCCESS_STATUS'));
     }
 
     public function update(UserStoreRequest $request, User $user): JsonResponse
@@ -58,7 +55,7 @@ class UserController extends Controller
         $input['password'] = bcrypt($input['password']);
         $user->update($input);
 
-        return response()->json(['success'=>'success'], $this->successStatus);
+        return response()->json(['success'=>'success'], app('SUCCESS_STATUS'));
     }
 
     public function show(Request $request, User $user): JsonResponse
@@ -92,7 +89,7 @@ class UserController extends Controller
             'ids.*' => 'required|integer',
         ]);
         if ($validator->fails()) {
-            return response()->json(['error' => $validator->errors()], 400);
+            return response()->json(['error' => $validator->errors()], app('VALIDATION_STATUS'));
         }
 
         // delete records

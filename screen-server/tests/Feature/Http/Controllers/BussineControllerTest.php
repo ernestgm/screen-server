@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Http\Controllers;
 
-use App\Models\Bussine;
+use App\Models\Business;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -10,7 +10,7 @@ use JMac\Testing\Traits\AdditionalAssertions;
 use Tests\TestCase;
 
 /**
- * @see \App\Http\Controllers\BussineController
+ * @see \App\Http\Controllers\BusinessController
  */
 class BussineControllerTest extends TestCase
 {
@@ -21,7 +21,7 @@ class BussineControllerTest extends TestCase
      */
     public function index_displays_view(): void
     {
-        $bussines = Bussine::factory()->count(3)->create();
+        $bussines = Business::factory()->count(3)->create();
 
         $response = $this->get(route('bussine.index'));
 
@@ -52,9 +52,9 @@ class BussineControllerTest extends TestCase
     public function store_uses_form_request_validation(): void
     {
         $this->assertActionUsesFormRequest(
-            \App\Http\Controllers\BussineController::class,
+            \App\Http\Controllers\BusinessController::class,
             'store',
-            \App\Http\Requests\BussineStoreRequest::class
+            \App\Http\Requests\BusinessStoreRequest::class
         );
     }
 
@@ -71,7 +71,7 @@ class BussineControllerTest extends TestCase
             'description' => $description,
         ]);
 
-        $bussines = Bussine::query()
+        $bussines = Business::query()
             ->where('name', $name)
             ->where('description', $description)
             ->get();
@@ -87,8 +87,8 @@ class BussineControllerTest extends TestCase
      */
     public function show_displays_view(): void
     {
-        $bussine = Bussine::factory()->create();
-        $bussines = Bussine::factory()->count(3)->create();
+        $bussine = Business::factory()->create();
+        $bussines = Business::factory()->count(3)->create();
 
         $response = $this->get(route('bussine.show', $bussine));
 

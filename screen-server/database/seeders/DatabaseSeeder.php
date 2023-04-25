@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\Bussine;
+use App\Models\Business;
 
 class DatabaseSeeder extends Seeder
 {
@@ -20,6 +20,6 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        Bussine::factory(10)->create();
+        Business::factory(10)->create();
     }
 }

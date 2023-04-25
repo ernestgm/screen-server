@@ -6,7 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class GeoLocation extends Model
+
+class Business extends Model
 {
     use HasFactory;
 
@@ -16,9 +17,11 @@ class GeoLocation extends Model
      * @var array
      */
     protected $fillable = [
-        'address',
-        'latitude',
-        'longitude',
+        'name',
+        'description',
+        'logo',
+        'user_id',
+        'geolocation_id'
     ];
 
     /**
@@ -30,8 +33,13 @@ class GeoLocation extends Model
         'id' => 'integer',
     ];
 
-    public function id(): BelongsTo
+    public function geolocation(): BelongsTo
     {
-        return $this->belongsTo(Business::class);
+        return $this->belongsTo(GeoLocation::class);
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 }
