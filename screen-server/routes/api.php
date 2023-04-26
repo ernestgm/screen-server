@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AreaController;
 use App\Http\Controllers\RolesController;
 use App\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Http\Request;
@@ -42,6 +43,14 @@ Route::middleware(['auth:sanctum', 'cors'])->group(function () {
             Route::post('/business', 'store');
             Route::put('/business/update/{business}', 'update');
             Route::delete('/businesses', 'delete');
+        });
+        // Area CRUD
+        Route::controller(AreaController::class)->group(function () {
+            Route::get('/area/{area}', 'show');
+            Route::get('/areas', 'all');
+            Route::post('/area', 'store');
+            Route::put('/area/update/{area}', 'update');
+            Route::delete('/areas', 'delete');
         });
     });
 });

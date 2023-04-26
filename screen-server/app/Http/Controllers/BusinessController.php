@@ -33,7 +33,7 @@ class BusinessController extends Controller
             'longitude' => $input['longitude']
         ];
 
-        $geolocation = $business->geolocation()->find($business->geolocation_id);
+        $geolocation = $business->getGeoLocation();
         $geolocation->update($geolocationInput);
         $business->update($input);
 

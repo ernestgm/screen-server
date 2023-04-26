@@ -1,12 +1,13 @@
 created:
-    - app/Http/Controllers/UserController.php
-    - tests/Feature/Http/Controllers/UserControllerTest.php
-    - app/Http/Requests/UserStoreRequest.php
-    - resources/views/user/index.blade.php
-    - resources/views/user/create.blade.php
-    - resources/views/user/show.blade.php
+    - app/Http/Controllers/AreaController.php
+    - tests/Feature/Http/Controllers/AreaControllerTest.php
+    - app/Http/Requests/AreaStoreRequest.php
+    - app/Http/Requests/AreaUpdateRequest.php
 updated:
     - routes/web.php
+skipped:
+    - resources/views/areas/index.blade.php
+    - resources/views/area/show.blade.php
 models:
     Type: { id: 'id foreign:Imagen.id', name: text }
     Imagen: { id: 'id foreign:Screen.id', name: text, description: text, image: bigInteger }

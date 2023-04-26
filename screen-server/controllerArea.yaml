@@ -1,0 +1,20 @@
+controllers:
+  Area:
+    all:
+      query: all
+      render: areas.index with:area
+    store:
+      validate: name, business_id
+      save: area
+      redirect: area.show
+    show:
+      query: all:area
+      render: area.show with:area
+    update:
+      validate: area
+      update: area
+      flash: area.id
+      redirect: area.index
+    destroy:
+      delete: area
+      redirect: area.index

@@ -42,4 +42,8 @@ class Business extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function getGeoLocation(): GeoLocation {
+        return $this->geolocation()->find($this->geolocation_id);
+    }
 }

@@ -17,6 +17,7 @@ class Area extends Model
      */
     protected $fillable = [
         'name',
+        'business_id'
     ];
 
     /**
@@ -28,7 +29,7 @@ class Area extends Model
         'id' => 'integer',
     ];
 
-    public function id(): BelongsTo
+    public function business(): BelongsTo
     {
         return $this->belongsTo(Business::class);
     }

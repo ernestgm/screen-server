@@ -4,7 +4,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="aa424c5c-a623-4874-b452-1c40948fda22" name="Changes" comment="User role management" />
+    <list default="true" id="aa424c5c-a623-4874-b452-1c40948fda22" name="Changes" comment="UPdate Master">
+      <change afterPath="$PROJECT_DIR$/screen-server/app/Http/Controllers/AreaController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screen-server/app/Http/Requests/AreaStoreRequest.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screen-server/app/Http/Requests/AreaUpdateRequest.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screen-server/controllerArea.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screen-server/resources/views/area/show.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screen-server/resources/views/areas/index.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screen-server/tests/Feature/Http/Controllers/AreaControllerTest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/laravel.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/laravel.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screen-server/.blueprint" beforeDir="false" afterPath="$PROJECT_DIR$/screen-server/.blueprint" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screen-server/app/Http/Controllers/BusinessController.php" beforeDir="false" afterPath="$PROJECT_DIR$/screen-server/app/Http/Controllers/BusinessController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screen-server/app/Http/Controllers/BussineController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/screen-server/app/Models/Area.php" beforeDir="false" afterPath="$PROJECT_DIR$/screen-server/app/Models/Area.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screen-server/app/Models/Business.php" beforeDir="false" afterPath="$PROJECT_DIR$/screen-server/app/Models/Business.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screen-server/app/Models/Bussine.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/screen-server/database/migrations/2023_04_01_183825_create_bussines_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/screen-server/database/migrations/2023_04_26_170112_add_business_id_to_area_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screen-server/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/screen-server/routes/api.php" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -25,7 +44,7 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="PhpWorkspaceProjectConfiguration">
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="C:\xampp\php\php.exe">
     <include_path>
       <path value="$PROJECT_DIR$/screen-server/vendor/ralouphie/getallheaders" />
       <path value="$PROJECT_DIR$/screen-server/vendor/graham-campbell/result-type" />
@@ -144,24 +163,40 @@
     </include_path>
   </component>
   <component name="ProjectId" id="2NvI8UQnTsHDvOAx0GQ0USgRZKK" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/ernes/Documents/proyect/react/screen-frontend&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/wamp/www/laravel/screen-server",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\wamp\www\laravel\screen-server" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="phpunit.xml" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
+      <TestRunner scope="XML" />
+      <method v="2" />
+    </configuration>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -175,6 +210,7 @@
       <workItem from="1681074683758" duration="6944000" />
       <workItem from="1681579421793" duration="19959000" />
       <workItem from="1681696394227" duration="1323000" />
+      <workItem from="1682442862407" duration="4131000" />
     </task>
     <task id="LOCAL-00001" summary="User Register and Authentication">
       <created>1680625138626</created>
@@ -211,7 +247,14 @@
       <option name="project" value="LOCAL" />
       <updated>1681699635688</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="UPdate Master">
+      <created>1682443232017</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1682443232017</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -231,9 +274,11 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="User Register and Authentication" />
     <MESSAGE value="User Register and Authentication, update, delete" />
     <MESSAGE value="User role management" />
-    <option name="LAST_COMMIT_MESSAGE" value="User role management" />
+    <MESSAGE value="UPdate Master" />
+    <option name="LAST_COMMIT_MESSAGE" value="UPdate Master" />
   </component>
 </project>
