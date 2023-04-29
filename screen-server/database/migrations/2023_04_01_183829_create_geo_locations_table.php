@@ -12,10 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('geo_locations', function (Blueprint $table) {
-            $table->id()->foreign('Business.id');
+            $table->id();
             $table->longText('address');
             $table->text('latitude');
             $table->text('longitude');
+
+            $table->unsignedBigInteger('business_id');
+            $table->foreign('business_id')->references('id')->on('businesses')->onUpdate('cascade')->onDelete('cascade');
+
             $table->timestamps();
         });
     }

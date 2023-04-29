@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('areas', function (Blueprint $table) {
             $table->id()->foreign('Business.id');
             $table->text('name');
+            $table->unsignedBigInteger('business_id')->nullable();
+            $table->foreign('business_id')->references('id')->on('businesses')->onDelete('cascade');
             $table->timestamps();
         });
     }

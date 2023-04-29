@@ -33,11 +33,11 @@ class BusinessController extends Controller
             'longitude' => $input['longitude']
         ];
 
-        $geolocation = $business->getGeoLocation();
+        $geolocation = $business->geolocation();
         $geolocation->update($geolocationInput);
         $business->update($input);
 
-        return response()->json(['success'=>'success'], app('SUCCESS_STATUS'));
+        return response()->json(['success' => 'success'], app('SUCCESS_STATUS'));
     }
 
     public function store(BusinessStoreRequest $request): JsonResponse
@@ -45,39 +45,41 @@ class BusinessController extends Controller
         $request->validated();
         $input = $request->all();
 
-        $geolocationInput = [
-            'address' => $input['address'],
-            'latitude' => $input['latitude'],
-            'longitude' => $input['longitude']
-        ];
-        $geolocation = GeoLocation::create($geolocationInput);
 
-        if ($geolocation->id) {
-            $businessInput = [
-                'name' => $input['name'],
-                'description' => $input['description'],
-                'logo' => $input['logo'],
-                'user_id' => $input['user_id'],
-                'geolocation_id' => $geolocation->id,
+        $businessInput = [
+            'name' => $input['name'],
+            'description' => $input['description'],
+            'logo' => $input['logo'],
+            'user_id' => $input['user_id'],
+        ];
+
+        $business = Business::create($businessInput);
+
+
+        if ($business->id) {
+            $geolocationInput = [
+                'address' => $input['address'],
+                'latitude' => $input['latitude'],
+                'longitude' => $input['longitude'],
+                'business_id' => $business->id
             ];
 
-            Business::create($businessInput);
-
-            return response()->json(['success'=>'success'], app('SUCCESS_STATUS'));
+            GeoLocation::create($geolocationInput);
+            return response()->json(['success' => 'success'], app('SUCCESS_STATUS'));
         }
 
-        return response()->json(['success'=>'false'], app('VALIDATION_STATUS'));
+        return response()->json(['success' => 'false'], app('VALIDATION_STATUS'));
     }
 
     public function show(Request $request, Business $business): JsonResponse
     {
         return response()->json([
-            'success'=> true,
+            'success' => true,
             'data' => Business::with(['user', 'geolocation'])->find($business->id)
         ]);
     }
 
-    public function delete(Request $request)
+    public function delete(Request $request): JsonResponse
     {
         $ids = $request->input('ids'); // array of IDs to delete
 

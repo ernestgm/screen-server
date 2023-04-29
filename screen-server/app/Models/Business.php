@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 
 class Business extends Model
@@ -20,10 +22,8 @@ class Business extends Model
         'name',
         'description',
         'logo',
-        'user_id',
-        'geolocation_id'
+        'user_id'
     ];
-
     /**
      * The attributes that should be cast to native types.
      *
@@ -33,7 +33,7 @@ class Business extends Model
         'id' => 'integer',
     ];
 
-    public function geolocation(): BelongsTo
+    public function getLocation(): BelongsTo
     {
         return $this->belongsTo(GeoLocation::class);
     }
@@ -43,7 +43,8 @@ class Business extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function getGeoLocation(): GeoLocation {
-        return $this->geolocation()->find($this->geolocation_id);
+    public function geolocation(): HasOne
+    {
+        return $this->hasOne(GeoLocation::class, 'business_id', 'id');
     }
 }

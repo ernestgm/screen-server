@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class GeoLocation extends Model
 {
@@ -19,6 +20,7 @@ class GeoLocation extends Model
         'address',
         'latitude',
         'longitude',
+        'business_id',
     ];
 
     /**
@@ -30,7 +32,7 @@ class GeoLocation extends Model
         'id' => 'integer',
     ];
 
-    public function id(): BelongsTo
+    public function business(): BelongsTo
     {
         return $this->belongsTo(Business::class);
     }
