@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id()->foreign('Business.id');
             $table->text('name');
             $table->unsignedBigInteger('business_id')->nullable();
-            $table->foreign('business_id')->references('id')->on('businesses')->onDelete('cascade');
+            $table->foreign('business_id')->references('id')->on('businesses')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }

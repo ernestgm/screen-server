@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class AreaUpdateRequest extends FormRequest
 {
@@ -21,7 +23,15 @@ class AreaUpdateRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string'],
-            'business_id' => ['required', 'integer'],
         ];
+    }
+
+    public function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(response()->json([
+            'success'   => false,
+            'message'   => 'Validation errors',
+            'data'      => $validator->errors()
+        ]));
     }
 }

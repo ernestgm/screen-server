@@ -9,6 +9,8 @@ use App\Models\Business;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\View\View;
 
 class AreaController extends Controller
@@ -34,22 +36,43 @@ class AreaController extends Controller
         return response()->json(['success'=>'success'], app('SUCCESS_STATUS'));
     }
 
-    public function show(Request $request, Area $area): View
+    public function show(Request $request, Area $area): JsonResponse
     {
-        $areas = Area::all();
-
-        return view('area.show', compact('area'));
+        return response()->json([
+            'success' => true,
+            'data' => $area
+        ]);
     }
 
-    public function update(AreaUpdateRequest $request, Area $area): RedirectResponse
+    public function update(AreaUpdateRequest $request, Area $area): JsonResponse
     {
-        $area->update($request->validated());
-        return redirect()->route('area.index');
+        $request->validated();
+        $input = $request->all();
+        $area->update($input);
+
+        return response()->json(['success'=>'success'], app('SUCCESS_STATUS'));
     }
 
-    public function delete(Request $request, Area $area): RedirectResponse
+    public function delete(Request $request): JsonResponse
     {
-        $area->delete();
-        return redirect()->route('area.index');
+        $ids = $request->input('ids'); // array of IDs to delete
+
+        // validate input
+        $validator = Validator::make(['ids' => $ids], [
+            'ids' => 'required|array',
+            'ids.*' => 'required|integer',
+        ]);
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], app('VALIDATION_STATUS'));
+        }
+
+        // delete records
+        $deleted = DB::table('areas')->whereIn('id', $ids)->delete();
+
+        return response()->json([
+                'success' => true,
+                'message' => "$deleted record(s) deleted."
+            ]
+        );
     }
 }
