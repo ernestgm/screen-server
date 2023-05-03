@@ -1,0 +1,20 @@
+controllers:
+  Screen:
+    all:
+      query: all
+      respond: screen
+    store:
+      validate: name, description
+      save: screen
+      respond: screen
+    show:
+      query: all:screen where:screen.id
+      respond: screen
+    update:
+      validate: screen
+      update: screen
+      flash: screen.id
+      respond: screen
+    destroy:
+      delete: screen
+      respond: screen

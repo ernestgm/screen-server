@@ -18,6 +18,7 @@ class Screen extends Model
     protected $fillable = [
         'name',
         'description',
+        'area_id',
     ];
 
     /**
@@ -29,7 +30,7 @@ class Screen extends Model
         'id' => 'integer',
     ];
 
-    public function id(): BelongsTo
+    public function area(): BelongsTo
     {
         return $this->belongsTo(Area::class);
     }

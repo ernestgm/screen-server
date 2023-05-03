@@ -1,13 +1,10 @@
 created:
-    - app/Http/Controllers/AreaController.php
-    - tests/Feature/Http/Controllers/AreaControllerTest.php
-    - app/Http/Requests/AreaStoreRequest.php
-    - app/Http/Requests/AreaUpdateRequest.php
+    - app/Http/Controllers/ScreenController.php
+    - tests/Feature/Http/Controllers/ScreenControllerTest.php
+    - app/Http/Requests/ScreenStoreRequest.php
+    - app/Http/Requests/ScreenUpdateRequest.php
 updated:
     - routes/web.php
-skipped:
-    - resources/views/areas/index.blade.php
-    - resources/views/area/show.blade.php
 models:
     Type: { id: 'id foreign:Imagen.id', name: text }
     Imagen: { id: 'id foreign:Screen.id', name: text, description: text, image: bigInteger }

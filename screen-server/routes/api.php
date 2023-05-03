@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AreaController;
 use App\Http\Controllers\RolesController;
+use App\Http\Controllers\ScreenController;
 use App\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -51,6 +52,14 @@ Route::middleware(['auth:sanctum', 'cors'])->group(function () {
             Route::post('/area', 'store');
             Route::put('/area/update/{area}', 'update');
             Route::delete('/areas', 'delete');
+        });
+        // Screen CRUD
+        Route::controller(ScreenController::class)->group(function () {
+            Route::get('/screen/{screen}', 'show');
+            Route::get('/screens', 'all');
+            Route::post('/screen', 'store');
+            Route::put('/screen/update/{screen}', 'update');
+            Route::delete('/screens', 'delete');
         });
     });
 });

@@ -2,25 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\AreaStoreRequest;
-use App\Http\Requests\AreaUpdateRequest;
-use App\Models\Area;
-use App\Models\Business;
+use App\Http\Requests\ScreenStoreRequest;
+use App\Http\Requests\ScreenUpdateRequest;
+use App\Models\Screen;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\View\View;
 
-class AreaController extends Controller
+class ScreenController extends Controller
 {
     public function all(Request $request): JsonResponse
     {
-        $business = $request->input('business_id');
-        $all = Area::with(['business'])->get();
-        if ($business) {
-            $all = Area::with(['business'])->where('business_id', $business)->get();
+        $id = $request->input('area_id');
+        $all = Screen::with(['area'])->get();
+        if ($id) {
+            $all = Screen::with(['area'])->where('area_id', $id)->get();
         }
 
         return response()->json([
@@ -29,26 +26,25 @@ class AreaController extends Controller
         ]);
     }
 
-    public function store(AreaStoreRequest $request): JsonResponse
+    public function store(ScreenStoreRequest $request): JsonResponse
     {
-        $area = Area::create($request->validated());
-
+        Screen::create($request->validated());
         return response()->json(['success'=>'success'], app('SUCCESS_STATUS'));
     }
 
-    public function show(Request $request, Area $area): JsonResponse
+    public function show(Request $request, Screen $screen): JsonResponse
     {
         return response()->json([
             'success' => true,
-            'data' => Area::with('screens')->find($area->id)
+            'data' => $screen
         ]);
     }
 
-    public function update(AreaUpdateRequest $request, Area $area): JsonResponse
+    public function update(ScreenUpdateRequest $request, Screen $screen): JsonResponse
     {
         $request->validated();
         $input = $request->all();
-        $area->update($input);
+        $screen->update($input);
 
         return response()->json(['success'=>'success'], app('SUCCESS_STATUS'));
     }
