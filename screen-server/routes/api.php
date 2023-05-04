@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AreaController;
+use App\Http\Controllers\ImageController;
 use App\Http\Controllers\RolesController;
 use App\Http\Controllers\ScreenController;
 use App\Http\Middleware\VerifyCsrfToken;
@@ -60,6 +61,15 @@ Route::middleware(['auth:sanctum', 'cors'])->group(function () {
             Route::post('/screen', 'store');
             Route::put('/screen/update/{screen}', 'update');
             Route::delete('/screens', 'delete');
+        });
+
+        // Image CRUD
+        Route::controller(ImageController::class)->group(function () {
+            Route::get('/image/{image}', 'show');
+            Route::get('/images', 'all');
+            Route::post('/image', 'store');
+            Route::put('/image/update/{image}', 'update');
+            Route::delete('/images', 'delete');
         });
     });
 });

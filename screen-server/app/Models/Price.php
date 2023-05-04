@@ -17,6 +17,7 @@ class Price extends Model
      */
     protected $fillable = [
         'value',
+        'product_id'
     ];
 
     /**
@@ -29,7 +30,7 @@ class Price extends Model
         'value' => 'integer',
     ];
 
-    public function id(): BelongsTo
+    public function product(): BelongsTo
     {
         return $this->belongsTo(Product::class);
     }

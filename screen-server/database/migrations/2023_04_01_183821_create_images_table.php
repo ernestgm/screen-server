@@ -11,11 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('imagens', function (Blueprint $table) {
-            $table->id()->foreign('Screen.id');
+        Schema::create('images', function (Blueprint $table) {
+            $table->id();
             $table->text('name');
             $table->text('description');
-            $table->bigInteger('image');
+            $table->text('image');
+
+            $table->unsignedBigInteger('screen_id')->nullable();
+            $table->foreign('screen_id')->references('id')->on('screens')->onUpdate('cascade')->onDelete('cascade');
+
             $table->timestamps();
         });
     }

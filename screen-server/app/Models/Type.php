@@ -30,6 +30,6 @@ class Type extends Model
 
     public function id(): BelongsTo
     {
-        return $this->belongsTo(Imagen::class);
+        return $this->belongsTo(Image::class);
     }
 }

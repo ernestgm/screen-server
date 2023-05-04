@@ -1,8 +1,8 @@
 created:
-    - app/Http/Controllers/ScreenController.php
-    - tests/Feature/Http/Controllers/ScreenControllerTest.php
-    - app/Http/Requests/ScreenStoreRequest.php
-    - app/Http/Requests/ScreenUpdateRequest.php
+    - app/Http/Controllers/ImageController.php
+    - tests/Feature/Http/Controllers/ImageControllerTest.php
+    - app/Http/Requests/ImageStoreRequest.php
+    - app/Http/Requests/ImageUpdateRequest.php
 updated:
     - routes/web.php
 models:

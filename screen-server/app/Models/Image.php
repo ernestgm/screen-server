@@ -5,8 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Imagen extends Model
+class Image extends Model
 {
     use HasFactory;
 
@@ -31,8 +32,16 @@ class Imagen extends Model
         'image' => 'integer',
     ];
 
-    public function id(): BelongsTo
+    public function screen(): BelongsTo
     {
         return $this->belongsTo(Screen::class);
+    }
+
+    /**
+     * @return bool
+     */
+    public function products(): HasMany
+    {
+        return $this->hasMany(Product::class, 'image_id', 'id');
     }
 }

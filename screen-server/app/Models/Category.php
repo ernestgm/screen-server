@@ -17,7 +17,6 @@ class Category extends Model
      */
     protected $fillable = [
         'name',
-        'description',
     ];
 
     /**
@@ -29,7 +28,7 @@ class Category extends Model
         'id' => 'integer',
     ];
 
-    public function id(): BelongsTo
+    public function product(): BelongsTo
     {
         return $this->belongsTo(Product::class);
     }
