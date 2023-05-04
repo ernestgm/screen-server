@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -20,6 +21,7 @@ class Image extends Model
         'name',
         'description',
         'image',
+        'screen_id',
     ];
 
     /**
@@ -29,7 +31,6 @@ class Image extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'image' => 'integer',
     ];
 
     public function screen(): BelongsTo

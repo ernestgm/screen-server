@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ImageStoreRequest;
 use App\Http\Requests\ImageUpdateRequest;
 use App\Models\Image;
+use App\Models\Price;
+use App\Models\Product;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -17,9 +19,10 @@ class ImageController extends Controller
         $screen = $request->input('screen_id');
         $all = Image::with(['screen'])->get();
         if ($screen) {
-            $all = Image::with(['screen'])->where('screen_id', $screen)->get();
+            $all = Image::with(['products'])->where('screen_id', $screen)->get();
         }
 
+        dd($all);
         return response()->json([
             'success' => true,
             'data' => $all
@@ -29,6 +32,23 @@ class ImageController extends Controller
     public function store(ImageStoreRequest $request): JsonResponse
     {
         $image = Image::create($request->validated());
+
+        if ($image->id) {
+            foreach ($request->get('products') as $product) {
+                $_product = Product::create([
+                    'name' => $product['name'],
+                    'description' => 'a',
+                    'image_id' => $image->id
+                ]);
+
+                if ($_product->id) {
+                    Price::create([
+                        'value' => $product['price'],
+                        'product_id' => $_product->id
+                    ]);
+                }
+            }
+        }
 
         return response()->json(['success'=>'success'], app('SUCCESS_STATUS'));
     }
