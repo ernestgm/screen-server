@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AreaController;
 use App\Http\Controllers\ImageController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RolesController;
 use App\Http\Controllers\ScreenController;
 use App\Http\Middleware\VerifyCsrfToken;
@@ -70,6 +71,14 @@ Route::middleware(['auth:sanctum', 'cors'])->group(function () {
             Route::post('/image', 'store');
             Route::put('/image/update/{image}', 'update');
             Route::delete('/images', 'delete');
+        });
+        // Product CRUD
+        Route::controller(ProductController::class)->group(function () {
+            Route::get('/product/{product}', 'show');
+            Route::get('/products', 'all');
+            Route::post('/product', 'store');
+            Route::put('/product/update/{product}', 'update');
+            Route::delete('/products', 'delete');
         });
     });
 });

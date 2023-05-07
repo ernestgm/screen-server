@@ -1,8 +1,8 @@
 created:
-    - app/Http/Controllers/ImageController.php
-    - tests/Feature/Http/Controllers/ImageControllerTest.php
-    - app/Http/Requests/ImageStoreRequest.php
-    - app/Http/Requests/ImageUpdateRequest.php
+    - app/Http/Controllers/ProductController.php
+    - tests/Feature/Http/Controllers/ProductControllerTest.php
+    - app/Http/Requests/ProductStoreRequest.php
+    - app/Http/Requests/ProductUpdateRequest.php
 updated:
     - routes/web.php
 models:

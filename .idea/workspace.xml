@@ -4,30 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="aa424c5c-a623-4874-b452-1c40948fda22" name="Changes" comment="CRUD Screens">
-      <change afterPath="$PROJECT_DIR$/screen-server/app/Http/Controllers/ImageController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/screen-server/app/Http/Requests/ImageStoreRequest.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/screen-server/app/Http/Requests/ImageUpdateRequest.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/screen-server/controllerImage.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/screen-server/tests/Feature/Http/Controllers/ImageControllerTest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/laravel.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/laravel.iml" afterDir="false" />
+    <list default="true" id="aa424c5c-a623-4874-b452-1c40948fda22" name="Changes" comment="CRUD Image">
+      <change afterPath="$PROJECT_DIR$/screen-server/app/Http/Controllers/ProductController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screen-server/app/Http/Requests/ProductStoreRequest.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screen-server/app/Http/Requests/ProductUpdateRequest.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screen-server/controllerProducts.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screen-server/tests/Feature/Http/Controllers/ProductControllerTest.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/screen-server/.blueprint" beforeDir="false" afterPath="$PROJECT_DIR$/screen-server/.blueprint" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screen-server/app/Models/Category.php" beforeDir="false" afterPath="$PROJECT_DIR$/screen-server/app/Models/Category.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screen-server/app/Models/Imagen.php" beforeDir="false" afterPath="$PROJECT_DIR$/screen-server/app/Models/Image.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screen-server/app/Models/Price.php" beforeDir="false" afterPath="$PROJECT_DIR$/screen-server/app/Models/Price.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screen-server/app/Models/Product.php" beforeDir="false" afterPath="$PROJECT_DIR$/screen-server/app/Models/Product.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screen-server/app/Models/Screen.php" beforeDir="false" afterPath="$PROJECT_DIR$/screen-server/app/Models/Screen.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screen-server/app/Models/Type.php" beforeDir="false" afterPath="$PROJECT_DIR$/screen-server/app/Models/Type.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screen-server/database/factories/ImagenFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/screen-server/database/factories/ImagenFactory.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screen-server/database/migrations/2023_04_01_183820_create_types_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/screen-server/database/migrations/2023_04_01_183820_create_types_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screen-server/database/migrations/2023_04_01_183821_create_imagens_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/screen-server/database/migrations/2023_04_01_183821_create_images_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screen-server/database/migrations/2023_04_01_183823_create_products_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/screen-server/database/migrations/2023_04_01_183823_create_products_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screen-server/database/migrations/2023_04_01_183826_create_prices_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/screen-server/database/migrations/2023_04_01_183826_create_prices_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screen-server/database/migrations/2023_04_01_183827_create_screens_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/screen-server/database/migrations/2023_04_01_183819_create_screens_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screen-server/database/migrations/2023_04_01_183830_create_categories_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/screen-server/database/migrations/2023_04_01_183830_create_categories_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screen-server/draft.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/screen-server/draft.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screen-server/app/Http/Controllers/ImageController.php" beforeDir="false" afterPath="$PROJECT_DIR$/screen-server/app/Http/Controllers/ImageController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/screen-server/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/screen-server/routes/api.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screen-server/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/screen-server/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -175,28 +162,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/wamp/www/laravel/screen-server",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/wamp/www/laravel/screen-server&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mysql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\wamp\www\laravel\screen-server" />
@@ -222,7 +209,8 @@
       <workItem from="1681579421793" duration="19959000" />
       <workItem from="1681696394227" duration="1323000" />
       <workItem from="1682442862407" duration="27253000" />
-      <workItem from="1682883193382" duration="10363000" />
+      <workItem from="1682883193382" duration="14211000" />
+      <workItem from="1683486904624" duration="4880000" />
     </task>
     <task id="LOCAL-00001" summary="User Register and Authentication">
       <created>1680625138626</created>
@@ -287,7 +275,14 @@
       <option name="project" value="LOCAL" />
       <updated>1683122970247</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="CRUD Image">
+      <created>1683216992686</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1683216992686</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -315,6 +310,7 @@
     <MESSAGE value="Area CRUD controller" />
     <MESSAGE value="Update foreing key relations database." />
     <MESSAGE value="CRUD Screens" />
-    <option name="LAST_COMMIT_MESSAGE" value="CRUD Screens" />
+    <MESSAGE value="CRUD Image" />
+    <option name="LAST_COMMIT_MESSAGE" value="CRUD Image" />
   </component>
 </project>

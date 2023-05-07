@@ -16,3 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+Route::get('product/all', [App\Http\Controllers\ProductController::class, 'all']);
+Route::resource('product', App\Http\Controllers\ProductController::class)->except('index', 'create', 'edit');

@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ImageStoreRequest;
-use App\Http\Requests\ImageUpdateRequest;
-use App\Models\Image;
+use App\Http\Requests\ProductStoreRequest;
+use App\Http\Requests\ProductUpdateRequest;
 use App\Models\Price;
 use App\Models\Product;
 use Illuminate\Http\JsonResponse;
@@ -12,14 +11,14 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
-class ImageController extends Controller
+class ProductController extends Controller
 {
     public function all(Request $request): JsonResponse
     {
-        $screen = $request->input('screen_id');
-        $all = Image::with(['screen'])->get();
-        if ($screen) {
-            $all = Image::with(['products.prices'])->where('screen_id', $screen)->get();
+        $image = $request->input('image_id');
+        $all = Product::with(['prices'])->get();
+        if ($image) {
+            $all = Product::with(['prices'])->where('image_id', $image)->get();
         }
 
         return response()->json([
@@ -28,43 +27,40 @@ class ImageController extends Controller
         ]);
     }
 
-    public function store(ImageStoreRequest $request): JsonResponse
+    public function store(ProductStoreRequest $request): JsonResponse
     {
-        $image = Image::create($request->validated());
-
-        if ($image->id) {
-            foreach ($request->get('products') as $product) {
-                $_product = Product::create([
-                    'name' => $product['name'],
-                    'description' => $product['description'],
-                    'image_id' => $image->id
-                ]);
-
-                if ($_product->id) {
-                    Price::create([
-                        'value' => $product['price'],
-                        'product_id' => $_product->id
-                    ]);
-                }
-            }
+        $product = Product::create($request->validated());
+        if ($product->id) {
+            Price::create([
+                'value' => $request['price'],
+                'product_id' => $product->id
+            ]);
         }
 
         return response()->json(['success'=>'success'], app('SUCCESS_STATUS'));
     }
 
-    public function show(Request $request, Image $image): JsonResponse
+    public function show(Request $request, Product $product): JsonResponse
     {
         return response()->json([
             'success' => true,
-            'data' => Image::with(['screen', 'products.prices'])->find($image->id)
+            'data' => Product::with(['prices'])->find($product->id)
         ]);
     }
 
-    public function update(ImageUpdateRequest $request, Image $image): JsonResponse
+    public function update(ProductUpdateRequest $request, Product $product): JsonResponse
     {
         $request->validated();
         $input = $request->all();
-        $image->update($input);
+        $product->update($input);
+
+        $last_price = $product->prices()->get()->last();
+        if ($last_price->value != $input['price']) {
+            Price::create([
+                'value' => $input['price'],
+                'product_id' => $product->id
+            ]);
+        }
 
         return response()->json(['success'=>'success'], app('SUCCESS_STATUS'));
     }
@@ -83,7 +79,7 @@ class ImageController extends Controller
         }
 
         // delete records
-        $deleted = DB::table('images')->whereIn('id', $ids)->delete();
+        $deleted = DB::table('products')->whereIn('id', $ids)->delete();
 
         return response()->json([
                 'success' => true,

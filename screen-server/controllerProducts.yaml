@@ -1,0 +1,20 @@
+controllers:
+  Product:
+    all:
+      query: all
+      respond: product
+    store:
+      validate: name, description
+      save: product
+      respond: product
+    show:
+      query: all:product where:product.id
+      respond: product
+    update:
+      validate: product
+      update: product
+      flash: product.id
+      respond: product
+    destroy:
+      delete: product
+      respond: product
