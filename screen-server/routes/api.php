@@ -46,6 +46,7 @@ Route::middleware(['auth:sanctum', 'cors'])->group(function () {
             Route::post('/business', 'store');
             Route::put('/business/update/{business}', 'update');
             Route::delete('/businesses', 'delete');
+            Route::get('/business/generate_json/{business}', 'generateJson');
         });
         // Area CRUD
         Route::controller(AreaController::class)->group(function () {

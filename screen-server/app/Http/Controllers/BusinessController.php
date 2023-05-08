@@ -9,7 +9,11 @@ use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use League\Flysystem\Filesystem;
+use League\Flysystem\Ftp\FtpAdapter;
+use League\Flysystem\Ftp\FtpConnectionOptions;
 
 
 class BusinessController extends Controller
@@ -100,5 +104,27 @@ class BusinessController extends Controller
                 'message' => "$deleted record(s) deleted."
             ]
         );
+    }
+
+    public function generateJson(Business $business): JsonResponse {
+        $_business = Business::with('areas.screens.images.products.prices')->find($business->id);
+
+        $dir = '/screen-server/screen-server/public/jsons/';
+        $basename = strtolower($business->name).'_'.$business->id.'_file.json';
+        $success = Storage::disk('ftp')->put($dir.$basename, $_business->toJson());
+
+        $response = [
+            'success' => true,
+            'json_url' => env('URL_BASE_OF_JSON').$basename
+        ];
+
+        if (!$success) {
+            $response = [
+                'success' => false,
+                'error' => 'Could not generate the corresponding JSON'
+            ];
+        }
+
+        return response()->json($response);
     }
 }

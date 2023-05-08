@@ -38,8 +38,8 @@ class Product extends Model
         return $this->belongsTo(Image::class);
     }
 
-    public function getPrice(): Price {
-        return $this->hasMany(Price::class, 'product_id', 'id')->get()->first();
+    public function getPrice() {
+        return $this->hasMany(Price::class, 'product_id', 'id')->get()->last();
     }
 
     public function category(): HasOne {
