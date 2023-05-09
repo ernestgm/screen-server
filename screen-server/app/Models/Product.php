@@ -33,7 +33,7 @@ class Product extends Model
         'id' => 'integer',
     ];
 
-    public function imagen(): BelongsTo
+    public function image(): BelongsTo
     {
         return $this->belongsTo(Image::class);
     }

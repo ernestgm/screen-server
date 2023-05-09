@@ -109,9 +109,40 @@ class BusinessController extends Controller
     public function generateJson(Business $business): JsonResponse {
         $_business = Business::with('areas.screens.images.products.prices')->find($business->id);
 
+        $_toarray = $_business->toArray();
+        unset($_toarray['created_at']);
+        unset($_toarray['updated_at']);
+
+        $_toarray['areas'] = array_map(function ($area) {
+            unset($area['created_at']);
+            unset($area['updated_at']);
+            $area['screens'] = array_map(function ($screen) {
+                unset($screen['created_at']);
+                unset($screen['updated_at']);
+                $screen['images'] = array_map(function ($image) {
+                    unset($image['created_at']);
+                    unset($image['updated_at']);
+                    $image['products'] = array_map(function ($product) {
+                        unset($product['created_at']);
+                        unset($product['updated_at']);
+                        $product['prices'] = array_map(function ($price) {
+                            unset($price['created_at']);
+                            unset($price['updated_at']);
+                            return $price;
+                        }, $product['prices']);
+                        return $product;
+                    }, $image['products']);
+                    return $image;
+                }, $screen['images']);
+                return $screen;
+            }, $area['screens']);
+            return $area;
+        }, $_toarray['areas']);
+
         $dir = '/screen-server/screen-server/public/jsons/';
         $basename = strtolower($business->name).'_'.$business->id.'_file.json';
-        $success = Storage::disk('ftp')->put($dir.$basename, $_business->toJson());
+        $json = json_encode($_toarray);
+        $success = Storage::disk('ftp')->put($dir.$basename, $json);
 
         $response = [
             'success' => true,

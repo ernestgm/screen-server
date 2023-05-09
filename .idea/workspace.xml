@@ -7,10 +7,7 @@
     <list default="true" id="aa424c5c-a623-4874-b452-1c40948fda22" name="Changes" comment="CRUD Image and Products">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/screen-server/app/Http/Controllers/BusinessController.php" beforeDir="false" afterPath="$PROJECT_DIR$/screen-server/app/Http/Controllers/BusinessController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screen-server/app/Models/Business.php" beforeDir="false" afterPath="$PROJECT_DIR$/screen-server/app/Models/Business.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/screen-server/app/Models/Product.php" beforeDir="false" afterPath="$PROJECT_DIR$/screen-server/app/Models/Product.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screen-server/config/filesystems.php" beforeDir="false" afterPath="$PROJECT_DIR$/screen-server/config/filesystems.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screen-server/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/screen-server/routes/api.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
