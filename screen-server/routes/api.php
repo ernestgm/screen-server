@@ -41,6 +41,7 @@ Route::middleware(['auth:sanctum', 'cors'])->group(function () {
         });
         //Business CRUD
         Route::controller(BusinessController::class)->group(function () {
+            Route::get('/business/jsonroute', 'findRoute');
             Route::get('/business/{business}', 'show');
             Route::get('/businesses', 'all');
             Route::post('/business', 'store');

@@ -7,7 +7,7 @@
     <list default="true" id="aa424c5c-a623-4874-b452-1c40948fda22" name="Changes" comment="CRUD Image and Products">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/screen-server/app/Http/Controllers/BusinessController.php" beforeDir="false" afterPath="$PROJECT_DIR$/screen-server/app/Http/Controllers/BusinessController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screen-server/app/Models/Product.php" beforeDir="false" afterPath="$PROJECT_DIR$/screen-server/app/Models/Product.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screen-server/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/screen-server/routes/api.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -282,7 +282,14 @@
       <option name="project" value="LOCAL" />
       <updated>1683497408267</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Reformat JSON result">
+      <created>1683654021400</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1683654021400</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -312,6 +319,7 @@
     <MESSAGE value="CRUD Screens" />
     <MESSAGE value="CRUD Image" />
     <MESSAGE value="CRUD Image and Products" />
-    <option name="LAST_COMMIT_MESSAGE" value="CRUD Image and Products" />
+    <MESSAGE value="Reformat JSON result" />
+    <option name="LAST_COMMIT_MESSAGE" value="Reformat JSON result" />
   </component>
 </project>

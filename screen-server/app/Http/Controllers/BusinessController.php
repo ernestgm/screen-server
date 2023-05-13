@@ -158,4 +158,46 @@ class BusinessController extends Controller
 
         return response()->json($response);
     }
+
+    public function findRoute(Request $request): JsonResponse {
+        $id = 3;
+        $attr = 'prices';
+
+        $businesses = Business::with('areas.screens.images.products.prices')->get()->toArray();
+        $routes = '';
+        foreach ($businesses as $index => $business) {
+            $route = 'object';
+            $routes = $this->findRouteAttr($business, $attr, $id, $route);
+            if ($routes != '') {
+                break;
+            }
+        }
+
+        return response()->json($routes);
+    }
+
+    private function findRouteAttr($_array, $attr, $id, $route = '') {
+        //dd(count($_array));
+        if (count($_array) > 0) {
+            if (array_key_exists($attr, $_array)) {
+                foreach ($_array[$attr] as $idx => $value) {
+                    if ($value['id'] === $id) {
+                        $route = $route.'['.$attr.']'.'['.$idx.'].value';
+                        return $route;
+                    }
+                }
+                return '';
+            } else {
+                $keys = array_keys($_array);
+                foreach ($keys as $index => $k) {
+                    if (is_array($_array[$k])) {
+                        $route = $route.'['.$k.']';
+                        return $this->findRouteAttr($_array[$k], $attr, $id, $route);
+                    }
+                }
+            }
+        }
+
+        return $route;
+    }
 }
