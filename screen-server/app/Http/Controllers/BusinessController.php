@@ -6,6 +6,7 @@ use App\Http\Requests\BusinessStoreRequest;
 use App\Models\Business;
 use App\Models\GeoLocation;
 use App\Models\User;
+use Faker\Core\Number;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -14,6 +15,7 @@ use Illuminate\Support\Facades\Validator;
 use League\Flysystem\Filesystem;
 use League\Flysystem\Ftp\FtpAdapter;
 use League\Flysystem\Ftp\FtpConnectionOptions;
+use function Webmozart\Assert\Tests\StaticAnalysis\integer;
 
 
 class BusinessController extends Controller
@@ -160,29 +162,33 @@ class BusinessController extends Controller
     }
 
     public function findRoute(Request $request): JsonResponse {
-        $id = 3;
-        $attr = 'prices';
+        $id = (int) $request->get('id');
+        $field = $request->get('field');
+        $attr = $request->get('attr');
 
         $businesses = Business::with('areas.screens.images.products.prices')->get()->toArray();
         $routes = '';
         foreach ($businesses as $index => $business) {
             $route = 'object';
-            $routes = $this->findRouteAttr($business, $attr, $id, $route);
+            $routes = $this->findRouteAttr($business, $field, $attr, $id, $route);
             if ($routes != '') {
                 break;
             }
         }
 
-        return response()->json($routes);
+        return response()->json([
+            'success' => true,
+            'route' => $routes
+        ]);
     }
 
-    private function findRouteAttr($_array, $attr, $id, $route = '') {
+    private function findRouteAttr($_array, $field, $attr, $id, $route = '') {
         //dd(count($_array));
         if (count($_array) > 0) {
-            if (array_key_exists($attr, $_array)) {
-                foreach ($_array[$attr] as $idx => $value) {
+            if (array_key_exists($field, $_array)) {
+                foreach ($_array[$field] as $idx => $value) {
                     if ($value['id'] === $id) {
-                        $route = $route.'['.$attr.']'.'['.$idx.'].value';
+                        $route = $route.'['.$field.']'.'['.$idx.'].'.$attr;
                         return $route;
                     }
                 }
@@ -192,7 +198,7 @@ class BusinessController extends Controller
                 foreach ($keys as $index => $k) {
                     if (is_array($_array[$k])) {
                         $route = $route.'['.$k.']';
-                        return $this->findRouteAttr($_array[$k], $attr, $id, $route);
+                        return $this->findRouteAttr($_array[$k], $field, $attr, $id, $route);
                     }
                 }
             }
