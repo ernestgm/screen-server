@@ -11,12 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('products', function (Blueprint $table) {
-            $table->id();
-            $table->text('name');
-            $table->longText('description')->nullable();
-            $table->longText('image')->nullable();
-            $table->timestamps();
+        Schema::table('images', function (Blueprint $table) {
+            $table->boolean('is_static')->nullable();
         });
     }
 
@@ -25,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('products');
+        Schema::table('images', function (Blueprint $table) {
+            //
+        });
     }
 };

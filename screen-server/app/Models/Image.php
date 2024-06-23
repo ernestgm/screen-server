@@ -22,6 +22,7 @@ class Image extends Model
         'description',
         'image',
         'screen_id',
+        'is_static'
     ];
 
     /**

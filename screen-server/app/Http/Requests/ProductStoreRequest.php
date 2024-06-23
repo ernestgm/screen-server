@@ -25,7 +25,8 @@ class ProductStoreRequest extends FormRequest
             'name' => ['required', 'string'],
             'description' => ['required', 'string'],
             'image_id' => ['required'],
-            'price' => ['required']
+            'price' => ['required'],
+            'image' => ['string']
         ];
     }
 

@@ -5,8 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="aa424c5c-a623-4874-b452-1c40948fda22" name="Changes" comment="JSON position by attr">
+      <change afterPath="$PROJECT_DIR$/screen-server/database/migrations/2024_06_23_002442_add_field_is_image_static_to_images_table.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screen-server/app/Http/Controllers/BusinessController.php" beforeDir="false" afterPath="$PROJECT_DIR$/screen-server/app/Http/Controllers/BusinessController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screen-server/app/Http/Controllers/ImageController.php" beforeDir="false" afterPath="$PROJECT_DIR$/screen-server/app/Http/Controllers/ImageController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screen-server/app/Http/Requests/ImageStoreRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/screen-server/app/Http/Requests/ImageStoreRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screen-server/app/Http/Requests/ImageUpdateRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/screen-server/app/Http/Requests/ImageUpdateRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screen-server/app/Http/Requests/ProductStoreRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/screen-server/app/Http/Requests/ProductStoreRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screen-server/app/Http/Requests/ProductUpdateRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/screen-server/app/Http/Requests/ProductUpdateRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screen-server/app/Models/Image.php" beforeDir="false" afterPath="$PROJECT_DIR$/screen-server/app/Models/Image.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screen-server/database/migrations/2023_04_01_183821_create_images_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/screen-server/database/migrations/2023_04_01_183821_create_images_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screen-server/database/migrations/2023_04_01_183823_create_products_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/screen-server/database/migrations/2023_04_01_183823_create_products_table.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,7 +28,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="develop" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -162,7 +170,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/wamp/www/laravel/screen-server&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/wamp/www/easyblockserver&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -203,6 +211,14 @@
       <workItem from="1682442862407" duration="27253000" />
       <workItem from="1682883193382" duration="14211000" />
       <workItem from="1683486904624" duration="13485000" />
+      <workItem from="1684699010001" duration="593000" />
+      <workItem from="1704504469554" duration="72000" />
+      <workItem from="1704504673805" duration="5261000" />
+      <workItem from="1704660989105" duration="101000" />
+      <workItem from="1705103378123" duration="640000" />
+      <workItem from="1705269022683" duration="729000" />
+      <workItem from="1718893344675" duration="6258000" />
+      <workItem from="1719115654047" duration="2087000" />
     </task>
     <task id="LOCAL-00001" summary="User Register and Authentication">
       <created>1680625138626</created>

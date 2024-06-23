@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->text('name');
             $table->text('description');
-            $table->text('image')->nullable();
+            $table->longText('image')->nullable();
 
             $table->unsignedBigInteger('screen_id')->nullable();
             $table->foreign('screen_id')->references('id')->on('screens')->onUpdate('cascade')->onDelete('cascade');

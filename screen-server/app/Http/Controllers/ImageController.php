@@ -37,7 +37,7 @@ class ImageController extends Controller
                 $_product = Product::create([
                     'name' => $product['name'],
                     'description' => $product['description'],
-                    'image_id' => $image->id
+                    'image_id' => $image->id,
                 ]);
 
                 if ($_product->id) {

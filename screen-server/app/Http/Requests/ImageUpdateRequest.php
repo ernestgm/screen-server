@@ -24,6 +24,8 @@ class ImageUpdateRequest extends FormRequest
         return [
             'name' => ['required'],
             'description' => ['required'],
+            'image' => ['string'],
+            'is_static' => ['integer'],
         ];
     }
 
