@@ -6,7 +6,7 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class ScreenStoreRequest extends FormRequest
+class DeviceStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,10 +22,9 @@ class ScreenStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string'],
-            'description' => ['required', 'string'],
-            'area_id' => ['required', 'integer'],
-            'device_id' => ['required', 'string', "unique:screens"],
+            'mac' => ['required'],
+            'device_id' => ['required', 'string', 'unique:devices'],
+            'user_id' => ['required', 'integer']
         ];
     }
 

@@ -20,3 +20,7 @@ Route::get('/', function () {
 
 Route::get('product/all', [App\Http\Controllers\ProductController::class, 'all']);
 Route::resource('product', App\Http\Controllers\ProductController::class)->except('index', 'create', 'edit');
+
+
+Route::get('devices/all', [App\Http\Controllers\DevicesController::class, 'all']);
+Route::resource('devices', App\Http\Controllers\DevicesController::class)->except('index', 'create', 'edit');

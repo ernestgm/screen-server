@@ -1,8 +1,8 @@
 created:
-    - app/Http/Controllers/ProductController.php
-    - tests/Feature/Http/Controllers/ProductControllerTest.php
-    - app/Http/Requests/ProductStoreRequest.php
-    - app/Http/Requests/ProductUpdateRequest.php
+    - app/Http/Controllers/DevicesController.php
+    - tests/Feature/Http/Controllers/DevicesControllerTest.php
+    - app/Http/Requests/DeviceStoreRequest.php
+    - app/Http/Requests/DeviceUpdateRequest.php
 updated:
     - routes/web.php
 models:

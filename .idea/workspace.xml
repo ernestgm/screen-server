@@ -4,17 +4,24 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="aa424c5c-a623-4874-b452-1c40948fda22" name="Changes" comment="JSON position by attr">
-      <change afterPath="$PROJECT_DIR$/screen-server/database/migrations/2024_06_23_002442_add_field_is_image_static_to_images_table.php" afterDir="false" />
+    <list default="true" id="aa424c5c-a623-4874-b452-1c40948fda22" name="Changes" comment="Add images to screens and products">
+      <change afterPath="$PROJECT_DIR$/screen-server/app/Http/Controllers/DevicesController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screen-server/app/Http/Requests/DeviceStoreRequest.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screen-server/app/Http/Requests/DeviceUpdateRequest.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screen-server/app/Models/Device.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screen-server/controllerDevices.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screen-server/database/migrations/2024_06_30_132328_add_field_device_id_to_screens.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screen-server/database/migrations/2024_06_30_133048_create_devices_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screen-server/database/migrations/2024_07_02_014420_add_field_user_id_to_devices.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screen-server/tests/Feature/Http/Controllers/DevicesControllerTest.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screen-server/app/Http/Controllers/ImageController.php" beforeDir="false" afterPath="$PROJECT_DIR$/screen-server/app/Http/Controllers/ImageController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screen-server/app/Http/Requests/ImageStoreRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/screen-server/app/Http/Requests/ImageStoreRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screen-server/app/Http/Requests/ImageUpdateRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/screen-server/app/Http/Requests/ImageUpdateRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screen-server/app/Http/Requests/ProductStoreRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/screen-server/app/Http/Requests/ProductStoreRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screen-server/app/Http/Requests/ProductUpdateRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/screen-server/app/Http/Requests/ProductUpdateRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screen-server/app/Models/Image.php" beforeDir="false" afterPath="$PROJECT_DIR$/screen-server/app/Models/Image.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screen-server/database/migrations/2023_04_01_183821_create_images_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/screen-server/database/migrations/2023_04_01_183821_create_images_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screen-server/database/migrations/2023_04_01_183823_create_products_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/screen-server/database/migrations/2023_04_01_183823_create_products_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screen-server/.blueprint" beforeDir="false" afterPath="$PROJECT_DIR$/screen-server/.blueprint" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screen-server/app/Http/Requests/AreaStoreRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/screen-server/app/Http/Requests/AreaStoreRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screen-server/app/Http/Requests/ScreenStoreRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/screen-server/app/Http/Requests/ScreenStoreRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screen-server/app/Http/Requests/ScreenUpdateRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/screen-server/app/Http/Requests/ScreenUpdateRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screen-server/app/Models/Screen.php" beforeDir="false" afterPath="$PROJECT_DIR$/screen-server/app/Models/Screen.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screen-server/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/screen-server/routes/api.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screen-server/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/screen-server/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -162,28 +169,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/wamp/www/easyblockserver&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/wamp/www/laravel/screen-server",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;mysql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\wamp\www\laravel\screen-server" />
@@ -218,7 +225,9 @@
       <workItem from="1705103378123" duration="640000" />
       <workItem from="1705269022683" duration="729000" />
       <workItem from="1718893344675" duration="6258000" />
-      <workItem from="1719115654047" duration="2087000" />
+      <workItem from="1719115654047" duration="3028000" />
+      <workItem from="1719459804252" duration="9000" />
+      <workItem from="1719753682595" duration="8878000" />
     </task>
     <task id="LOCAL-00001" summary="User Register and Authentication">
       <created>1680625138626</created>
@@ -311,7 +320,14 @@
       <option name="project" value="LOCAL" />
       <updated>1683995655016</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Add images to screens and products">
+      <created>1719150074151</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1719150074151</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -343,6 +359,7 @@
     <MESSAGE value="CRUD Image and Products" />
     <MESSAGE value="Reformat JSON result" />
     <MESSAGE value="JSON position by attr" />
-    <option name="LAST_COMMIT_MESSAGE" value="JSON position by attr" />
+    <MESSAGE value="Add images to screens and products" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add images to screens and products" />
   </component>
 </project>

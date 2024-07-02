@@ -24,6 +24,7 @@ class ScreenUpdateRequest extends FormRequest
         return [
             'name' => ['required', 'string'],
             'description' => ['required', 'string'],
+            'device_id' => ['required', 'string', "unique:screens"],
         ];
     }
 

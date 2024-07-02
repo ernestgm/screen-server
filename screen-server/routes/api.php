@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AreaController;
+use App\Http\Controllers\DevicesController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RolesController;
@@ -81,6 +82,15 @@ Route::middleware(['auth:sanctum', 'cors'])->group(function () {
             Route::post('/product', 'store');
             Route::put('/product/update/{product}', 'update');
             Route::delete('/products', 'delete');
+        });
+
+        // Device CRUD
+        Route::controller(DevicesController::class)->group(function () {
+            Route::get('/device/{product}', 'show');
+            Route::get('/devices', 'all');
+            Route::post('/device', 'store');
+            Route::put('/device/update/{product}', 'update');
+            Route::delete('/devices', 'delete');
         });
     });
 });
