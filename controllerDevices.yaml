@@ -1,0 +1,20 @@
+controllers:
+  Devices:
+    all:
+      query: all
+      respond: device
+    store:
+      validate: mac, device_id
+      save: device
+      respond: device
+    show:
+      query: all:device where:device.mac
+      respond: device
+    update:
+      validate: device
+      update: device
+      flash: device.id
+      respond: device
+    destroy:
+      delete: device
+      respond: device

@@ -1,0 +1,14 @@
+controllers:
+  User:
+    index:
+      query: all
+      render: user.index with:bussines
+    create:
+      render: user.create
+    store:
+      validate: username, name, lastname, email, password
+      save: user
+      redirect: user.show
+    show:
+      query: all:user
+      render: user.show with:user

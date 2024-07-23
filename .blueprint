@@ -1,0 +1,19 @@
+created:
+    - app/Http/Controllers/DevicesController.php
+    - tests/Feature/Http/Controllers/DevicesControllerTest.php
+    - app/Http/Requests/DeviceStoreRequest.php
+    - app/Http/Requests/DeviceUpdateRequest.php
+updated:
+    - routes/web.php
+models:
+    Type: { id: 'id foreign:Imagen.id', name: text }
+    Imagen: { id: 'id foreign:Screen.id', name: text, description: text, image: bigInteger }
+    User: { id: 'id foreign:Bussines.id', username: text, name: text, lastname: text }
+    Product: { id: 'id foreign:Imagen.id', name: text, description: longText, image: text }
+    Role: { id: 'id foreign:Users.id', name: text }
+    Bussine: { id: id, name: text, description: longText }
+    Price: { id: 'id foreign:Product.id', value: bigInteger }
+    Screen: { id: 'id foreign:Area.id', name: text, description: longText }
+    Area: { id: 'id foreign:Bussines.id', name: text }
+    GeoLocation: { id: 'id foreign:Bussines.id', address: longText, latitude: text, longitude: text }
+    Category: { id: 'id foreign:Product.id', name: text, description: longText }

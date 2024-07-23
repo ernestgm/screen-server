@@ -1,0 +1,20 @@
+controllers:
+  Image:
+    all:
+      query: all
+      respond: image
+    store:
+      validate: name, description
+      save: image
+      respond: image
+    show:
+      query: all:image where:image.id
+      respond: image
+    update:
+      validate: image
+      update: image
+      flash: image.id
+      respond: image
+    destroy:
+      delete: image
+      respond: screen
