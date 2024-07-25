@@ -108,57 +108,35 @@ class BusinessController extends Controller
         );
     }
 
-    public function generateJson(Business $business): JsonResponse {
-        $_business = Business::with('areas.screens.images.products.prices')->find($business->id);
+    public function getResumeByUserId(Request $request): JsonResponse {
+        $userId = $request->query('userId');
 
-        $_toarray = $_business->toArray();
-        unset($_toarray['created_at']);
-        unset($_toarray['updated_at']);
+        $bussinesCount = 0;
+        $screenCount = 0;
+        $imagesCount = 0;
 
-        $_toarray['areas'] = array_map(function ($area) {
-            unset($area['created_at']);
-            unset($area['updated_at']);
-            $area['screens'] = array_map(function ($screen) {
-                unset($screen['created_at']);
-                unset($screen['updated_at']);
-                $screen['images'] = array_map(function ($image) {
-                    unset($image['created_at']);
-                    unset($image['updated_at']);
-                    $image['products'] = array_map(function ($product) {
-                        unset($product['created_at']);
-                        unset($product['updated_at']);
-                        $product['prices'] = array_map(function ($price) {
-                            unset($price['created_at']);
-                            unset($price['updated_at']);
-                            return $price;
-                        }, $product['prices']);
-                        return $product;
-                    }, $image['products']);
-                    return $image;
-                }, $screen['images']);
-                return $screen;
-            }, $area['screens']);
-            return $area;
-        }, $_toarray['areas']);
-
-        $dir = '/screen-server/screen-server/public/jsons/';
-        $basename = strtolower($business->name).'_'.$business->id.'_file.json';
-        $json = json_encode($_toarray);
-        $success = Storage::disk('ftp')->put($dir.$basename, $json);
-
-        $response = [
-            'success' => true,
-            'json_url' => env('URL_BASE_OF_JSON').$basename
-        ];
-
-        if (!$success) {
-            $response = [
-                'success' => false,
-                'error' => 'Could not generate the corresponding JSON'
-            ];
+        if ($userId === null) {
+            $businesses = Business::with('areas.screens.images.products.prices')->get()->toArray();
+        } else {
+            $businesses = Business::with('areas.screens.images.products.prices')->where('user_id', $userId)->get()->toArray();
         }
 
-        return response()->json($response);
+        $bussinesCount = count($businesses);
+        foreach ($businesses as $business) {
+            foreach ($business['areas'] as $area) {
+                $screenCount = $screenCount + count($area['screens']);
+                foreach ($area['screens'] as $screen) {
+                    $imagesCount = $imagesCount + count($screen['images']);
+                }
+            }
+        }
+
+        return response()->json([
+                'bussines' => $bussinesCount,
+                'screens' => $screenCount,
+                'images' => $imagesCount,
+            ]
+        );
     }
 
     public function findRoute(Request $request): JsonResponse {
