@@ -82,10 +82,7 @@ class UserController extends Controller
 
     public function all(Request $request, User $user): JsonResponse
     {
-        $users = User::with('role')->get()->filter(function($item) {
-            return $item['id'] != Auth::id();
-        });
-
+        $users = User::with('role')->get();
 
         return response()->json([
             'success'=> true,
