@@ -22,9 +22,15 @@ class BusinessController extends Controller
 {
     public function all(Request $request): JsonResponse
     {
+        $userId = $request->query('userId');
+        if ($userId != null) {
+            $bussines = Business::where('user_id', $userId)->get();
+        } else {
+            $bussines = Business::all();
+        }
         return response()->json([
             'success' => true,
-            'data' => Business::all()
+            'data' => $bussines
         ]);
     }
 
