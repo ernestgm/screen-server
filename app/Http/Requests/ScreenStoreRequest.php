@@ -23,7 +23,7 @@ class ScreenStoreRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string'],
-            'description' => ['required', 'string'],
+            'description' => ['string'],
             'area_id' => ['required', 'integer'],
             'code' => ['required', 'string', "unique:screens"],
             'enabled' => ['integer'],

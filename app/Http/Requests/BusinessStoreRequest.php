@@ -25,7 +25,7 @@ class BusinessStoreRequest extends FormRequest
             'name' => ['required', 'string'],
             'description' => ['string'],
             'logo' => ['string'],
-            'address' => ['required', 'string'],
+            'address' => ['string'],
             'latitude' => ['required'],
             'longitude' => ['required'],
         ];
