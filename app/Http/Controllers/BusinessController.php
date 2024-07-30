@@ -39,16 +39,22 @@ class BusinessController extends Controller
         $request->validated();
         $input = $request->all();
 
-        $geolocationInput = [
-            'address' => $input['address'],
-            'latitude' => $input['latitude'],
-            'longitude' => $input['longitude']
-        ];
 
-        $geolocation = $business->geolocation();
-        $geolocation->update($geolocationInput);
+        if ($input['address'] != "") {
+            $geolocationInput = [
+                'address' => $input['address'],
+                'latitude' => $input['latitude'],
+                'longitude' => $input['longitude']
+            ];
+            $geolocation = $business->geolocation();
+            if ($geolocation->exists()) {
+                $geolocation->update($geolocationInput);
+            } else {
+                $geolocationInput['business_id'] = $business->id;
+                GeoLocation::create($geolocationInput);
+            }
+        }
         $business->update($input);
-
         return response()->json(['success' => 'success'], app('SUCCESS_STATUS'));
     }
 
@@ -69,14 +75,17 @@ class BusinessController extends Controller
 
 
         if ($business->id) {
-            $geolocationInput = [
-                'address' => $input['address'],
-                'latitude' => $input['latitude'],
-                'longitude' => $input['longitude'],
-                'business_id' => $business->id
-            ];
+            if ($input['address'] != "") {
+                $geolocationInput = [
+                    'address' => $input['address'],
+                    'latitude' => $input['latitude'],
+                    'longitude' => $input['longitude'],
+                    'business_id' => $business->id
+                ];
 
-            GeoLocation::create($geolocationInput);
+                GeoLocation::create($geolocationInput);
+            }
+
             return response()->json(['success' => 'success'], app('SUCCESS_STATUS'));
         }
 
