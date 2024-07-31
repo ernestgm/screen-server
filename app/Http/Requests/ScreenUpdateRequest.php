@@ -23,7 +23,6 @@ class ScreenUpdateRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string'],
-            'description' => ['string'],
             'code' => ['string', "unique:screens"],
             'enabled' => ['integer'],
         ];
