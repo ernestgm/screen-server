@@ -28,7 +28,9 @@ class ScreenController extends Controller
 
     public function store(ScreenStoreRequest $request): JsonResponse
     {
-        Screen::create($request->validated());
+        $request->validated();
+        $input = $request->all();
+        Screen::create($input);
         $code = $request->input('code');
         $this->sendPublishMessage("home_screen_$code", ["message" => "check_screen_update"]);
         return response()->json(['success'=>'success'], app('SUCCESS_STATUS'));
