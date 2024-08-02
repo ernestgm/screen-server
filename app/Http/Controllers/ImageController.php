@@ -47,7 +47,9 @@ class ImageController extends Controller
 
     public function store(ImageStoreRequest $request): JsonResponse
     {
-        $image = Image::create($request->validated());
+        $request->validated();
+        $inputs = $request->all();
+        $image = Image::create($inputs);
         if ($image->id) {
             foreach ($request->get('products') as $product) {
                 $_product = Product::create([
