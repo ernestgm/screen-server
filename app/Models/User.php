@@ -23,7 +23,8 @@ class User extends Authenticated
         'email',
         'password',
         'role_id',
-        'enabled'
+        'enabled',
+        'refresh_token'
     ];
 
     /**

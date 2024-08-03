@@ -33,6 +33,7 @@ Route::middleware(['auth:sanctum', 'cors'])->group(function () {
             Route::put('/user/update/{user}', 'update');
             Route::delete('/users', 'deleteByIds');
             Route::post('/login', 'login')->withoutMiddleware('auth:sanctum');
+            Route::post('refresh-token', 'refreshToken')->withoutMiddleware('auth:sanctum');
             Route::post('/logout', 'logout');
 
         });
