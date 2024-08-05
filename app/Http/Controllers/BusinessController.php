@@ -131,18 +131,16 @@ class BusinessController extends Controller
         $imagesCount = 0;
 
         if ($userId === null) {
-            $businesses = Business::with('areas.screens.images.products.prices')->get()->toArray();
+            $businesses = Business::with('screens.images.products.prices')->get()->toArray();
         } else {
-            $businesses = Business::with('areas.screens.images.products.prices')->where('user_id', $userId)->get()->toArray();
+            $businesses = Business::with('screens.images.products.prices')->where('user_id', $userId)->get()->toArray();
         }
 
         $bussinesCount = count($businesses);
         foreach ($businesses as $business) {
-            foreach ($business['areas'] as $area) {
-                $screenCount = $screenCount + count($area['screens']);
-                foreach ($area['screens'] as $screen) {
-                    $imagesCount = $imagesCount + count($screen['images']);
-                }
+            $screenCount = $screenCount + count($business['screens']);
+            foreach ($business['screens'] as $screen) {
+                $imagesCount = $imagesCount + count($screen['images']);
             }
         }
 

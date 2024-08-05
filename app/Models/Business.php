@@ -53,4 +53,9 @@ class Business extends Model
     {
         return $this->hasMany(Area::class, 'business_id', 'id');
     }
+
+    public function screens(): HasMany
+    {
+        return $this->hasMany(Screen::class, 'business_id', 'id');
+    }
 }
