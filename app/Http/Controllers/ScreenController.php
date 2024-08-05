@@ -14,10 +14,10 @@ class ScreenController extends Controller
 {
     public function all(Request $request): JsonResponse
     {
-        $id = $request->input('area_id');
-        $all = Screen::with(['area.business.user'])->get();
+        $id = $request->input('business_id');
+        $all = Screen::with(['business.user'])->get();
         if ($id) {
-            $all = Screen::with(['area.business.user'])->where('area_id', $id)->get();
+            $all = Screen::with(['business.user'])->where('business_id', $id)->get();
         }
 
         return response()->json([
@@ -40,7 +40,7 @@ class ScreenController extends Controller
     {
         return response()->json([
             'success' => true,
-            'data' => Screen::with(['area.business.user'])->find($screen->id)
+            'data' => Screen::with(['business.user'])->find($screen->id)
         ]);
     }
 

@@ -21,6 +21,7 @@ class Screen extends Model
         'name',
         'description',
         'area_id',
+        'business_id',
         'code',
         'enabled'
     ];
@@ -37,6 +38,11 @@ class Screen extends Model
     public function area(): BelongsTo
     {
         return $this->belongsTo(Area::class);
+    }
+
+    public function business(): BelongsTo
+    {
+        return $this->belongsTo(Business::class);
     }
 
     public function images(): HasMany {
