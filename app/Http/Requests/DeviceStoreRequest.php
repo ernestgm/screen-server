@@ -22,6 +22,7 @@ class DeviceStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'name' => ['required', 'string'],
             'code' => ['required', 'unique:devices'],
             'device_id' => ['required', 'string', 'unique:devices'],
             'user_id' => ['required', 'integer']

@@ -44,37 +44,17 @@ class ScreenController extends Controller
         ]);
     }
 
-    public function byCode(Request $request): JsonResponse {
-        $enabled = false;
-        $screen = Screen::all()->where('code', $request->query('code'))->first();
-        if ($screen) {
-            $enabled = $screen->enabled == 1;
-        }
-        return response()->json([
-            'success' => $screen != null,
-            'enabled' => $enabled
-        ]);
-    }
-
     public function update(ScreenUpdateRequest $request, Screen $screen): JsonResponse
     {
         $request->validated();
         $input = $request->all();
-        $old_code = $screen->code;
         $screen->update($input);
-        if (key_exists('code', $input)) {
-            $updatedCode = $input['code'] != $old_code;
-            $code = $input['code'];
-            if ($updatedCode) {
-                $this->sendPublishMessage("home_screen_$old_code", ["message" => "check_screen_update"]);
-                $this->sendPublishMessage("home_screen_$code", ["message" => "check_screen_update"]);
 
-                $this->sendPublishMessage("player_screen_$old_code", ["message" => "check_screen_update"]);
-                $this->sendPublishMessage("player_screen_$code", ["message" => "check_screen_update"]);
-            }
-        } else {
-            $this->sendPublishMessage("home_screen_".$screen->code, ["message" => "check_screen_update"]);
-            $this->sendPublishMessage("player_screen_".$screen->code, ["message" => "check_screen_update"]);
+
+        $devices = Screen::with('devices')->find($screen->id)->get()->first()->devices;
+        foreach ($devices as $device) {
+            $this->sendPublishMessage("home_screen_$device->code", ["message" => "check_screen_update"]);
+            $this->sendPublishMessage("player_screen_$device->code", ["message" => "check_screen_update"]);
         }
 
         return response()->json(['success'=>'success'], app('SUCCESS_STATUS'));

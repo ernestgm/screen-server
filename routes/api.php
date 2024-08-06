@@ -65,7 +65,6 @@ Route::middleware(['auth:sanctum', 'cors'])->group(function () {
             Route::get('/screen/{screen}', 'show');
             Route::get('/screens', 'all');
             Route::get('/screens/checkUpdatedAt', 'checkForUpdate');
-            Route::get('/screens/byCode', 'byCode');
             Route::post('/screen', 'store');
             Route::put('/screen/update/{screen}', 'update');
             Route::delete('/screens', 'delete');
@@ -93,9 +92,11 @@ Route::middleware(['auth:sanctum', 'cors'])->group(function () {
         Route::controller(DevicesController::class)->group(function () {
             Route::get('/device/{device}', 'show');
             Route::get('/devices', 'all');
+            Route::get('/devices/byId', 'showByDeviceId');
             Route::post('/device', 'store');
             Route::put('/device/update/{device}', 'update');
             Route::delete('/devices', 'delete');
+            Route::get('/devices/getScreen', 'screenByCode');
         });
     });
 });
