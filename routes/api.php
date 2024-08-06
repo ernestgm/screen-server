@@ -91,7 +91,7 @@ Route::middleware(['auth:sanctum', 'cors'])->group(function () {
 
         // Device CRUD
         Route::controller(DevicesController::class)->group(function () {
-            Route::get('/device', 'show');
+            Route::get('/device/{device}', 'show');
             Route::get('/devices', 'all');
             Route::post('/device', 'store');
             Route::put('/device/update/{device}', 'update');

@@ -16,7 +16,7 @@ class DevicesController extends Controller
     {
         return response()->json([
             'success' => true,
-            'data' => Device::all()
+            'data' => Device::with(['screen'])->get()
         ]);
     }
 
@@ -27,9 +27,18 @@ class DevicesController extends Controller
         return response()->json(['success'=>'success'], app('SUCCESS_STATUS'));
     }
 
-    public function show(Request $request): JsonResponse
+    public function show(Request $request, Device $device): JsonResponse
+    {
+        return response()->json([
+            'success' => true,
+            'data' => Device::with(['screen'])->find($device->id)
+        ]);
+    }
+
+    public function showByDeviceId(Request $request): JsonResponse
     {
         $device = DB::table('devices')
+            ->with('screen')
             ->where('device_id', $request->query("device_id"))
             ->where('user_id', $request->query("user_id"))
             ->get();

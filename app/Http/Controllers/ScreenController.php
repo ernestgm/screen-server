@@ -15,9 +15,9 @@ class ScreenController extends Controller
     public function all(Request $request): JsonResponse
     {
         $id = $request->input('business_id');
-        $all = Screen::with(['business.user'])->get();
+        $all = Screen::with(['business.user', 'devices'])->get();
         if ($id) {
-            $all = Screen::with(['business.user'])->where('business_id', $id)->get();
+            $all = Screen::with(['business.user', 'devices'])->where('business_id', $id)->get();
         }
 
         return response()->json([
@@ -40,7 +40,7 @@ class ScreenController extends Controller
     {
         return response()->json([
             'success' => true,
-            'data' => Screen::with(['business.user'])->find($screen->id)
+            'data' => Screen::with(['business.user', 'devices'])->find($screen->id)
         ]);
     }
 

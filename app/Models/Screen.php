@@ -22,7 +22,6 @@ class Screen extends Model
         'description',
         'area_id',
         'business_id',
-        'code',
         'enabled'
     ];
 
@@ -47,6 +46,10 @@ class Screen extends Model
 
     public function images(): HasMany {
         return $this->hasMany(Image::class, 'screen_id', 'id');
+    }
+
+    public function devices(): HasMany {
+        return $this->hasMany(Device::class, 'screen_id', 'id');
     }
 
     public function checkForUpdate($time): bool
