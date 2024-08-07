@@ -22,8 +22,7 @@ class DeviceUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'code' => ['required', 'string'],
-            'device_id' => ['required', 'string'],
+            'name' => ['required', 'string'],
         ];
     }
 

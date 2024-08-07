@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 use Illuminate\View\View;
 use phpcent\Client;
 
@@ -29,6 +30,14 @@ class UserController extends Controller
             $user = Auth::user();
             $success['user'] = User::with('role')->find($user->id);
             $success['token'] =  $user->createToken('screen_app')->plainTextToken;
+
+            $refreshToken = $user->refresh_token;
+            if ($refreshToken == null) {
+                $refreshToken = hash('sha256', Str::random(60));
+                $user->update(['refresh_token' => $refreshToken]);
+            }
+
+            $success['refresh_token'] =  $refreshToken;
             return response()->json(['success' => $success], app('SUCCESS_STATUS'));
         }
         else {
@@ -36,9 +45,30 @@ class UserController extends Controller
         }
     }
 
+    public function refreshToken(Request $request): JsonResponse
+    {
+        $request->validate([
+            'refresh_token' => 'required',
+        ]);
+        $input = $request->all();
+        $hashedToken = $input['refresh_token'];
+        $user = User::where('refresh_token', $hashedToken)->first();
+
+        if (!$user) {
+            return response()->json(['error' => 'Invalid refresh token'], app('UNAUTHORIZED_STATUS'));
+        }
+
+        if ($user->currentAccessToken()) {
+            $user->currentAccessToken()->delete();
+        }
+
+        $token = $user->createToken('screen_app')->plainTextToken;
+        return response()->json(['token' => $token], app('SUCCESS_STATUS'));
+    }
+
     public function logout(): JsonResponse
     {
-        Auth::user()->tokens()->delete();
+        Auth::user()->currentAccessToken()->delete();
         return response()->json(['success' => 'success']);
     }
 

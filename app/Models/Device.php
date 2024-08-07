@@ -16,9 +16,11 @@ class Device extends Model
      * @var array
      */
     protected $fillable = [
+        'name',
         'code',
         'device_id',
-        'user_id'
+        'user_id',
+        'screen_id'
     ];
 
     /**
@@ -33,5 +35,10 @@ class Device extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function screen(): BelongsTo
+    {
+        return $this->belongsTo(Screen::class);
     }
 }

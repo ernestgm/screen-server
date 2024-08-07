@@ -21,7 +21,7 @@ class Screen extends Model
         'name',
         'description',
         'area_id',
-        'code',
+        'business_id',
         'enabled'
     ];
 
@@ -39,8 +39,17 @@ class Screen extends Model
         return $this->belongsTo(Area::class);
     }
 
+    public function business(): BelongsTo
+    {
+        return $this->belongsTo(Business::class);
+    }
+
     public function images(): HasMany {
         return $this->hasMany(Image::class, 'screen_id', 'id');
+    }
+
+    public function devices(): HasMany {
+        return $this->hasMany(Device::class, 'screen_id', 'id');
     }
 
     public function checkForUpdate($time): bool

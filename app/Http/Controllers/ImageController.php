@@ -47,7 +47,9 @@ class ImageController extends Controller
 
     public function store(ImageStoreRequest $request): JsonResponse
     {
-        $image = Image::create($request->validated());
+        $request->validated();
+        $inputs = $request->all();
+        $image = Image::create($inputs);
         if ($image->id) {
             foreach ($request->get('products') as $product) {
                 $_product = Product::create([
@@ -63,17 +65,20 @@ class ImageController extends Controller
                     ]);
                 }
             }
-            $this->updateScreen($request->input('screen_id'));
+            $this->updateScreens($request->input('screen_id'));
         }
 
         return response()->json(['success'=>'success'], app('SUCCESS_STATUS'));
     }
 
-    private function updateScreen($screenId): void
+    private function updateScreens($screenId): void
     {
-        $screen = Screen::find($screenId);
-        $screen->touch();
-        $this->sendPublishMessage("player_images_".$screen->code, ["message" => "check_images_update"]);
+        $screen = Screen::with('devices')->find($screenId);
+        if ($screen && $screen->devices) {
+            foreach ($screen->devices as $device) {
+                $this->sendPublishMessage("player_images_".$device->code, ["message" => "check_images_update"]);
+            }
+        }
     }
 
     public function show(Request $request, Image $image): JsonResponse
@@ -89,7 +94,7 @@ class ImageController extends Controller
         $request->validated();
         $input = $request->all();
         $image->update($input);
-        $this->updateScreen($request->input('screen_id'));
+        $this->updateScreens($request->input('screen_id'));
 
         return response()->json(['success'=>'success'], app('SUCCESS_STATUS'));
     }
@@ -108,7 +113,7 @@ class ImageController extends Controller
         }
 
         $images = DB::table('images')->whereIn('id', $ids);
-        $this->updateScreen($images->first()->screen_id);
+        $this->updateScreens($images->first()->screen_id);
 
         // delete records
         $deleted = $images->delete();

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\DeviceStoreRequest;
 use App\Http\Requests\DeviceUpdateRequest;
 use \App\Models\Device;
+use App\Models\Screen;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -16,7 +17,7 @@ class DevicesController extends Controller
     {
         return response()->json([
             'success' => true,
-            'data' => Device::all()
+            'data' => Device::with(['screen'])->get()
         ]);
     }
 
@@ -27,10 +28,17 @@ class DevicesController extends Controller
         return response()->json(['success'=>'success'], app('SUCCESS_STATUS'));
     }
 
-    public function show(Request $request): JsonResponse
+    public function show(Request $request, Device $device): JsonResponse
     {
-        $device = DB::table('devices')
-            ->where('device_id', $request->query("device_id"))
+        return response()->json([
+            'success' => true,
+            'data' => Device::with(['screen'])->find($device->id)
+        ]);
+    }
+
+    public function showByDeviceId(Request $request): JsonResponse
+    {
+        $device = Device::where('device_id', $request->query("device_id"))
             ->where('user_id', $request->query("user_id"))
             ->get();
 
@@ -40,11 +48,23 @@ class DevicesController extends Controller
         ]);
     }
 
+    public function screenByCode(Request $request): JsonResponse {
+        $device = Device::with('screen.images')->where('code', $request->query('code'))->get()->first();
+
+        return response()->json([
+            'success' => $device->screen != null,
+            'screen' => $device->screen
+        ]);
+    }
+
     public function update(DeviceUpdateRequest $request, Device $device): JsonResponse
     {
         $request->validated();
         $input = $request->all();
         $device->update($input);
+
+        $this->sendPublishMessage("home_screen_$device->code", ["message" => "check_screen_update"]);
+        $this->sendPublishMessage("player_screen_$device->code", ["message" => "check_screen_update"]);
 
         return response()->json(['success'=>'success'], app('SUCCESS_STATUS'));
     }
