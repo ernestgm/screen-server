@@ -31,8 +31,6 @@ class ScreenController extends Controller
         $request->validated();
         $input = $request->all();
         Screen::create($input);
-        $code = $request->input('code');
-        $this->sendPublishMessage("home_screen_$code", ["message" => "check_screen_update"]);
         return response()->json(['success'=>'success'], app('SUCCESS_STATUS'));
     }
 
@@ -49,7 +47,6 @@ class ScreenController extends Controller
         $request->validated();
         $input = $request->all();
         $screen->update($input);
-
 
         $devices = Screen::with('devices')->find($screen->id)->get()->first()->devices;
         foreach ($devices as $device) {
@@ -74,31 +71,13 @@ class ScreenController extends Controller
             return response()->json(['error' => $validator->errors()], app('VALIDATION_STATUS'));
         }
 
-        $screens = DB::table('screens')->whereIn('id', $ids)->get();
-
         // delete records
         $deleted = DB::table('screens')->whereIn('id', $ids)->delete();
-
-        if ($deleted > 0) {
-            foreach ($screens as $screen) {
-                $this->sendPublishMessage("screen_".$screen->code, ["message" => "check_screen_update"]);
-            }
-        }
 
         return response()->json([
                 'success' => true,
                 'message' => "$deleted record(s) deleted."
             ]
         );
-    }
-
-    public function checkForUpdate(Request $request): JsonResponse
-    {
-        $screen = Screen::all()->where('code', $request->query('code'))->first();
-        $update = $screen->checkForUpdate($request->query('udpated_time'));
-
-        return response()->json([
-            'success' => $update
-        ]);
     }
 }

@@ -64,7 +64,6 @@ Route::middleware(['auth:sanctum', 'cors'])->group(function () {
         Route::controller(ScreenController::class)->group(function () {
             Route::get('/screen/{screen}', 'show');
             Route::get('/screens', 'all');
-            Route::get('/screens/checkUpdatedAt', 'checkForUpdate');
             Route::post('/screen', 'store');
             Route::put('/screen/update/{screen}', 'update');
             Route::delete('/screens', 'delete');
