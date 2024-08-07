@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Device extends Model
+class Marquee extends Model
 {
     use HasFactory;
 
@@ -17,11 +19,8 @@ class Device extends Model
      */
     protected $fillable = [
         'name',
-        'code',
-        'device_id',
-        'user_id',
-        'screen_id',
-        'marquee_id',
+        'bg_color',
+        'text_color',
     ];
 
     /**
@@ -33,18 +32,11 @@ class Device extends Model
         'id' => 'integer',
     ];
 
-    public function user(): BelongsTo
-    {
-        return $this->belongsTo(User::class);
+    public function ads(): HasMany {
+        return $this->hasMany(Ad::class, 'marquee_id', 'id');
     }
 
-    public function screen(): BelongsTo
-    {
-        return $this->belongsTo(Screen::class);
-    }
-
-    public function marquee(): BelongsTo
-    {
-        return $this->belongsTo(Marquee::class);
+    public function devices(): HasMany {
+        return $this->hasMany(Device::class, 'marquee_id', 'id');
     }
 }

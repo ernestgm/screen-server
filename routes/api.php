@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\AdController;
 use App\Http\Controllers\AreaController;
 use App\Http\Controllers\DevicesController;
 use App\Http\Controllers\ImageController;
+use App\Http\Controllers\MarqueeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RolesController;
 use App\Http\Controllers\ScreenController;
@@ -96,6 +98,22 @@ Route::middleware(['auth:sanctum', 'cors'])->group(function () {
             Route::put('/device/update/{device}', 'update');
             Route::delete('/devices', 'delete');
             Route::get('/devices/getScreen', 'screenByCode');
+        });
+        // Marquee CRUD
+        Route::controller(MarqueeController::class)->group(function () {
+            Route::get('/marquee/{marquee}', 'show');
+            Route::get('/marquees', 'all');
+            Route::post('/marquee', 'store');
+            Route::put('/marquee/update/{marquee}', 'update');
+            Route::delete('/marquees', 'delete');
+        });
+        // Ad CRUD
+        Route::controller(AdController::class)->group(function () {
+            Route::get('/ad/{ad}', 'show');
+            Route::get('/ads', 'all');
+            Route::post('/ad', 'store');
+            Route::put('/ad/update/{ad}', 'update');
+            Route::delete('/ads', 'delete');
         });
     });
 });
