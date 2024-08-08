@@ -14,7 +14,7 @@ class MarqueeController extends Controller
 {
     public function all(Request $request): JsonResponse
     {
-        $all = Marquee::all();
+        $all = Marquee::with(['business', 'devices'])->get();
         return response()->json([
             'success' => true,
             'data' => $all
@@ -33,7 +33,7 @@ class MarqueeController extends Controller
     {
         return response()->json([
             'success' => true,
-            'data' => Marquee::with(['devices', 'ads'])->find($marquee->id)
+            'data' => Marquee::with(['business', 'devices', 'ads'])->find($marquee->id)
         ]);
     }
 

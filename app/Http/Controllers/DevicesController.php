@@ -17,7 +17,7 @@ class DevicesController extends Controller
     {
         return response()->json([
             'success' => true,
-            'data' => Device::with(['screen'])->get()
+            'data' => Device::with(['screen', 'marquee'])->get()
         ]);
     }
 

@@ -19,6 +19,7 @@ class Marquee extends Model
      */
     protected $fillable = [
         'name',
+        'business_id',
         'bg_color',
         'text_color',
     ];
@@ -38,5 +39,10 @@ class Marquee extends Model
 
     public function devices(): HasMany {
         return $this->hasMany(Device::class, 'marquee_id', 'id');
+    }
+
+    public function business(): BelongsTo
+    {
+        return $this->belongsTo(Business::class);
     }
 }
