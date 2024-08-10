@@ -57,6 +57,15 @@ class DevicesController extends Controller
         ]);
     }
 
+    public function marqueeByCode(Request $request): JsonResponse {
+        $device = Device::with('marquee.ads')->where('code', $request->query('code'))->get()->first();
+
+        return response()->json([
+            'success' => $device->marquee != null,
+            'marquee' => $device->marquee
+        ]);
+    }
+
     public function update(DeviceUpdateRequest $request, Device $device): JsonResponse
     {
         $request->validated();
@@ -65,6 +74,7 @@ class DevicesController extends Controller
 
         $this->sendPublishMessage("home_screen_$device->code", ["message" => "check_screen_update"]);
         $this->sendPublishMessage("player_screen_$device->code", ["message" => "check_screen_update"]);
+        $this->sendPublishMessage("player_marquee_$device->code", ["message" => "check_marquee_update"]);
 
         return response()->json(['success'=>'success'], app('SUCCESS_STATUS'));
     }

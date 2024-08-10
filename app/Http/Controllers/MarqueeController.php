@@ -43,6 +43,11 @@ class MarqueeController extends Controller
         $input = $request->all();
         $marquee->update($input);
 
+        $marquee = Marquee::with('devices')->find($marquee->id);
+        foreach ($marquee->devices as $device) {
+            $this->sendPublishMessage("player_marquee_".$device->code, ["message" => "check_marquee_update"]);
+        }
+
         return response()->json(['success'=>'success'], app('SUCCESS_STATUS'));
     }
 

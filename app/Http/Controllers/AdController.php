@@ -6,6 +6,7 @@ use App\Http\Requests\AdStoreRequest;
 use App\Http\Requests\AdUpdateRequest;
 
 use App\Models\Ad;
+use App\Models\Marquee;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -27,6 +28,11 @@ class AdController extends Controller
         $request->validated();
         $inputs = $request->all();
         Ad::create($inputs);
+
+        $marquee = Marquee::with('devices')->find($inputs['marquee_id']);
+        foreach ($marquee->devices as $device) {
+            $this->sendPublishMessage("player_marquee_".$device->code, ["message" => "check_marquee_update"]);
+        }
         return response()->json(['success'=>'success'], app('SUCCESS_STATUS'));
     }
 
@@ -43,6 +49,11 @@ class AdController extends Controller
         $request->validated();
         $input = $request->all();
         $ad->update($input);
+
+        $marquee = Marquee::with('devices')->find($ad->marquee_id);
+        foreach ($marquee->devices as $device) {
+            $this->sendPublishMessage("player_marquee_".$device->code, ["message" => "check_marquee_update"]);
+        }
 
         return response()->json(['success'=>'success'], app('SUCCESS_STATUS'));
     }
@@ -61,9 +72,15 @@ class AdController extends Controller
         }
 
         $ads = DB::table('ads')->whereIn('id', $ids);
-
+        $ads_aux = $ads->get();
         // delete records
         $deleted = $ads->delete();
+        foreach ($ads_aux as $ad) {
+            $marquee = Marquee::with('devices')->find($ad->marquee_id);
+            foreach ($marquee->devices as $device) {
+                $this->sendPublishMessage("player_marquee_".$device->code, ["message" => "check_marquee_update"]);
+            }
+        }
 
         return response()->json([
                 'success' => true,

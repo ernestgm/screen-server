@@ -98,6 +98,7 @@ Route::middleware(['auth:sanctum', 'cors'])->group(function () {
             Route::put('/device/update/{device}', 'update');
             Route::delete('/devices', 'delete');
             Route::get('/devices/getScreen', 'screenByCode');
+            Route::get('/devices/getMarquee', 'marqueeByCode');
         });
         // Marquee CRUD
         Route::controller(MarqueeController::class)->group(function () {
