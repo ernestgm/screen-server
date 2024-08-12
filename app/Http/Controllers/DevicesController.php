@@ -70,11 +70,17 @@ class DevicesController extends Controller
     {
         $request->validated();
         $input = $request->all();
+        $oldDevice = Device::with('marquee.ads')->find($device->id);
+
         $device->update($input);
 
-        $this->sendPublishMessage("home_screen_$device->code", ["message" => "check_screen_update"]);
-        $this->sendPublishMessage("player_screen_$device->code", ["message" => "check_screen_update"]);
-        $this->sendPublishMessage("player_marquee_$device->code", ["message" => "check_marquee_update"]);
+        if ($input['marquee_id'] != $oldDevice->marquee_id) {
+            $this->sendPublishMessage("player_marquee_$device->code", ["message" => "check_marquee_update"]);
+        }
+        if ($input['screen_id'] != $oldDevice->screen_id) {
+            $this->sendPublishMessage("home_screen_$device->code", ["message" => "check_screen_update"]);
+            $this->sendPublishMessage("player_screen_$device->code", ["message" => "check_screen_update"]);
+        }
 
         return response()->json(['success'=>'success'], app('SUCCESS_STATUS'));
     }
