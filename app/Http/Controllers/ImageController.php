@@ -49,6 +49,9 @@ class ImageController extends Controller
     {
         $request->validated();
         $inputs = $request->all();
+        $newImage = $this->compressImage($inputs['image']);
+        $inputs['image'] = $newImage;
+
         $image = Image::create($inputs);
         if ($image->id) {
             foreach ($request->get('products') as $product) {
@@ -68,7 +71,7 @@ class ImageController extends Controller
             $this->updateScreens($request->input('screen_id'));
         }
 
-        return response()->json(['success'=>'success'], app('SUCCESS_STATUS'));
+        return response()->json(['success' => 'success'], app('SUCCESS_STATUS'));
     }
 
     private function updateScreens($screenId): void
@@ -76,7 +79,7 @@ class ImageController extends Controller
         $screen = Screen::with('devices')->find($screenId);
         if ($screen && $screen->devices) {
             foreach ($screen->devices as $device) {
-                $this->sendPublishMessage("player_images_".$device->code, ["message" => "check_images_update"]);
+                $this->sendPublishMessage("player_images_" . $device->code, ["message" => "check_images_update"]);
             }
         }
     }
@@ -93,10 +96,12 @@ class ImageController extends Controller
     {
         $request->validated();
         $input = $request->all();
+        $newImage = $this->compressImage($input['image']);
+        $input['image'] = $newImage;
         $image->update($input);
         $this->updateScreens($request->input('screen_id'));
 
-        return response()->json(['success'=>'success'], app('SUCCESS_STATUS'));
+        return response()->json(['success' => 'success'], app('SUCCESS_STATUS'));
     }
 
     public function delete(Request $request): JsonResponse
@@ -123,5 +128,56 @@ class ImageController extends Controller
                 'message' => "$deleted record(s) deleted."
             ]
         );
+    }
+
+    private function compressImage($base64_string)
+    {
+// Identificar el encabezado
+        $header = '';
+        if (strpos($base64_string, 'base64,') !== false) {
+            list($header, $base64_string) = explode('base64,', $base64_string);
+            $header .= 'base64,';
+        }
+
+// Decodificar la cadena base64
+        $image_data = base64_decode($base64_string);
+
+// Verificar si la decodificación fue exitosa
+        if ($image_data === false) {
+            die("No se pudo decodificar la cadena base64");
+        }
+
+// Crear una imagen a partir del string decodificado
+        $image = imagecreatefromstring($image_data);
+        if ($image === false) {
+            die("No se pudo crear la imagen desde el string base64, formato no reconocido.");
+        }
+
+// Paso 2: Redimensionar y recomprimir la imagen
+        $original_width = imagesx($image);
+        $original_height = imagesy($image);
+        $new_width = $original_width; // Ajusta según sea necesario
+        $new_height = $original_height; // Ajusta según sea necesario
+
+        $new_image = imagecreatetruecolor($new_width, $new_height);
+        imagecopyresampled($new_image, $image, 0, 0, 0, 0, $new_width, $new_height, $original_width, $original_height);
+
+        $quality = 80; // Ajusta la calidad para mayor o menor compresión
+
+// Guardar la imagen comprimida en un buffer
+        ob_start();
+        imagejpeg($new_image, null, $quality);
+        $compressed_image_data = ob_get_clean();
+
+// Limpiar la memoria
+        imagedestroy($image);
+        imagedestroy($new_image);
+
+// Paso 3: Reconvertir la imagen comprimida a base64
+        $compressed_base64_string = base64_encode($compressed_image_data);
+
+// Paso 4: Agregar de nuevo el encabezado
+        // Resultado final
+        return $header . $compressed_base64_string;
     }
 }
