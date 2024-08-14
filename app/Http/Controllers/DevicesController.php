@@ -76,7 +76,6 @@ class DevicesController extends Controller
 
         if ($input['marquee_id'] != $oldDevice->marquee_id) {
             $this->sendPublishMessage("player_marquee_$device->code", ["message" => "check_marquee_update"]);
-            $this->sendPublishMessage("player_screen_$device->code", ["message" => "check_screen_update"]);
         }
         if ($input['screen_id'] != $oldDevice->screen_id) {
             $this->sendPublishMessage("home_screen_$device->code", ["message" => "check_screen_update"]);
