@@ -24,7 +24,7 @@ class ImageStoreRequest extends FormRequest
         return [
             'name' => ['required'],
             'screen_id' => ['required'],
-            'image' => ['required', 'string'],
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:6144',
             'is_static' => ['integer'],
             'duration' => ['integer'],
         ];

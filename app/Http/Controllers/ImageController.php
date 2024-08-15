@@ -10,8 +10,11 @@ use App\Models\Product;
 use App\Models\Screen;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Intervention\Image\Drivers\Gd\Driver;
+use Intervention\Image\ImageManager;
 
 class ImageController extends Controller
 {
@@ -54,20 +57,21 @@ class ImageController extends Controller
 
         $image = Image::create($inputs);
         if ($image->id) {
-            foreach ($request->get('products') as $product) {
-                $_product = Product::create([
-                    'name' => $product['name'],
-                    'description' => $product['description'],
-                    'image_id' => $image->id,
-                ]);
-
-                if ($_product->id) {
-                    Price::create([
-                        'value' => $product['price'],
-                        'product_id' => $_product->id
-                    ]);
-                }
-            }
+//            $products = json_decode($request->get('products'), true);
+//            foreach ($products as $product) {
+//                $_product = Product::create([
+//                    'name' => $product['name'],
+//                    'description' => $product['description'],
+//                    'image_id' => $image->id,
+//                ]);
+//
+//                if ($_product->id) {
+//                    Price::create([
+//                        'value' => $product['price'],
+//                        'product_id' => $_product->id
+//                    ]);
+//                }
+//            }
             $this->updateScreens($request->input('screen_id'));
         }
 
@@ -94,10 +98,14 @@ class ImageController extends Controller
 
     public function update(ImageUpdateRequest $request, Image $image): JsonResponse
     {
-        $request->validated();
         $input = $request->all();
-        $newImage = $this->compressImage($input['image']);
-        $input['image'] = $newImage;
+        $imageFile = $input['image'];
+
+        if ($imageFile instanceof UploadedFile && $imageFile->isFile()) {
+            $newImage = $this->compressImage($imageFile);
+            $input['image'] = $newImage;
+        }
+
         $image->update($input);
         $this->updateScreens($request->input('screen_id'));
 
@@ -130,54 +138,13 @@ class ImageController extends Controller
         );
     }
 
-    private function compressImage($base64_string)
+    private function compressImage($image): string
     {
-// Identificar el encabezado
-        $header = '';
-        if (strpos($base64_string, 'base64,') !== false) {
-            list($header, $base64_string) = explode('base64,', $base64_string);
-            $header .= 'base64,';
-        }
+        ini_set('memory_limit', '256M');
+        // Use Intervention Image to create an image instance
+        $manager = new ImageManager(Driver::class);
+        $image = $manager->read($image);
 
-// Decodificar la cadena base64
-        $image_data = base64_decode($base64_string);
-
-// Verificar si la decodificación fue exitosa
-        if ($image_data === false) {
-            die("No se pudo decodificar la cadena base64");
-        }
-
-// Crear una imagen a partir del string decodificado
-        $image = imagecreatefromstring($image_data);
-        if ($image === false) {
-            die("No se pudo crear la imagen desde el string base64, formato no reconocido.");
-        }
-
-// Paso 2: Redimensionar y recomprimir la imagen
-        $original_width = imagesx($image);
-        $original_height = imagesy($image);
-        $new_width = $original_width; // Ajusta según sea necesario
-        $new_height = $original_height; // Ajusta según sea necesario
-
-        $new_image = imagecreatetruecolor($new_width, $new_height);
-        imagecopyresampled($new_image, $image, 0, 0, 0, 0, $new_width, $new_height, $original_width, $original_height);
-
-        $quality = 80; // Ajusta la calidad para mayor o menor compresión
-
-// Guardar la imagen comprimida en un buffer
-        ob_start();
-        imagejpeg($new_image, null, $quality);
-        $compressed_image_data = ob_get_clean();
-
-// Limpiar la memoria
-        imagedestroy($image);
-        imagedestroy($new_image);
-
-// Paso 3: Reconvertir la imagen comprimida a base64
-        $compressed_base64_string = base64_encode($compressed_image_data);
-
-// Paso 4: Agregar de nuevo el encabezado
-        // Resultado final
-        return $header . $compressed_base64_string;
+        return $image->toJpeg(70)->toDataUri();
     }
 }

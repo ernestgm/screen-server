@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Http\UploadedFile;
 
 class ImageUpdateRequest extends FormRequest
 {
@@ -21,12 +22,24 @@ class ImageUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'name' => ['required'],
-            'image' => ['required', 'string'],
-            'is_static' => ['integer'],
-            'duration' => ['integer'],
-        ];
+        $contentType = $this->headers->get('content-type');
+        if ($contentType === "application/json") {
+            $rules = [
+                'name' => ['required'],
+                'image' => 'required|string',
+                'is_static' => ['integer'],
+                'duration' => ['integer'],
+            ];
+        } else {
+           $rules = [
+                'name' => ['required'],
+                'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:6144',
+                'is_static' => ['integer'],
+                'duration' => ['integer'],
+            ];
+        }
+
+        return $rules;
     }
 
     public function failedValidation(Validator $validator)

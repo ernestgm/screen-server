@@ -77,7 +77,7 @@ Route::middleware(['auth:sanctum', 'cors'])->group(function () {
             Route::get('/images', 'all');
             Route::get('/images/byScreen', 'allByDeviceCode');
             Route::post('/image', 'store');
-            Route::put('/image/update/{image}', 'update');
+            Route::post('/image/update/{image}', 'update');
             Route::delete('/images', 'delete');
         });
         // Product CRUD
