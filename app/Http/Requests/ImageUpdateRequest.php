@@ -22,24 +22,12 @@ class ImageUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-        $contentType = $this->headers->get('content-type');
-        if ($contentType === "application/json") {
-            $rules = [
-                'name' => ['required'],
-                'image' => 'required|string',
-                'is_static' => ['integer'],
-                'duration' => ['integer'],
-            ];
-        } else {
-           $rules = [
-                'name' => ['required'],
-                'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:6144',
-                'is_static' => ['integer'],
-                'duration' => ['integer'],
-            ];
-        }
-
-        return $rules;
+        return [
+            'name' => ['required'],
+            'image' => 'required|string',
+            'is_static' => ['integer'],
+            'duration' => ['integer'],
+        ];
     }
 
     public function failedValidation(Validator $validator)

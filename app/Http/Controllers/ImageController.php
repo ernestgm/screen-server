@@ -52,9 +52,6 @@ class ImageController extends Controller
     {
         $request->validated();
         $inputs = $request->all();
-        $newImage = $this->compressImage($inputs['image']);
-        $inputs['image'] = $newImage;
-
         $image = Image::create($inputs);
         if ($image->id) {
 //            $products = json_decode($request->get('products'), true);
@@ -99,13 +96,6 @@ class ImageController extends Controller
     public function update(ImageUpdateRequest $request, Image $image): JsonResponse
     {
         $input = $request->all();
-        $imageFile = $input['image'];
-
-        if ($imageFile instanceof UploadedFile && $imageFile->isFile()) {
-            $newImage = $this->compressImage($imageFile);
-            $input['image'] = $newImage;
-        }
-
         $image->update($input);
         $this->updateScreens($request->input('screen_id'));
 
@@ -136,15 +126,5 @@ class ImageController extends Controller
                 'message' => "$deleted record(s) deleted."
             ]
         );
-    }
-
-    private function compressImage($image): string
-    {
-        ini_set('memory_limit', '256M');
-        // Use Intervention Image to create an image instance
-        $manager = new ImageManager(Driver::class);
-        $image = $manager->read($image);
-
-        return $image->toJpeg(70)->toDataUri();
     }
 }
