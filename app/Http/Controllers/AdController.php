@@ -16,7 +16,11 @@ class AdController extends Controller
 {
     public function all(Request $request): JsonResponse
     {
+        $marqueeId = $request->input('marquee_id');
         $all = Ad::all();
+        if ($marqueeId) {
+            $all = Ad::with(['marquee'])->where('marquee_id', $marqueeId)->get();
+        }
         return response()->json([
             'success' => true,
             'data' => $all
