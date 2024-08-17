@@ -8,6 +8,7 @@ use \App\Models\Device;
 use App\Models\Screen;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
@@ -49,10 +50,10 @@ class DevicesController extends Controller
     }
 
     public function screenByCode(Request $request): JsonResponse {
-        $device = Device::with('screen.images')->where('code', $request->query('code'))->get()->first();
+        $device = Device::with(['screen.images'])->where('code', $request->query('code'))->get()->first();
 
         return response()->json([
-            'success' => $device->screen != null,
+            'success' => $device->screen != null && $device->user->id === Auth::user()->id,
             'screen' => $device->screen
         ]);
     }
