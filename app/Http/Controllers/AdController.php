@@ -33,10 +33,7 @@ class AdController extends Controller
         $inputs = $request->all();
         Ad::create($inputs);
 
-        $marquee = Marquee::with('devices')->find($inputs['marquee_id']);
-        foreach ($marquee->devices as $device) {
-            $this->sendPublishMessage("player_marquee_".$device->code, ["message" => "check_marquee_update"]);
-        }
+        $this->updateMarquees($inputs['marquee_id']);
         return response()->json(['success'=>'success'], app('SUCCESS_STATUS'));
     }
 
@@ -54,10 +51,7 @@ class AdController extends Controller
         $input = $request->all();
         $ad->update($input);
 
-        $marquee = Marquee::with('devices')->find($ad->marquee_id);
-        foreach ($marquee->devices as $device) {
-            $this->sendPublishMessage("player_marquee_".$device->code, ["message" => "check_marquee_update"]);
-        }
+        $this->updateMarquees($ad->marquee_id);
 
         return response()->json(['success'=>'success'], app('SUCCESS_STATUS'));
     }
@@ -79,17 +73,20 @@ class AdController extends Controller
         $ads_aux = $ads->get();
         // delete records
         $deleted = $ads->delete();
-        foreach ($ads_aux as $ad) {
-            $marquee = Marquee::with('devices')->find($ad->marquee_id);
-            foreach ($marquee->devices as $device) {
-                $this->sendPublishMessage("player_marquee_".$device->code, ["message" => "check_marquee_update"]);
-            }
-        }
+        $this->updateMarquees($ads_aux->first()->marquee_id);
+
 
         return response()->json([
                 'success' => true,
                 'message' => "$deleted record(s) deleted."
             ]
         );
+    }
+
+    private function updateMarquees($marquee_id) {
+        $marquee = Marquee::with('devices')->find($marquee_id);
+        foreach ($marquee->devices as $device) {
+            $this->sendPublishMessage("player_marquee_".$device->code, ["message" => "check_marquee_update"]);
+        }
     }
 }

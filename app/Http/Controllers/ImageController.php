@@ -116,10 +116,14 @@ class ImageController extends Controller
         }
 
         $images = DB::table('images')->whereIn('id', $ids);
-        $this->updateScreens($images->first()->screen_id);
+
+        $images_aux = $images->get();
 
         // delete records
         $deleted = $images->delete();
+
+        $this->updateScreens($images_aux->first()->screen_id);
+
 
         return response()->json([
                 'success' => true,
