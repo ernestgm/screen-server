@@ -10,8 +10,11 @@ use App\Models\Product;
 use App\Models\Screen;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Intervention\Image\Drivers\Gd\Driver;
+use Intervention\Image\ImageManager;
 
 class ImageController extends Controller
 {
@@ -51,24 +54,25 @@ class ImageController extends Controller
         $inputs = $request->all();
         $image = Image::create($inputs);
         if ($image->id) {
-            foreach ($request->get('products') as $product) {
-                $_product = Product::create([
-                    'name' => $product['name'],
-                    'description' => $product['description'],
-                    'image_id' => $image->id,
-                ]);
-
-                if ($_product->id) {
-                    Price::create([
-                        'value' => $product['price'],
-                        'product_id' => $_product->id
-                    ]);
-                }
-            }
+//            $products = json_decode($request->get('products'), true);
+//            foreach ($products as $product) {
+//                $_product = Product::create([
+//                    'name' => $product['name'],
+//                    'description' => $product['description'],
+//                    'image_id' => $image->id,
+//                ]);
+//
+//                if ($_product->id) {
+//                    Price::create([
+//                        'value' => $product['price'],
+//                        'product_id' => $_product->id
+//                    ]);
+//                }
+//            }
             $this->updateScreens($request->input('screen_id'));
         }
 
-        return response()->json(['success'=>'success'], app('SUCCESS_STATUS'));
+        return response()->json(['success' => 'success'], app('SUCCESS_STATUS'));
     }
 
     private function updateScreens($screenId): void
@@ -76,7 +80,7 @@ class ImageController extends Controller
         $screen = Screen::with('devices')->find($screenId);
         if ($screen && $screen->devices) {
             foreach ($screen->devices as $device) {
-                $this->sendPublishMessage("player_images_".$device->code, ["message" => "check_images_update"]);
+                $this->sendPublishMessage("player_images_" . $device->code, ["message" => "check_images_update"]);
             }
         }
     }
@@ -91,12 +95,11 @@ class ImageController extends Controller
 
     public function update(ImageUpdateRequest $request, Image $image): JsonResponse
     {
-        $request->validated();
         $input = $request->all();
         $image->update($input);
         $this->updateScreens($request->input('screen_id'));
 
-        return response()->json(['success'=>'success'], app('SUCCESS_STATUS'));
+        return response()->json(['success' => 'success'], app('SUCCESS_STATUS'));
     }
 
     public function delete(Request $request): JsonResponse
@@ -113,10 +116,14 @@ class ImageController extends Controller
         }
 
         $images = DB::table('images')->whereIn('id', $ids);
-        $this->updateScreens($images->first()->screen_id);
+
+        $images_aux = $images->get();
 
         // delete records
         $deleted = $images->delete();
+
+        $this->updateScreens($images_aux->first()->screen_id);
+
 
         return response()->json([
                 'success' => true,

@@ -1,0 +1,20 @@
+controllers:
+  Ad:
+    all:
+      query: all
+      render: ad.index with:ad
+    store:
+      validate: message
+      save: ad
+      redirect: ad.show
+    show:
+      query: all:ad
+      render: ads.show with:ads
+    update:
+      validate: ad
+      update: ad
+      flash: ad.id
+      redirect: ad.index
+    destroy:
+      delete: ad
+      redirect: ad.index

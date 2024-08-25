@@ -5,9 +5,8 @@ namespace App\Http\Requests;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
-use Illuminate\Http\UploadedFile;
 
-class ImageUpdateRequest extends FormRequest
+class MarqueeStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,10 +22,8 @@ class ImageUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required'],
-            'image' => 'required|string',
-            'is_static' => ['integer'],
-            'duration' => ['integer'],
+            'name' => ['required', 'string'],
+            'business_id' => ['required'],
         ];
     }
 

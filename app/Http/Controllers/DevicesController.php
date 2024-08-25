@@ -8,6 +8,7 @@ use \App\Models\Device;
 use App\Models\Screen;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
@@ -17,7 +18,7 @@ class DevicesController extends Controller
     {
         return response()->json([
             'success' => true,
-            'data' => Device::with(['screen'])->get()
+            'data' => Device::with(['screen', 'marquee'])->get()
         ]);
     }
 
@@ -49,11 +50,20 @@ class DevicesController extends Controller
     }
 
     public function screenByCode(Request $request): JsonResponse {
-        $device = Device::with('screen.images')->where('code', $request->query('code'))->get()->first();
+        $device = Device::with(['screen.images'])->where('code', $request->query('code'))->get()->first();
 
         return response()->json([
-            'success' => $device->screen != null,
+            'success' => $device->screen != null && $device->user->id === Auth::user()->id,
             'screen' => $device->screen
+        ]);
+    }
+
+    public function marqueeByCode(Request $request): JsonResponse {
+        $device = Device::with('marquee.ads')->where('code', $request->query('code'))->get()->first();
+
+        return response()->json([
+            'success' => $device->marquee != null,
+            'marquee' => $device->marquee
         ]);
     }
 
@@ -61,10 +71,17 @@ class DevicesController extends Controller
     {
         $request->validated();
         $input = $request->all();
+        $oldDevice = Device::with('marquee.ads')->find($device->id);
+
         $device->update($input);
 
-        $this->sendPublishMessage("home_screen_$device->code", ["message" => "check_screen_update"]);
-        $this->sendPublishMessage("player_screen_$device->code", ["message" => "check_screen_update"]);
+        if ($input['marquee_id'] != $oldDevice->marquee_id) {
+            $this->sendPublishMessage("player_marquee_$device->code", ["message" => "check_marquee_update"]);
+        }
+        if ($input['screen_id'] != $oldDevice->screen_id) {
+            $this->sendPublishMessage("home_screen_$device->code", ["message" => "check_screen_update"]);
+            $this->sendPublishMessage("player_screen_$device->code", ["message" => "check_screen_update"]);
+        }
 
         return response()->json(['success'=>'success'], app('SUCCESS_STATUS'));
     }

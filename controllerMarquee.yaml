@@ -1,0 +1,20 @@
+controllers:
+  Marquee:
+    all:
+      query: all
+      render: marquee.index with:marquee
+    store:
+      validate: name, ads
+      save: marquee
+      redirect: marquee.show
+    show:
+      query: all:marquee
+      render: marquee.show with:marquee
+    update:
+      validate: marquee
+      update: marquee
+      flash: marquee.id
+      redirect: marquee.index
+    destroy:
+      delete: marquee
+      redirect: marquee.index

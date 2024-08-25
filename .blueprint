@@ -1,8 +1,10 @@
 created:
-    - app/Http/Controllers/DevicesController.php
-    - tests/Feature/Http/Controllers/DevicesControllerTest.php
-    - app/Http/Requests/DeviceStoreRequest.php
-    - app/Http/Requests/DeviceUpdateRequest.php
+    - app/Http/Controllers/MarqueeController.php
+    - tests/Feature/Http/Controllers/MarqueeControllerTest.php
+    - app/Http/Requests/MarqueeStoreRequest.php
+    - app/Http/Requests/MarqueeUpdateRequest.php
+    - resources/views/marquee/index.blade.php
+    - resources/views/marquee/show.blade.php
 updated:
     - routes/web.php
 models:

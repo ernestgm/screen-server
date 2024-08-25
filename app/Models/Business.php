@@ -58,4 +58,9 @@ class Business extends Model
     {
         return $this->hasMany(Screen::class, 'business_id', 'id');
     }
+
+    public function marquees(): HasMany
+    {
+        return $this->hasMany(Marquee::class, 'business_id', 'id');
+    }
 }
