@@ -44,8 +44,8 @@ class Screen extends Model
         return $this->belongsTo(Business::class);
     }
 
-    public function images(): HasMany {
-        return $this->hasMany(Image::class, 'screen_id', 'id');
+    public function medias(): HasMany {
+        return $this->hasMany(Media::class, 'screen_id', 'id');
     }
 
     public function devices(): HasMany {

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ImageStoreRequest;
 use App\Http\Requests\ImageUpdateRequest;
-use App\Models\Image;
+use App\Models\Media;
 use App\Models\Price;
 use App\Models\Product;
 use App\Models\Screen;
@@ -16,14 +16,14 @@ use Illuminate\Support\Facades\Validator;
 use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\ImageManager;
 
-class ImageController extends Controller
+class MediaController extends Controller
 {
     public function all(Request $request): JsonResponse
     {
         $screen = $request->input('screen_id');
-        $all = Image::with(['screen'])->get();
+        $all = Media::with(['screen'])->get();
         if ($screen) {
-            $all = Image::with(['products.prices'])->where('screen_id', $screen)->get();
+            $all = Media::with(['products.prices'])->where('screen_id', $screen)->get();
         }
 
         return response()->json([
@@ -38,7 +38,7 @@ class ImageController extends Controller
         $screen = DB::table("screens")->where('code', $code)->get()->first();
         $all = array();
         if ($screen != null) {
-            $all = Image::with(['products.prices'])->where('screen_id', $screen->id)->get();
+            $all = Media::with(['products.prices'])->where('screen_id', $screen->id)->get();
         }
 
         return response()->json([
@@ -52,23 +52,8 @@ class ImageController extends Controller
     {
         $request->validated();
         $inputs = $request->all();
-        $image = Image::create($inputs);
-        if ($image->id) {
-//            $products = json_decode($request->get('products'), true);
-//            foreach ($products as $product) {
-//                $_product = Product::create([
-//                    'name' => $product['name'],
-//                    'description' => $product['description'],
-//                    'image_id' => $image->id,
-//                ]);
-//
-//                if ($_product->id) {
-//                    Price::create([
-//                        'value' => $product['price'],
-//                        'product_id' => $_product->id
-//                    ]);
-//                }
-//            }
+        $media = Media::create($inputs);
+        if ($media->id) {
             $this->updateScreens($request->input('screen_id'));
         }
 
@@ -85,18 +70,18 @@ class ImageController extends Controller
         }
     }
 
-    public function show(Request $request, Image $image): JsonResponse
+    public function show(Request $request, Media $image): JsonResponse
     {
         return response()->json([
             'success' => true,
-            'data' => Image::with(['screen', 'products.prices'])->find($image->id)
+            'data' => Media::with(['screen', 'products.prices'])->find($image->id)
         ]);
     }
 
-    public function update(ImageUpdateRequest $request, Image $image): JsonResponse
+    public function update(ImageUpdateRequest $request, Media $media): JsonResponse
     {
         $input = $request->all();
-        $image->update($input);
+        $media->update($input);
         $this->updateScreens($request->input('screen_id'));
 
         return response()->json(['success' => 'success'], app('SUCCESS_STATUS'));
@@ -115,12 +100,12 @@ class ImageController extends Controller
             return response()->json(['error' => $validator->errors()], app('VALIDATION_STATUS'));
         }
 
-        $images = DB::table('images')->whereIn('id', $ids);
+        $medias = DB::table('medias')->whereIn('id', $ids);
 
-        $images_aux = $images->get();
+        $images_aux = $medias->get();
 
         // delete records
-        $deleted = $images->delete();
+        $deleted = $medias->delete();
 
         $this->updateScreens($images_aux->first()->screen_id);
 

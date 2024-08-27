@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Image extends Model
+class Media extends Model
 {
     use HasFactory;
 
@@ -23,6 +23,8 @@ class Image extends Model
         'image',
         'screen_id',
         'is_static',
+        'is_video',
+        'video_url',
         'duration'
     ];
 

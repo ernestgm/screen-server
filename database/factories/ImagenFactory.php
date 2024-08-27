@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
-use App\Models\Image;
+use App\Models\Media;
 
 class ImagenFactory extends Factory
 {
@@ -13,7 +13,7 @@ class ImagenFactory extends Factory
      *
      * @var string
      */
-    protected $model = Image::class;
+    protected $model = Media::class;
 
     /**
      * Define the model's default state.

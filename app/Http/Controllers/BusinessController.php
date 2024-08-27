@@ -131,23 +131,23 @@ class BusinessController extends Controller
         $imagesCount = 0;
 
         if ($userId === null) {
-            $businesses = Business::with('screens.images.products.prices')->get()->toArray();
+            $businesses = Business::with('screens.medias.products.prices')->get()->toArray();
         } else {
-            $businesses = Business::with('screens.images.products.prices')->where('user_id', $userId)->get()->toArray();
+            $businesses = Business::with('screens.medias.products.prices')->where('user_id', $userId)->get()->toArray();
         }
 
         $bussinesCount = count($businesses);
         foreach ($businesses as $business) {
             $screenCount = $screenCount + count($business['screens']);
             foreach ($business['screens'] as $screen) {
-                $imagesCount = $imagesCount + count($screen['images']);
+                $imagesCount = $imagesCount + count($screen['medias']);
             }
         }
 
         return response()->json([
                 'bussines' => $bussinesCount,
                 'screens' => $screenCount,
-                'images' => $imagesCount,
+                'medias' => $imagesCount,
             ]
         );
     }
@@ -157,7 +157,7 @@ class BusinessController extends Controller
         $field = $request->get('field');
         $attr = $request->get('attr');
 
-        $businesses = Business::with('areas.screens.images.products.prices')->get()->toArray();
+        $businesses = Business::with('areas.screens.medias.products.prices')->get()->toArray();
         $routes = '';
         foreach ($businesses as $index => $business) {
             $route = 'object';

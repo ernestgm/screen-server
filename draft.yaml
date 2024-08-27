@@ -1,6 +1,6 @@
 models:
     Type:
-        id: id foreign:Image.id
+        id: id foreign:Media.id
         name: text
     Imagen:
         id: id foreign:Screen.id
@@ -13,7 +13,7 @@ models:
         name: text
         lastname: text
     Product:
-        id: id foreign:Image.id
+        id: id foreign:Media.id
         name: text
         description: longText
         image: text

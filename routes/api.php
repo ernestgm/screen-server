@@ -3,7 +3,7 @@
 use App\Http\Controllers\AdController;
 use App\Http\Controllers\AreaController;
 use App\Http\Controllers\DevicesController;
-use App\Http\Controllers\ImageController;
+use App\Http\Controllers\MediaController;
 use App\Http\Controllers\MarqueeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RolesController;
@@ -71,14 +71,14 @@ Route::middleware(['auth:sanctum', 'cors'])->group(function () {
             Route::delete('/screens', 'delete');
         });
 
-        // Image CRUD
-        Route::controller(ImageController::class)->group(function () {
-            Route::get('/image/{image}', 'show');
-            Route::get('/images', 'all');
-            Route::get('/images/byScreen', 'allByDeviceCode');
-            Route::post('/image', 'store');
-            Route::post('/image/update/{image}', 'update');
-            Route::delete('/images', 'delete');
+        // Media CRUD
+        Route::controller(MediaController::class)->group(function () {
+            Route::get('/media/{media}', 'show');
+            Route::get('/medias', 'all');
+            Route::get('/media/byScreen', 'allByDeviceCode');
+            Route::post('/media', 'store');
+            Route::post('/media/update/{image}', 'update');
+            Route::delete('/medias', 'delete');
         });
         // Product CRUD
         Route::controller(ProductController::class)->group(function () {

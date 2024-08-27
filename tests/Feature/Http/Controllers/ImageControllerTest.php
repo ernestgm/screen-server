@@ -2,14 +2,14 @@
 
 namespace Tests\Feature\Http\Controllers;
 
-use App\Models\Image;
+use App\Models\Media;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use JMac\Testing\Traits\AdditionalAssertions;
 use Tests\TestCase;
 
 /**
- * @see \App\Http\Controllers\ImageController
+ * @see \App\Http\Controllers\MediaController
  */
 class ImageControllerTest extends TestCase
 {
@@ -20,7 +20,7 @@ class ImageControllerTest extends TestCase
      */
     public function all_responds_with(): void
     {
-        $images = Image::factory()->count(3)->create();
+        $images = Media::factory()->count(3)->create();
 
         $response = $this->get(route('image.all'));
 
@@ -35,7 +35,7 @@ class ImageControllerTest extends TestCase
     public function store_uses_form_request_validation(): void
     {
         $this->assertActionUsesFormRequest(
-            \App\Http\Controllers\ImageController::class,
+            \App\Http\Controllers\MediaController::class,
             'store',
             \App\Http\Requests\ImageStoreRequest::class
         );
@@ -60,8 +60,8 @@ class ImageControllerTest extends TestCase
      */
     public function show_responds_with(): void
     {
-        $image = Image::factory()->create();
-        $images = Image::factory()->count(3)->create();
+        $image = Media::factory()->create();
+        $images = Media::factory()->count(3)->create();
 
         $response = $this->get(route('image.show', $image));
 
@@ -76,7 +76,7 @@ class ImageControllerTest extends TestCase
     public function update_uses_form_request_validation(): void
     {
         $this->assertActionUsesFormRequest(
-            \App\Http\Controllers\ImageController::class,
+            \App\Http\Controllers\MediaController::class,
             'update',
             \App\Http\Requests\ImageUpdateRequest::class
         );
@@ -87,7 +87,7 @@ class ImageControllerTest extends TestCase
      */
     public function update_responds_with(): void
     {
-        $image = Image::factory()->create();
+        $image = Media::factory()->create();
 
         $response = $this->put(route('image.update', $image));
 
@@ -104,7 +104,7 @@ class ImageControllerTest extends TestCase
      */
     public function destroy_deletes_and_responds_with(): void
     {
-        $image = Image::factory()->create();
+        $image = Media::factory()->create();
 
         $response = $this->delete(route('image.destroy', $image));
 
