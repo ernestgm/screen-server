@@ -6,6 +6,7 @@ use App\Http\Requests\UserStoreRequest;
 use App\Http\Requests\UserUpdateRequest;
 use App\Models\Device;
 use App\Models\User;
+use Firebase\JWT\JWT;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -37,7 +38,16 @@ class UserController extends Controller
                 $user->update(['refresh_token' => $refreshToken]);
             }
 
+            $payload = [
+                'sub' => (string)$user->id, // Subject of the token (the user ID)
+                //"permissions" => ["presence:status:appOnline"]
+            ];
+
+            $jwt = JWT::encode($payload, env('WS_SECRET'), 'HS256');
+
             $success['refresh_token'] =  $refreshToken;
+            $success['ws_token'] =  $jwt;
+
             return response()->json(['success' => $success], app('SUCCESS_STATUS'));
         }
         else {
