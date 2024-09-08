@@ -99,8 +99,16 @@ class DevicesController extends Controller
             return response()->json(['error' => $validator->errors()], app('VALIDATION_STATUS'));
         }
 
+        $devices = DB::table('devices')->whereIn('id', $ids)->get();
+
         // delete records
         $deleted = DB::table('devices')->whereIn('id', $ids)->delete();
+
+        if ($deleted > 0) {
+            foreach ($devices as $device) {
+                $this->sendPublishMessage("user_" . $device->code, ["message" => "logout"]);
+            }
+        }
 
         return response()->json([
                 'success' => true,
