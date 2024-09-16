@@ -95,6 +95,7 @@ class DevicesController extends Controller
             'ids' => 'required|array',
             'ids.*' => 'required|integer',
         ]);
+
         if ($validator->fails()) {
             return response()->json(['error' => $validator->errors()], app('VALIDATION_STATUS'));
         }

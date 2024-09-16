@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdController;
 use App\Http\Controllers\AreaController;
 use App\Http\Controllers\DevicesController;
+use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\MarqueeController;
 use App\Http\Controllers\ProductController;
@@ -115,6 +116,12 @@ Route::middleware(['auth:sanctum', 'cors'])->group(function () {
             Route::post('/ad', 'store');
             Route::put('/ad/update/{ad}', 'update');
             Route::delete('/ads', 'delete');
+        });
+        //Upload Files
+        Route::controller(FileUploadController::class)->group(function () {
+            Route::post('/upload', 'uploadFile')->withoutMiddleware('auth:sanctum');
+            Route::get('/getlogfiles', 'listLogFiles')->withoutMiddleware('auth:sanctum');
+            Route::get('/getcontentlogfiles', 'viewContentLogFile')->withoutMiddleware('auth:sanctum');
         });
     });
 });
