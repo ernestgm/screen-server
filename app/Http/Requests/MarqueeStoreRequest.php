@@ -24,6 +24,7 @@ class MarqueeStoreRequest extends FormRequest
         return [
             'name' => ['required', 'string'],
             'business_id' => ['required'],
+            'message' => ['required'],
         ];
     }
 

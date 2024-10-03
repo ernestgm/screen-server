@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\MarqueeStoreRequest;
 use App\Http\Requests\MarqueeUpdateRequest;
+use App\Models\Ad;
 use App\Models\Marquee;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -14,7 +15,7 @@ class MarqueeController extends Controller
 {
     public function all(Request $request): JsonResponse
     {
-        $all = Marquee::with(['business', 'devices'])->get();
+        $all = Marquee::with(['business', 'devices', 'ads'])->get();
         return response()->json([
             'success' => true,
             'data' => $all
@@ -25,7 +26,30 @@ class MarqueeController extends Controller
     {
         $request->validated();
         $inputs = $request->all();
-        Marquee::create($inputs);
+
+        $marqueeInputs = [
+            'bg_color' => $inputs['bg_color'],
+            'business_id' => $inputs['business_id'],
+            'name' => $inputs['name'],
+            'text_color' => $inputs['text_color'],
+        ];
+
+        $marquee = Marquee::create($marqueeInputs);
+
+        if ($marquee->id) {
+            if ($inputs['message'] != "") {
+                $adInput = [
+                    'message' => $inputs['message'],
+                    'marquee_id' => $marquee->id,
+                    'enabled' => 1
+                ];
+
+                Ad::create($adInput);
+
+                return response()->json(['success'=>'success'], app('SUCCESS_STATUS'));
+            }
+        }
+
         return response()->json(['success'=>'success'], app('SUCCESS_STATUS'));
     }
 
@@ -41,8 +65,26 @@ class MarqueeController extends Controller
     {
         $request->validated();
         $input = $request->all();
-        $marquee->update($input);
 
+        if ($input['message'] != "") {
+            $adInput = [
+                'message' => $input['message'],
+            ];
+            $ads = $marquee->ads();
+            if ($ads->exists()) {
+                $ads->update($adInput);
+            } else {
+                $adInput = [
+                    'message' => $input['message'],
+                    'marquee_id' => $marquee->id,
+                    'enabled' => 1
+                ];
+
+                Ad::create($adInput);
+            }
+        }
+
+        $marquee->update($input);
         $marquee = Marquee::with('devices')->find($marquee->id);
         foreach ($marquee->devices as $device) {
             $this->sendPublishMessage("player_marquee_".$device->code, ["message" => "check_marquee_update"]);
