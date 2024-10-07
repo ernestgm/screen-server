@@ -6,6 +6,7 @@ use App\Http\Requests\DeviceStoreRequest;
 use App\Http\Requests\DeviceUpdateRequest;
 use \App\Models\Device;
 use App\Models\Screen;
+use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -24,9 +25,24 @@ class DevicesController extends Controller
 
     public function store(DeviceStoreRequest $request): JsonResponse
     {
-        Device::create($request->validated());
+        $request->validated();
+        $inputs = $request->all();
 
-        return response()->json(['success'=>'success'], app('SUCCESS_STATUS'));
+        if ($this->validateLimitDevice($inputs['user_id'])){
+            Device::create($inputs);
+            return response()->json(['success'=>'success'], app('SUCCESS_STATUS'));
+        }
+
+        return response()->json(['success'=>'limit_device'], app('SUCCESS_STATUS'));
+    }
+
+    private function validateLimitDevice($userId): bool {
+        $user = User::with(['devices','role'])->find($userId);
+        if ($user->limit_devices === 0) {
+            return true;
+        }
+
+        return ($user->limit_devices > count($user->devices));
     }
 
     public function show(Request $request, Device $device): JsonResponse

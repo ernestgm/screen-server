@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Foundation\Auth\User as Authenticated;
@@ -24,7 +25,8 @@ class User extends Authenticated
         'password',
         'role_id',
         'enabled',
-        'refresh_token'
+        'refresh_token',
+        'limit_devices'
     ];
 
     /**
@@ -39,6 +41,11 @@ class User extends Authenticated
     public function business(): BelongsTo
     {
         return $this->belongsTo(Business::class);
+    }
+
+    public function devices(): HasMany
+    {
+        return $this->hasMany(Device::class, 'user_id', 'id');
     }
 
     public function role(): BelongsTo
