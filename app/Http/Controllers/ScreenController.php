@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ScreenStoreRequest;
 use App\Http\Requests\ScreenUpdateRequest;
+use App\Models\Device;
 use App\Models\Screen;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -48,7 +49,7 @@ class ScreenController extends Controller
         $input = $request->all();
         $screen->update($input);
 
-        $devices = Screen::with('devices')->find($screen->id)->get()->first()->devices;
+        $devices = Device::where('screen_id', $screen->id)->get();
         foreach ($devices as $device) {
             $this->sendPublishMessage("home_screen_$device->code", ["message" => "check_screen_update"]);
             $this->sendPublishMessage("player_screen_$device->code", ["message" => "check_screen_update"]);
