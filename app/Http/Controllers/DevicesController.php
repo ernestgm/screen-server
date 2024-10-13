@@ -38,7 +38,7 @@ class DevicesController extends Controller
 
     private function validateLimitDevice($userId): bool {
         $user = User::with(['devices','role'])->find($userId);
-        if ($user->limit_devices === 0) {
+        if ($user->limit_devices == 0 || $user->limit_devices == null || $user->limit_devices == "") {
             return true;
         }
 
