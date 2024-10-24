@@ -17,3 +17,7 @@ use Illuminate\Support\Facades\Artisan;
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->purpose('Display an inspiring quote');
+
+Artisan::command('schedule_update', function () {
+    (new \App\Models\DeviceSchedule())->getScheduleForTime(20, '8:00');
+})->purpose('Display an inspiring quote');

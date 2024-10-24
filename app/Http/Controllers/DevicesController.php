@@ -86,15 +86,17 @@ class DevicesController extends Controller
     public function update(DeviceUpdateRequest $request, Device $device): JsonResponse
     {
         $request->validated();
-        $input = $request->all();
+        $inputs = $request->all();
         $oldDevice = Device::with('marquee.ads')->find($device->id);
 
-        $device->update($input);
+        $inputs['default_screen_id'] = $inputs['screen_id'];
+        $inputs['default_marquee_id'] = $inputs['marquee_id'];
+        $device->update($inputs);
 
-        if ($input['marquee_id'] != $oldDevice->marquee_id) {
+        if ($inputs['marquee_id'] != $oldDevice->marquee_id) {
             $this->sendPublishMessage("player_marquee_$device->code", ["message" => "check_marquee_update"]);
         }
-        if ($input['screen_id'] != $oldDevice->screen_id) {
+        if ($inputs['screen_id'] != $oldDevice->screen_id) {
             $this->sendPublishMessage("home_screen_$device->code", ["message" => "check_screen_update"]);
             $this->sendPublishMessage("player_screen_$device->code", ["message" => "check_screen_update"]);
         }

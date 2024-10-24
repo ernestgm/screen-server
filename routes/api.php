@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdController;
 use App\Http\Controllers\AreaController;
+use App\Http\Controllers\DeviceScheduleController;
 use App\Http\Controllers\DevicesController;
 use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\ImageController;
@@ -10,6 +11,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RolesController;
 use App\Http\Controllers\ScreenController;
 use App\Http\Middleware\VerifyCsrfToken;
+use App\Models\DeviceSchedule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BusinessController;
@@ -119,6 +121,16 @@ Route::middleware(['auth:sanctum', 'cors'])->group(function () {
             Route::put('/ad/update/{ad}', 'update');
             Route::delete('/ads', 'delete');
         });
+
+        //DevicesSchedule CRUD
+        Route::controller(DeviceScheduleController::class)->group(function () {
+            Route::get('/schedule/{deviceSchedule}', 'show');
+            Route::get('/schedules', 'all');
+            Route::post('/schedule', 'store');
+            Route::put('/schedule/update/{deviceSchedule}', 'update');
+            Route::delete('/schedules', 'delete');
+        });
+
         //Upload Files
         Route::controller(FileUploadController::class)->group(function () {
             Route::post('/upload', 'uploadFile')->withoutMiddleware('auth:sanctum');

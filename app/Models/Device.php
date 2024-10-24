@@ -22,6 +22,8 @@ class Device extends Model
         'user_id',
         'screen_id',
         'marquee_id',
+        'default_screen_id',
+        'default_marquee_id',
     ];
 
     /**
@@ -46,5 +48,15 @@ class Device extends Model
     public function marquee(): BelongsTo
     {
         return $this->belongsTo(Marquee::class);
+    }
+
+    public function defaultScreen(): BelongsTo
+    {
+        return $this->belongsTo(Screen::class, 'default_screen_id');
+    }
+
+    public function defaultMarquee(): BelongsTo
+    {
+        return $this->belongsTo(Marquee::class, 'default_marquee_id');
     }
 }
