@@ -79,12 +79,18 @@ class UserController extends Controller
     public function activateDevice(Request $request): JsonResponse
     {
         $code = $request->input('code');
+        $userId = $request->get('user_id');
         // Lookup the code in the database
         $device = LoginCode::where('code', $code)->first();
 
         if ($device) {
-            $user = Auth::user();
-            $device->user_id = $user->id;
+            if ($userId) {
+                $device->user_id = $userId;
+            } else {
+                $user = Auth::user();
+                $device->user_id = $user->id;
+            }
+
             $device->save();
             $this->sendPublishMessage("link_device_" . $device->device_id, ["message" => "login_by_code"]);
 
