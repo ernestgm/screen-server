@@ -23,9 +23,10 @@ class DevicesScheduleStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'name' => ['required'],
             'device_id' => ['required'],
-            'screen_id' => [Rule::requiredIf($this->input('schedule_type') === 'screen')],
-            'marquee_id' => [Rule::requiredIf($this->input('schedule_type') === 'marquee')],
+            'screen_id' => [Rule::requiredIf(($this->input('schedule_type') === 'screen' || $this->input('schedule_type') === 'all'))],
+            'marquee_id' => [Rule::requiredIf(($this->input('schedule_type') === 'marquee' || $this->input('schedule_type') === 'all'))],
             'start_time' => ['required'],
             'end_time' => ['required'],
             'schedule_type' => ['required'],

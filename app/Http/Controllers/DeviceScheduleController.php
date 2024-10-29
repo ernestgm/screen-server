@@ -44,6 +44,7 @@ class DeviceScheduleController extends Controller
         $inputs = $request->all();
         try {
             (new DeviceSchedule)->createSchedule(
+                $inputs['name'],
                 $inputs['device_id'],
                 $inputs['start_time'],
                 $inputs['end_time'],
@@ -72,6 +73,7 @@ class DeviceScheduleController extends Controller
         try {
             (new DeviceSchedule)->updateSchedule(
                 $deviceSchedule,
+                $inputs['name'],
                 $inputs['device_id'],
                 $inputs['start_time'],
                 $inputs['end_time'],

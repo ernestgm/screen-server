@@ -15,6 +15,7 @@ class DeviceSchedule extends Model
     use HasFactory;
 
     protected $fillable = [
+        'name',
         'device_id',
         'screen_id',
         'marquee_id',
@@ -41,7 +42,7 @@ class DeviceSchedule extends Model
     /**
      * @throws \Exception
      */
-    public function createSchedule($deviceId, $startTime, $endTime, $type, $screenId = null, $marqueeId = null)
+    public function createSchedule($name, $deviceId, $startTime, $endTime, $type, $screenId = null, $marqueeId = null)
     {
         $start = Carbon::parse($startTime);
         $end = Carbon::parse($endTime);
@@ -49,6 +50,7 @@ class DeviceSchedule extends Model
         $this->verifyOverlapTime($deviceId, $type, $start, $end);
 
         return DeviceSchedule::create([
+            'name' => $name,
             'device_id' => $deviceId,
             'start_time' => $start,
             'end_time' => $end,
@@ -61,7 +63,7 @@ class DeviceSchedule extends Model
     /**
      * @throws \Exception
      */
-    public function updateSchedule(DeviceSchedule $deviceSchedule, $deviceId , $startTime, $endTime, $type, $screenId = null, $marqueeId = null): bool
+    public function updateSchedule(DeviceSchedule $deviceSchedule, $name, $deviceId , $startTime, $endTime, $type, $screenId = null, $marqueeId = null): bool
     {
         $start = Carbon::parse($startTime);
         $end = Carbon::parse($endTime);
@@ -70,6 +72,7 @@ class DeviceSchedule extends Model
 
         // Crear el registro en la base de datos
         return $deviceSchedule->update([
+            'name' => $name,
             'device_id' => $deviceId,
             'start_time' => $start,
             'end_time' => $end,
@@ -98,14 +101,13 @@ class DeviceSchedule extends Model
                 })
                 ->exists();
         } else {
-            $overlap = DeviceSchedule::where('device_id', $deviceId)->where('schedule_type', $type)
+            $overlap = DeviceSchedule::where('device_id', $deviceId)
+                ->where('schedule_type', $type)
                 ->where(function ($query) use ($start, $end) {
-                    $query->whereBetween('start_time', [$start, $end])
-                        ->orWhereBetween('end_time', [$start, $end])
-                        ->orWhere(function ($query) use ($start, $end) {
-                            $query->where('start_time', '<=', $start)
-                                ->where('end_time', '>=', $end);
-                        });
+                    $query->where(function ($query) use ($start, $end) {
+                        $query->where('start_time', '<', $end)
+                            ->where('end_time', '>', $start);
+                    });
                 })
                 ->exists();
         }
@@ -115,44 +117,68 @@ class DeviceSchedule extends Model
         }
     }
 
-    public function getScheduleForTime($deviceId, $time) : void
+    public function getUpdateScheduleForTime($deviceId, $time) : void
     {
         $controller = new Controller();
-        $time = Carbon::parse($time);
+        //$time = Carbon::parse($time)->toTimeString();
+        $updateScreens = false;
 
         // Buscar un schedule activo para el tiempo dado
-        $schedule = DeviceSchedule::with(['screen', 'marquee'])->where('device_id', $deviceId)
+        $scheduleScreen = DeviceSchedule::with(['screen'])
+            ->where('device_id', $deviceId)
+            ->where('schedule_type', 'screen')
             ->where('start_time', '<=', $time)
             ->where('end_time', '>', $time)
             ->first();
 
+        $scheduleMarquee = DeviceSchedule::with(['marquee'])
+            ->where('device_id', $deviceId)
+            ->where('schedule_type', 'marquee')
+            ->where('start_time', '<=', $time)
+            ->where('end_time', '>', $time)
+            ->first();
+
+
+
         $device = Device::with(['defaultScreen', 'defaultMarquee'])->find($deviceId);
 
-        (new Command())->info($device->toJson(JSON_PRETTY_PRINT));
+        if (!$scheduleScreen) {
+            if ($device->defaultScreen != null && $device->defaultScreen->id != $device->screen_id) {
+                $device->update(['screen_id' => $device->defaultScreen->id]);
+                $controller->sendPublishMessage("home_screen_$device->code", ["message" => "check_screen_update"]);
+                $controller->sendPublishMessage("player_screen_$device->code", ["message" => "check_screen_update"]);
+                $updateScreens = true;
+            }
+        } else {
+            if ($scheduleScreen->screen != null && $scheduleScreen->screen->id != $device->screen_id) {
+                //(new Command())->info($device->toJson(JSON_PRETTY_PRINT));
+                $device->update(['screen_id' => $scheduleScreen->screen->id]);
+                $controller->sendPublishMessage("home_screen_$device->code", ["message" => "check_screen_update"]);
+                $controller->sendPublishMessage("player_screen_$device->code", ["message" => "check_screen_update"]);
+                $updateScreens = true;
+            }
+        }
 
-//        if (!$schedule) {
-//            if ($device->defaultScreen != null && $device->defaultScreen->id != $device->screen_id) {
-//                $device->update(['screen_id' => $device->defaultScreen->id]);
-//                $controller->sendPublishMessage("home_screen_$device->code", ["message" => "check_screen_update"]);
-//                $controller->sendPublishMessage("player_screen_$device->code", ["message" => "check_screen_update"]);
-//            }
-//
-//            if ($device->defaultMarquee != null && $device->defaultMarquee->id != $device->marquee_id) {
-//                $device->update(['marquee_id' => $device->defaultMarquee->id]);
-//                $controller->sendPublishMessage("player_marquee_$device->code", ["message" => "check_marquee_update"]);
-//            }
-//        } else {
-//            if ($schedule->screen != null && $schedule->screen->id != $device->screen_id) {
-//                $device->update(['screen_id' => $schedule->screen->id]);
-//                $controller->sendPublishMessage("home_screen_$device->code", ["message" => "check_screen_update"]);
-//                $controller->sendPublishMessage("player_screen_$device->code", ["message" => "check_screen_update"]);
-//            }
-//
-//            if ($schedule->marquee != null && $device->marquee->id != $device->marquee_id) {
-//                $device->update(['marquee_id' => $device->marquee->id]);
-//                $controller->sendPublishMessage("player_marquee_$device->code", ["message" => "check_marquee_update"]);
-//            }
-//        }
+        if (!$scheduleMarquee) {
+            if ($device->defaultMarquee != null && $device->defaultMarquee->id != $device->marquee_id) {
+                $device->update(['marquee_id' => $device->defaultMarquee->id]);
+                if (!$updateScreens) {
+                    $controller->sendPublishMessage("player_marquee_$device->code", ["message" => "check_marquee_update"]);
+                }
+            } elseif($device->defaultMarquee == null) {
+                $device->update(['marquee_id' => null]);
+                if (!$updateScreens) {
+                    $controller->sendPublishMessage("player_marquee_$device->code", ["message" => "check_marquee_update"]);
+                }
+            }
+        } else {
+            if ($scheduleMarquee->marquee != null && $scheduleMarquee->marquee->id != $device->marquee_id) {
+                $device->update(['marquee_id' => $scheduleMarquee->marquee->id]);
+                if (!$updateScreens) {
+                    $controller->sendPublishMessage("player_marquee_$device->code", ["message" => "check_marquee_update"]);
+                }
+            }
+        }
     }
 }
 
