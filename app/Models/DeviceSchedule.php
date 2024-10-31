@@ -22,6 +22,7 @@ class DeviceSchedule extends Model
         'start_time',
         'end_time',
         'schedule_type',
+        'enabled'
     ];
 
     public function device(): BelongsTo
@@ -42,7 +43,7 @@ class DeviceSchedule extends Model
     /**
      * @throws \Exception
      */
-    public function createSchedule($name, $deviceId, $startTime, $endTime, $type, $screenId = null, $marqueeId = null)
+    public function createSchedule($name, $deviceId, $startTime, $endTime, $type, $screenId = null, $marqueeId = null, $enabled)
     {
         $start = Carbon::parse($startTime);
         $end = Carbon::parse($endTime);
@@ -57,13 +58,14 @@ class DeviceSchedule extends Model
             'schedule_type' => $type,
             'screen_id' => $type === 'screen' ? $screenId : null,
             'marquee_id' => $type === 'marquee' ? $marqueeId : null,
+            'enabled' => $enabled,
         ]);
     }
 
     /**
      * @throws \Exception
      */
-    public function updateSchedule(DeviceSchedule $deviceSchedule, $name, $deviceId , $startTime, $endTime, $type, $screenId = null, $marqueeId = null): bool
+    public function updateSchedule(DeviceSchedule $deviceSchedule, $name, $deviceId, $startTime, $endTime, $type, $screenId = null, $marqueeId = null, $enabled): bool
     {
         $start = Carbon::parse($startTime);
         $end = Carbon::parse($endTime);
@@ -79,6 +81,7 @@ class DeviceSchedule extends Model
             'schedule_type' => $type,
             'screen_id' => $type === 'screen' ? $screenId : null,
             'marquee_id' => $type === 'marquee' ? $marqueeId : null,
+            'enabled' => $enabled,
         ]);
     }
 
@@ -90,6 +93,7 @@ class DeviceSchedule extends Model
         if ($deviceSchedule) {
             $overlap = DeviceSchedule::where('device_id', $deviceId)
                 ->where('id', '!=', $deviceSchedule->id)
+                ->where('enabled', 1)
                 ->where('schedule_type', $type)
                 ->where(function ($query) use ($start, $end) {
                     $query->whereBetween('start_time', [$start, $end])
@@ -103,6 +107,7 @@ class DeviceSchedule extends Model
         } else {
             $overlap = DeviceSchedule::where('device_id', $deviceId)
                 ->where('schedule_type', $type)
+                ->where('enabled', 1)
                 ->where(function ($query) use ($start, $end) {
                     $query->where(function ($query) use ($start, $end) {
                         $query->where('start_time', '<', $end)

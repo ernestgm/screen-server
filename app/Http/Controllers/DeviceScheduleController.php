@@ -51,6 +51,7 @@ class DeviceScheduleController extends Controller
                 $inputs['schedule_type'],
                 $inputs['screen_id'],
                 $inputs['marquee_id'],
+                $inputs['enabled'],
             );
         } catch (\Exception $exception) {
             return response()->json(['error' => $exception->getMessage()]);
@@ -79,7 +80,8 @@ class DeviceScheduleController extends Controller
                 $inputs['end_time'],
                 $inputs['schedule_type'],
                 $inputs['screen_id'],
-                $inputs['marquee_id']
+                $inputs['marquee_id'],
+                $inputs['enabled'],
             );
         } catch (\Exception $exception) {
             return response()->json(['error' => $exception->getMessage()]);
