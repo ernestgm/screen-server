@@ -49,7 +49,16 @@ class DevicesController extends Controller
     {
         return response()->json([
             'success' => true,
-            'data' => Device::with(['screen'])->find($device->id)
+            'data' => Device::with(
+                [
+                    'screen.images',
+                    'marquee.ads',
+                    'defaultScreen.images',
+                    'defaultMarquee.ads',
+                    'schedules.screen.images',
+                    'schedules.marquee.ads',
+                ]
+            )->find($device->id)
         ]);
     }
 

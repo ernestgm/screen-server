@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Device extends Model
 {
@@ -58,5 +59,10 @@ class Device extends Model
     public function defaultMarquee(): BelongsTo
     {
         return $this->belongsTo(Marquee::class, 'default_marquee_id');
+    }
+
+    public function schedules(): HasMany
+    {
+        return $this->hasMany(DeviceSchedule::class, 'device_id', 'id');
     }
 }

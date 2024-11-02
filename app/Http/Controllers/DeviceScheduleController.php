@@ -54,7 +54,7 @@ class DeviceScheduleController extends Controller
                 $inputs['enabled'],
             );
         } catch (\Exception $exception) {
-            return response()->json(['error' => $exception->getMessage()]);
+            return response()->json(['statusText' => $exception->getMessage()], app('VALIDATION_STATUS'));
         }
 
         return response()->json(['success' => 'success'], app('SUCCESS_STATUS'));
