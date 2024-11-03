@@ -9,6 +9,8 @@ use App\Http\Requests\DevicesScheduleStoreRequest;
 use App\Models\Ad;
 use App\Models\DeviceSchedule;
 use App\Models\Marquee;
+use App\Services\DeviceScheduleService;
+use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -43,7 +45,7 @@ class DeviceScheduleController extends Controller
     {
         $inputs = $request->all();
         try {
-            (new DeviceSchedule)->createSchedule(
+            $schedule = (new DeviceSchedule)->createSchedule(
                 $inputs['name'],
                 $inputs['device_id'],
                 $inputs['start_time'],
@@ -53,6 +55,9 @@ class DeviceScheduleController extends Controller
                 $inputs['marquee_id'],
                 $inputs['enabled'],
             );
+            if ($schedule) {
+                (new DeviceScheduleService())->getUpdateScheduleForTime($inputs['device_id'], Carbon::now()->toTimeString());
+            }
         } catch (\Exception $exception) {
             return response()->json(['statusText' => $exception->getMessage()], app('VALIDATION_STATUS'));
         }
@@ -72,7 +77,7 @@ class DeviceScheduleController extends Controller
     {
         $inputs = $request->all();
         try {
-            (new DeviceSchedule)->updateSchedule(
+            $updated = (new DeviceSchedule)->updateSchedule(
                 $deviceSchedule,
                 $inputs['name'],
                 $inputs['device_id'],
@@ -83,6 +88,9 @@ class DeviceScheduleController extends Controller
                 $inputs['marquee_id'],
                 $inputs['enabled'],
             );
+            if ($updated) {
+                (new DeviceScheduleService())->getUpdateScheduleForTime($inputs['device_id'], Carbon::now()->toTimeString());
+            }
         } catch (\Exception $exception) {
             return response()->json(['error' => $exception->getMessage()]);
         }
@@ -103,9 +111,19 @@ class DeviceScheduleController extends Controller
             return response()->json(['error' => $validator->errors()], app('VALIDATION_STATUS'));
         }
 
-        $deviceSchedules = DB::table('device_schedules')->whereIn('id', $ids);
+
+        $deviceSchedules = DB::table('device_schedules')->whereIn('id', $ids)->get();
+        $deviceIds = [];
+        foreach ($deviceSchedules as $deviceSchedule) {
+            $deviceIds[$deviceSchedule->device_id] = $deviceSchedule->device_id;
+        }
         // delete records
-        $deleted = $deviceSchedules->delete();
+        $deleted = DB::table('device_schedules')->whereIn('id', $ids)->delete();
+        if ($deleted > 0) {
+            foreach ($deviceIds as $deviceId) {
+                (new DeviceScheduleService())->getUpdateScheduleForTime($deviceId, Carbon::now()->toTimeString());
+            }
+        }
 
 
         return response()->json([

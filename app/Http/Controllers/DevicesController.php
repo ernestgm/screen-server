@@ -7,6 +7,8 @@ use App\Http\Requests\DeviceUpdateRequest;
 use \App\Models\Device;
 use App\Models\Screen;
 use App\Models\User;
+use App\Services\DeviceScheduleService;
+use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -102,14 +104,15 @@ class DevicesController extends Controller
         $inputs['default_marquee_id'] = $inputs['marquee_id'];
         $device->update($inputs);
 
-        if ($inputs['marquee_id'] != $oldDevice->marquee_id) {
-            $this->sendPublishMessage("player_marquee_$device->code", ["message" => "check_marquee_update"]);
-        }
-        if ($inputs['screen_id'] != $oldDevice->screen_id) {
-            $this->sendPublishMessage("home_screen_$device->code", ["message" => "check_screen_update"]);
-            $this->sendPublishMessage("player_screen_$device->code", ["message" => "check_screen_update"]);
-        }
+//        if ($inputs['marquee_id'] != $oldDevice->marquee_id) {
+//            $this->sendPublishMessage("player_marquee_$device->code", ["message" => "check_marquee_update"]);
+//        }
+//        if ($inputs['screen_id'] != $oldDevice->screen_id) {
+//            $this->sendPublishMessage("home_screen_$device->code", ["message" => "check_screen_update"]);
+//            $this->sendPublishMessage("player_screen_$device->code", ["message" => "check_screen_update"]);
+//        }
 
+        (new DeviceScheduleService())->getUpdateScheduleForTime($device->id, Carbon::now()->toTimeString());
         return response()->json(['success'=>'success'], app('SUCCESS_STATUS'));
     }
 

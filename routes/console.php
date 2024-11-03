@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\DeviceSchedule;
+use App\Services\DeviceScheduleService;
 use Carbon\Carbon;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
@@ -21,8 +22,5 @@ Artisan::command('inspire', function () {
 })->purpose('Display an inspiring quote');
 
 Artisan::command('schedule_update', function () {
-    $time = Carbon::now()->toTimeString();
-    //$this->comment($time);
-    (new DeviceSchedule())->getUpdateScheduleForTime(1, $time);
-    //(new DeviceSchedule())->getUpdateScheduleForTime(1, "12:00:00");
+    (new DeviceScheduleService())->updateDevicesBySchedule();
 })->purpose('Update Schedule');
