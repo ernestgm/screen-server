@@ -25,12 +25,12 @@ class DeviceScheduleController extends Controller
         $deviceId = $request->input('device_id');
         $scheduleType = $request->input('schedule_type');
         if ($deviceId && $scheduleType) {
-            $all = DeviceSchedule::with(['device', 'marquee', 'screen'])
+            $all = DeviceSchedule::with(['device.user', 'marquee', 'screen'])
                 ->where('device_id', $deviceId)
                 ->where('schedule_type', $scheduleType)
                 ->get();
         } else {
-            $all = DeviceSchedule::with(['device', 'marquee', 'screen'])->get();
+            $all = DeviceSchedule::with(['device.user', 'marquee', 'screen'])->get();
         }
 
         return response()->json([
@@ -69,7 +69,7 @@ class DeviceScheduleController extends Controller
     {
         return response()->json([
             'success' => true,
-            'data' => DeviceSchedule::with(['device', 'marquee', 'screen'])->find($deviceSchedule->id)
+            'data' => DeviceSchedule::with(['device.user', 'marquee', 'screen'])->find($deviceSchedule->id)
         ]);
     }
 
