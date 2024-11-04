@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\CentrifugueService;
 use Exception;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -15,12 +16,6 @@ class Controller extends BaseController
 
     public function sendPublishMessage($channel, $data): void
     {
-        try {
-            $client = new Client(env('URL_BASE_OF_WS'));
-            $client->setApiKey(env('WS_API_KEY'));
-            $client->publish($channel, $data);
-        } catch (Exception $e) {
-            Log::error("Centrifugue: ".$e->getMessage());
-        }
+        (new CentrifugueService())->sendPublishMessage($channel, $data);
     }
 }

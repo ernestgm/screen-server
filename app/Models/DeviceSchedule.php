@@ -48,7 +48,9 @@ class DeviceSchedule extends Model
         $start = Carbon::parse($startTime);
         $end = Carbon::parse($endTime);
 
-        $this->verifyOverlapTime($deviceId, $type, $start, $end);
+        if ($enabled == 1) {
+            $this->verifyOverlapTime($deviceId, $type, $start, $end);
+        }
 
         return DeviceSchedule::create([
             'name' => $name,
@@ -70,7 +72,9 @@ class DeviceSchedule extends Model
         $start = Carbon::parse($startTime);
         $end = Carbon::parse($endTime);
 
-        $this->verifyOverlapTime($deviceId, $type, $start, $end, $deviceSchedule);
+        if ($enabled == 1) {
+            $this->verifyOverlapTime($deviceId, $type, $start, $end, $deviceSchedule);
+        }
 
         // Crear el registro en la base de datos
         return $deviceSchedule->update([

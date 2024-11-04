@@ -9,6 +9,13 @@ use Carbon\Carbon;
 
 class DeviceScheduleService
 {
+    private CentrifugueService $centrifugueService;
+
+    public function __construct()
+    {
+        $this->centrifugueService = new CentrifugueService();
+    }
+
     public function updateDevicesBySchedule(): void
     {
         $devices = Device::all();
@@ -41,8 +48,21 @@ class DeviceScheduleService
             ->where('end_time', '>', $time)
             ->first();
 
+        $scheduleAll = DeviceSchedule::with(['marquee'])
+            ->where('device_id', $deviceId)
+            ->where('schedule_type', 'all')
+            ->where('start_time', '<=', $time)
+            ->where('end_time', '>', $time)
+            ->first();
+
 
         $device = Device::with(['defaultScreen', 'defaultMarquee'])->find($deviceId);
+
+        if ($scheduleAll) {
+            $updateScreens = $this->updateScheduleScreen($device, $scheduleAll);
+            $this->updateScheduleMarquee($device, $scheduleAll, $updateScreens);
+            return;
+        }
 
         if (!$scheduleScreen) {
             if ($device->defaultScreen != null && $device->defaultScreen->id != $device->screen_id) {
@@ -52,13 +72,7 @@ class DeviceScheduleService
                 $updateScreens = true;
             }
         } else {
-            if ($scheduleScreen->screen != null && $scheduleScreen->screen->id != $device->screen_id) {
-                //(new Command())->info($device->toJson(JSON_PRETTY_PRINT));
-                $device->update(['screen_id' => $scheduleScreen->screen->id]);
-                $controller->sendPublishMessage("home_screen_$device->code", ["message" => "check_screen_update"]);
-                $controller->sendPublishMessage("player_screen_$device->code", ["message" => "check_screen_update"]);
-                $updateScreens = true;
-            }
+            $updateScreens = $this->updateScheduleScreen($device, $scheduleScreen);
         }
 
         if (!$scheduleMarquee) {
@@ -74,11 +88,28 @@ class DeviceScheduleService
                 }
             }
         } else {
-            if ($scheduleMarquee->marquee != null && $scheduleMarquee->marquee->id != $device->marquee_id) {
-                $device->update(['marquee_id' => $scheduleMarquee->marquee->id]);
-                if (!$updateScreens) {
-                    $controller->sendPublishMessage("player_marquee_$device->code", ["message" => "check_marquee_update"]);
-                }
+            $this->updateScheduleMarquee($device, $scheduleMarquee, $updateScreens);
+        }
+    }
+
+    private function updateScheduleScreen($device, $schedule): bool
+    {
+        if ($schedule->screen != null && $schedule->screen->id != $device->screen_id) {
+            $device->update(['screen_id' => $schedule->screen->id]);
+            $this->centrifugueService->sendPublishMessage("home_screen_$device->code", ["message" => "check_screen_update"]);
+            $this->centrifugueService->sendPublishMessage("player_screen_$device->code", ["message" => "check_screen_update"]);
+            return true;
+        }
+
+        return false;
+    }
+
+    private function updateScheduleMarquee($device, $schedule, $publish): void
+    {
+        if ($schedule->marquee != null && $schedule->marquee->id != $device->marquee_id) {
+            $device->update(['marquee_id' => $schedule->marquee->id]);
+            if (!$publish) {
+                $this->centrifugueService->sendPublishMessage("player_marquee_$device->code", ["message" => "check_marquee_update"]);
             }
         }
     }

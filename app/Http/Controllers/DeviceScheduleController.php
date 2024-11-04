@@ -55,7 +55,7 @@ class DeviceScheduleController extends Controller
                 $inputs['marquee_id'],
                 $inputs['enabled'],
             );
-            if ($schedule) {
+            if ($schedule && $inputs['enabled'] == 1) {
                 (new DeviceScheduleService())->getUpdateScheduleForTime($inputs['device_id'], Carbon::now()->toTimeString());
             }
         } catch (\Exception $exception) {
@@ -92,7 +92,7 @@ class DeviceScheduleController extends Controller
                 (new DeviceScheduleService())->getUpdateScheduleForTime($inputs['device_id'], Carbon::now()->toTimeString());
             }
         } catch (\Exception $exception) {
-            return response()->json(['error' => $exception->getMessage()]);
+            return response()->json(['statusText' => $exception->getMessage()], app('VALIDATION_STATUS'));
         }
 
         return response()->json(['success' => 'success'], app('SUCCESS_STATUS'));
