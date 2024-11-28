@@ -52,25 +52,23 @@ class ImageController extends Controller
     {
         $request->validated();
         $inputs = $request->all();
-        $image = Image::create($inputs);
-        if ($image->id) {
-//            $products = json_decode($request->get('products'), true);
-//            foreach ($products as $product) {
-//                $_product = Product::create([
-//                    'name' => $product['name'],
-//                    'description' => $product['description'],
-//                    'image_id' => $image->id,
-//                ]);
-//
-//                if ($_product->id) {
-//                    Price::create([
-//                        'value' => $product['price'],
-//                        'product_id' => $_product->id
-//                    ]);
-//                }
-//            }
-            $this->updateScreens($request->input('screen_id'));
+
+        $screen_id = $inputs['screen_id'];
+        $duration = $inputs['duration'];
+        $images = $inputs['images'];
+        foreach ($images as $image) {
+            $data = [
+                'name' => $image['name'],
+                'description' => '',
+                'image' => $image['data'],
+                'screen_id' => $screen_id,
+                'is_static' => 1,
+                'duration' => $duration,
+            ];
+            Image::create($data);
         }
+
+        $this->updateScreens($screen_id);
 
         return response()->json(['success' => 'success'], app('SUCCESS_STATUS'));
     }

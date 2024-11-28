@@ -23,9 +23,6 @@ class ImageUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required'],
-            'image' => 'required|string',
-            'is_static' => ['integer'],
             'duration' => ['integer'],
         ];
     }

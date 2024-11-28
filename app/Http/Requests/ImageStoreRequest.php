@@ -22,10 +22,7 @@ class ImageStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required'],
             'screen_id' => ['required'],
-            'image' => 'required|string',
-            'is_static' => ['integer'],
             'duration' => ['integer'],
         ];
     }
