@@ -7,6 +7,7 @@ use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\MarqueeController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\QrController;
 use App\Http\Controllers\RolesController;
 use App\Http\Controllers\ScreenController;
 use App\Http\Middleware\VerifyCsrfToken;
@@ -111,6 +112,7 @@ Route::middleware(['auth:sanctum', 'cors'])->group(function () {
             Route::put('/marquee/update/{marquee}', 'update');
             Route::delete('/marquees', 'delete');
         });
+
         // Ad CRUD
         Route::controller(AdController::class)->group(function () {
             Route::get('/ad/{ad}', 'show');
@@ -119,6 +121,16 @@ Route::middleware(['auth:sanctum', 'cors'])->group(function () {
             Route::put('/ad/update/{ad}', 'update');
             Route::delete('/ads', 'delete');
         });
+
+        // Qr CRUD
+        Route::controller(QrController::class)->group(function () {
+            Route::get('/qr/{qr}', 'show');
+            Route::get('/qrs', 'all');
+            Route::post('/qr', 'store');
+            Route::put('/qr/update/{qr}', 'update');
+            Route::delete('/qrs', 'delete');
+        });
+
         //Upload Files
         Route::controller(FileUploadController::class)->group(function () {
             Route::post('/upload', 'uploadFile')->withoutMiddleware('auth:sanctum');

@@ -2,13 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Image extends Model
+class Qr extends Model
 {
     use HasFactory;
 
@@ -19,12 +18,9 @@ class Image extends Model
      */
     protected $fillable = [
         'name',
-        'description',
-        'qr_info',
-        'image',
-        'screen_id',
-        'is_static',
-        'duration'
+        'message',
+        'info',
+        'business_id',
     ];
 
     /**
@@ -36,16 +32,13 @@ class Image extends Model
         'id' => 'integer',
     ];
 
-    public function screen(): BelongsTo
+    public function devices(): HasMany
     {
-        return $this->belongsTo(Screen::class);
+        return $this->hasMany(Device::class, 'qr_id', 'id');
     }
 
-    /**
-     * @return bool
-     */
-    public function products(): HasMany
+    public function business(): BelongsTo
     {
-        return $this->hasMany(Product::class, 'image_id', 'id');
+        return $this->belongsTo(Business::class);
     }
 }

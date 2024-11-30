@@ -32,3 +32,7 @@ Route::resource('ad', App\Http\Controllers\AdController::class)->except('index',
 
 Route::get('marquee/all', [App\Http\Controllers\MarqueeController::class, 'all']);
 Route::resource('marquee', App\Http\Controllers\MarqueeController::class)->except('index', 'create', 'edit');
+
+
+Route::get('qrs/all', [App\Http\Controllers\QrController::class, 'all']);
+Route::resource('qrs', App\Http\Controllers\QrController::class)->except('index', 'create', 'edit');

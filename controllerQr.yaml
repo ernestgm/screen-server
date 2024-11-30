@@ -1,0 +1,20 @@
+controllers:
+  Qr:
+    all:
+      query: all
+      render: qr.index with:qr
+    store:
+      validate: name, info
+      save: qr
+      redirect: qr.show
+    show:
+      query: all:qr
+      render: qr.show with:qr
+    update:
+      validate: qr
+      update: qr
+      flash: qr.id
+      redirect: qr.index
+    destroy:
+      delete: qr
+      redirect: qr.index
