@@ -20,6 +20,7 @@ class Image extends Model
     protected $fillable = [
         'name',
         'description',
+        'description_position',
         'qr_info',
         'image',
         'screen_id',

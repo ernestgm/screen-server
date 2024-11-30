@@ -60,6 +60,7 @@ class ImageController extends Controller
             $data = [
                 'name' => $image['name'],
                 'description' => '',
+                'description_position' => 'bc',
                 'qr_info' => '',
                 'image' => $image['data'],
                 'screen_id' => $screen_id,
