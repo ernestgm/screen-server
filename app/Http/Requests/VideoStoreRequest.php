@@ -6,7 +6,7 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class ImageStoreRequest extends FormRequest
+class VideoStoreRequest extends ImageStoreRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,8 +23,7 @@ class ImageStoreRequest extends FormRequest
     {
         return [
             'screen_id' => ['required'],
-            'duration' => ['integer'],
-            'images' => ['integer'],
+            'video' => 'required|file|mimes:mp4|max:204800', // Max size 200MB
         ];
     }
 
@@ -32,9 +31,9 @@ class ImageStoreRequest extends FormRequest
 
     {
         throw new HttpResponseException(response()->json([
-            'success'   => false,
-            'message'   => 'Validation errors',
-            'data'      => $validator->errors()
+            'success' => false,
+            'message' => 'Validation errors',
+            'data' => $validator->errors()
         ]));
     }
 }

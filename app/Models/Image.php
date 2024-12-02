@@ -23,6 +23,7 @@ class Image extends Model
         'description_position',
         'qr_info',
         'image',
+        'video',
         'screen_id',
         'is_static',
         'duration'

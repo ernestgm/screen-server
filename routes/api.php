@@ -10,6 +10,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\QrController;
 use App\Http\Controllers\RolesController;
 use App\Http\Controllers\ScreenController;
+use App\Http\Controllers\VideoController;
 use App\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -84,6 +85,16 @@ Route::middleware(['auth:sanctum', 'cors'])->group(function () {
             Route::post('/image/update/{image}', 'update');
             Route::delete('/images', 'delete');
         });
+
+        // Video CRUD
+        Route::controller(VideoController::class)->group(function () {
+            Route::get('/video/{video}', 'showVideo');
+            Route::get('/videos', 'all');
+            Route::post('/video', 'storeVideo');
+            Route::post('/video/update/{video}', 'updateVideo');
+            Route::delete('/videos', 'delete');
+        });
+
         // Product CRUD
         Route::controller(ProductController::class)->group(function () {
             Route::get('/product/{product}', 'show');
