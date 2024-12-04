@@ -19,7 +19,7 @@ class DevicesController extends Controller
     {
         return response()->json([
             'success' => true,
-            'data' => Device::with(['screen', 'marquee'])->get()
+            'data' => Device::with(['screen', 'marquee', 'qr'])->get()
         ]);
     }
 
@@ -83,6 +83,16 @@ class DevicesController extends Controller
         ]);
     }
 
+    public function qrByCode(Request $request): JsonResponse
+    {
+        $device = Device::with('qr')->where('code', $request->query('code'))->get()->first();
+
+        return response()->json([
+            'success' => $device->qr != null,
+            'qr' => $device->qr
+        ]);
+    }
+
     public function update(DeviceUpdateRequest $request, Device $device): JsonResponse
     {
         $request->validated();
@@ -97,6 +107,10 @@ class DevicesController extends Controller
         if ($input['screen_id'] != $oldDevice->screen_id) {
             $this->sendPublishMessage("home_screen_$device->code", ["message" => "check_screen_update"]);
             $this->sendPublishMessage("player_screen_$device->code", ["message" => "check_screen_update"]);
+        }
+
+        if ($input['qr_id'] != $oldDevice->qr_id) {
+            $this->sendPublishMessage("player_qr_$device->code", ["message" => "check_qr_update"]);
         }
 
         return response()->json(['success'=>'success'], app('SUCCESS_STATUS'));

@@ -112,9 +112,11 @@ Route::middleware(['auth:sanctum', 'cors'])->group(function () {
             Route::post('/device', 'store');
             Route::put('/device/update/{device}', 'update');
             Route::delete('/devices', 'delete');
+            Route::get('/devices/getQr', 'qrByCode');
             Route::get('/devices/getScreen', 'screenByCode');
             Route::get('/devices/getMarquee', 'marqueeByCode');
         });
+
         // Marquee CRUD
         Route::controller(MarqueeController::class)->group(function () {
             Route::get('/marquee/{marquee}', 'show');

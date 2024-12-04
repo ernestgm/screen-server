@@ -26,6 +26,7 @@ class QrUpdateRequest extends FormRequest
             'info' => ['required'],
             'business_id' => ['required'],
             'message' => ['required'],
+            'position' => ['required'],
         ];
     }
 

@@ -3,22 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\VideoHelpers;
-use App\Http\Requests\ImageStoreRequest;
-use App\Http\Requests\ImageUpdateRequest;
 use App\Http\Requests\VideoStoreRequest;
 use App\Http\Requests\VideoUpdateRequest;
 use App\Models\Image;
-use App\Models\Price;
-use App\Models\Product;
-use App\Models\Screen;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Validator;
-use Intervention\Image\Drivers\Gd\Driver;
-use Intervention\Image\ImageManager;
 
 class VideoController extends ImageController
 {
@@ -63,6 +53,7 @@ class VideoController extends ImageController
                         'duration' => $duration,
                     ];
                     Image::create($data);
+                    $this->updateScreens($screen_id);
                     return response()->json(['success' => 'success'], app('SUCCESS_STATUS'));
                 } else {
                     return response()->json(['statusText' => "Error: Can't move video"], app('VALIDATION_STATUS'));
@@ -100,6 +91,7 @@ class VideoController extends ImageController
                         'duration' => $duration,
                     ];
                     $video->update($data);
+                    $this->updateScreens($request->input('screen_id'));
                     return response()->json(['success' => 'success'], app('SUCCESS_STATUS'));
                 } else {
                     return response()->json(['statusText' => "Error: Can't move video"], app('VALIDATION_STATUS'));

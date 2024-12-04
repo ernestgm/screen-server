@@ -20,6 +20,7 @@ class Qr extends Model
         'name',
         'message',
         'info',
+        'position',
         'business_id',
     ];
 

@@ -5,16 +5,11 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ImageStoreRequest;
 use App\Http\Requests\ImageUpdateRequest;
 use App\Models\Image;
-use App\Models\Price;
-use App\Models\Product;
 use App\Models\Screen;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
-use Intervention\Image\Drivers\Gd\Driver;
-use Intervention\Image\ImageManager;
 
 class ImageController extends Controller
 {
@@ -75,7 +70,7 @@ class ImageController extends Controller
         return response()->json(['success' => 'success'], app('SUCCESS_STATUS'));
     }
 
-    private function updateScreens($screenId): void
+    public function updateScreens($screenId): void
     {
         $screen = Screen::with('devices')->find($screenId);
         if ($screen && $screen->devices) {

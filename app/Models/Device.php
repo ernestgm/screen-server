@@ -22,6 +22,7 @@ class Device extends Model
         'user_id',
         'screen_id',
         'marquee_id',
+        'qr_id',
     ];
 
     /**
@@ -46,5 +47,10 @@ class Device extends Model
     public function marquee(): BelongsTo
     {
         return $this->belongsTo(Marquee::class);
+    }
+
+    public function qr(): BelongsTo
+    {
+        return $this->belongsTo(Qr::class);
     }
 }
