@@ -80,6 +80,16 @@ class ImageController extends Controller
         }
     }
 
+    public function getUserId($screenId): int|bool
+    {
+        $screen = Screen::with('business.user')->find($screenId);
+        if ($screen && $screen->business && $screen->business->user) {
+            return $screen->business->user->id;
+        }
+
+        return false;
+    }
+
     public function show(Request $request, Image $image): JsonResponse
     {
         return response()->json([

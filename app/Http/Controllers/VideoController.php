@@ -34,13 +34,12 @@ class VideoController extends ImageController
         if (Storage::disk('ftp')->exists('/')) {
             $uploaded = Storage::disk('ftp')->put($filename, file_get_contents($file));
             if ($uploaded) {
-                $subfolder = "user_" . auth()->user()->id;
+                $inputs = $request->all();
+                $screen_id = $inputs['screen_id'];
+                $subfolder = "user_" . $this->getUserId($screen_id);
                 $move = $this->moveFile($subfolder, $filename);
                 if ($move) {
-                    $inputs = $request->all();
-                    $screen_id = $inputs['screen_id'];
                     $duration = $videoHelper->getDuration();
-
                     $data = [
                         'name' => $filename,
                         'description' => '',
@@ -80,7 +79,8 @@ class VideoController extends ImageController
         if (Storage::disk('ftp')->exists('/')) {
             $uploaded = Storage::disk('ftp')->put($filename, file_get_contents($file));
             if ($uploaded) {
-                $subfolder = "user_" . auth()->user()->id;
+                $screen_id = $request->input('screen_id');
+                $subfolder = "user_" . $this->getUserId($screen_id);
                 $move = $this->moveFile($subfolder, $filename);
                 if ($move) {
                     $duration = $videoHelper->getDuration();
@@ -91,7 +91,7 @@ class VideoController extends ImageController
                         'duration' => $duration,
                     ];
                     $video->update($data);
-                    $this->updateScreens($request->input('screen_id'));
+                    $this->updateScreens($screen_id);
                     return response()->json(['success' => 'success'], app('SUCCESS_STATUS'));
                 } else {
                     return response()->json(['statusText' => "Error: Can't move video"], app('VALIDATION_STATUS'));
