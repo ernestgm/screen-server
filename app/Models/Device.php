@@ -23,6 +23,8 @@ class Device extends Model
         'screen_id',
         'marquee_id',
         'qr_id',
+        'portrait',
+        'slide'
     ];
 
     /**

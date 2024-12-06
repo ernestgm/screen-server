@@ -23,8 +23,8 @@ class Screen extends Model
         'area_id',
         'business_id',
         'enabled',
-        'portrait',
-        'slide'
+        'description_position',
+        'description_size',
     ];
 
     /**

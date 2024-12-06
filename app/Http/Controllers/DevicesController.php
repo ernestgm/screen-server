@@ -109,6 +109,10 @@ class DevicesController extends Controller
             $this->sendPublishMessage("player_screen_$device->code", ["message" => "check_screen_update"]);
         }
 
+        if ($input['slide'] != $oldDevice->slide || $input['portrait'] != $oldDevice->portrait) {
+            $this->sendPublishMessage("player_screen_$device->code", ["message" => "check_screen_update"]);
+        }
+
         if ($input['qr_id'] != $oldDevice->qr_id) {
             $this->sendPublishMessage("player_qr_$device->code", ["message" => "check_qr_update"]);
         }

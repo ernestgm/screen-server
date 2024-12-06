@@ -10,8 +10,9 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::table('images', function (Blueprint $table) {
-            $table->text('description_position')->nullable()->default('br');
+        Schema::table('screens', function (Blueprint $table) {
+            $table->text('description_position')->nullable();
+            $table->text('description_size')->nullable();
         });
     }
 
@@ -20,7 +21,7 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::table('images', function (Blueprint $table) {
+        Schema::table('screens', function (Blueprint $table) {
             //
         });
     }
