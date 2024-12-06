@@ -71,7 +71,7 @@ class VideoController extends ImageController
         $videoHelper = new VideoHelpers($file);
 
         if (!$videoHelper->isDurationValid()) {
-            return response()->json(['statusText' => "Video Not Valid. Duraction must be under 1min"], app('VALIDATION_STATUS'));
+            return response()->json(['statusText' => "Video Not Valid. Duraction must be under 30s"], app('VALIDATION_STATUS'));
         }
 
         $filename = uniqid() . '.' . $file->getClientOriginalName();
