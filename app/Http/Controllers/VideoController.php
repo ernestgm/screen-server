@@ -26,7 +26,7 @@ class VideoController extends ImageController
         $videoHelper = new VideoHelpers($file);
 
         if (!$videoHelper->isDurationValid()) {
-            return response()->json(['statusText' => "Video Not Valid. Duraction must be under 1min"], app('VALIDATION_STATUS'));
+            return response()->json(['statusText' => "Video Not Valid. Duraction must be under 30s"], app('VALIDATION_STATUS'));
         }
 
         $filename = uniqid() . '.' . $file->getClientOriginalName();
@@ -84,7 +84,6 @@ class VideoController extends ImageController
                 $move = $this->moveFile($subfolder, $filename);
                 if ($move) {
                     $duration = $videoHelper->getDuration();
-
                     $data = [
                         'name' => $filename,
                         'video' => env('URL_BASE_OF_VIDEO') . '/' . $subfolder . '/' . $filename,
@@ -94,7 +93,7 @@ class VideoController extends ImageController
                     $this->updateScreens($screen_id);
                     return response()->json(['success' => 'success'], app('SUCCESS_STATUS'));
                 } else {
-                    return response()->json(['statusText' => "Error: Can't move video"], app('VALIDATION_STATUS'));
+                    return response()->json(['statusText' => "Error: Can't upload video"], app('VALIDATION_STATUS'));
                 }
             } else {
                 return response()->json(['statusText' => "Can't upload video"], app('VALIDATION_STATUS'));
@@ -104,7 +103,7 @@ class VideoController extends ImageController
         }
     }
 
-    private function moveFile($subfolder, $filename): JsonResponse|bool
+    private function moveFile($subfolder, $filename): bool
     {
         if (Storage::disk('ftp')->exists($subfolder)) {
             $move = Storage::disk('ftp')->move($filename, $subfolder . '/' . $filename);
@@ -112,7 +111,7 @@ class VideoController extends ImageController
             if (Storage::disk('ftp')->makeDirectory($subfolder)) {
                 $move = Storage::disk('ftp')->move($filename, $subfolder . '/' . $filename);
             } else {
-                return response()->json(['statusText' => 'Error creating directory'], app('VALIDATION_STATUS'));
+                return false;
             }
         }
 
