@@ -70,7 +70,8 @@ class DevicesController extends Controller
 
         return response()->json([
             'success' => $device->screen != null && $device->user->id === Auth::user()->id,
-            'screen' => $device->screen
+            'screen' => $device->screen,
+            'device' => $device
         ]);
     }
 

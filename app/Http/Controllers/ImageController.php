@@ -55,8 +55,8 @@ class ImageController extends Controller
             $data = [
                 'name' => $image['name'],
                 'description' => '',
-                'description_position' => 'bc',
-                'description_size' => 'm',
+                'description_position' => 'none',
+                'description_size' => 'none',
                 'qr_info' => '',
                 'qr_position' => 'br',
                 'image' => $image['data'],
