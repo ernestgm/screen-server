@@ -21,9 +21,7 @@ class DeviceUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'name' => ['required', 'string'],
-        ];
+        return [];
     }
 
     public function failedValidation(Validator $validator)

@@ -24,7 +24,10 @@ class Device extends Model
         'marquee_id',
         'qr_id',
         'portrait',
-        'slide'
+        'slide',
+        'overlay_permission',
+        'app_version',
+        'android_version'
     ];
 
     /**
