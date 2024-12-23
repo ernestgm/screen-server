@@ -110,21 +110,43 @@ class UserController extends Controller
             $user = $device->user;
             if ($user){
                 $device->delete();
-                $success['user'] = $user;
-                $success['token'] =  $user->createToken('screen_app')->plainTextToken;
-
-                $refreshToken = $user->refresh_token;
-                if ($refreshToken == null) {
-                    $refreshToken = hash('sha256', Str::random(60));
-                    $user->update(['refresh_token' => $refreshToken]);
-                }
-                $success['refresh_token'] =  $refreshToken;
-
+                $success = $this->getLoginDataUser($user);
                 return response()->json(['success' => $success], app('SUCCESS_STATUS'));
             }
         }
 
-        return response()->json(['error'=>'Unauthorised'], app('UNAUTHORIZED_STATUS'));
+        return response()->json(['error' => 'Unauthorised'], app('UNAUTHORIZED_STATUS'));
+    }
+
+    public function loginByDevice(Request $request): JsonResponse
+    {
+        $deviceId = $request->input('deviceId');
+        $device = Device::with('user')->where('device_id', $deviceId)->first();
+
+        if ($device) {
+            $user = $device->user;
+            if ($user) {
+                $success = $this->getLoginDataUser($user);
+                return response()->json(['success' => $success], app('SUCCESS_STATUS'));
+            }
+        }
+
+        return response()->json(['error' => 'Unauthorised'], app('UNAUTHORIZED_STATUS'));
+    }
+
+    private function getLoginDataUser(User $user): array
+    {
+        $success['user'] = $user;
+        $success['token'] = $user->createToken('screen_app')->plainTextToken;
+
+        $refreshToken = $user->refresh_token;
+        if ($refreshToken == null) {
+            $refreshToken = hash('sha256', Str::random(60));
+            $user->update(['refresh_token' => $refreshToken]);
+        }
+        $success['refresh_token'] = $refreshToken;
+
+        return $success;
     }
 
     public function refreshToken(Request $request): JsonResponse

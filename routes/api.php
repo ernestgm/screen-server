@@ -39,6 +39,7 @@ Route::middleware(['auth:sanctum', 'cors'])->group(function () {
             Route::delete('/users', 'deleteByIds');
             Route::post('/login', 'login')->withoutMiddleware('auth:sanctum');
             Route::post('/login-with-code', 'loginWithCode')->withoutMiddleware('auth:sanctum');
+            Route::post('/login-with-device', 'loginByDevice')->withoutMiddleware('auth:sanctum');
             Route::post('refresh-token', 'refreshToken')->withoutMiddleware('auth:sanctum');
             Route::post('/generate-login-code', 'generateLoginCode')->withoutMiddleware('auth:sanctum');
             Route::post('/activate-device', 'activateDevice');

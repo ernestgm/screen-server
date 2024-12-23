@@ -56,7 +56,6 @@ class DevicesController extends Controller
     public function showByDeviceId(Request $request): JsonResponse
     {
         $device = Device::where('device_id', $request->query("device_id"))
-            ->where('user_id', $request->query("user_id"))
             ->get();
 
         return response()->json([
@@ -102,6 +101,10 @@ class DevicesController extends Controller
 
         $device->update($input);
 
+        if ($input['qr_id'] != $oldDevice->qr_id) {
+            $this->sendPublishMessage("player_qr_$device->code", ["message" => "check_qr_update"]);
+        }
+
         if ($input['marquee_id'] != $oldDevice->marquee_id) {
             $this->sendPublishMessage("player_marquee_$device->code", ["message" => "check_marquee_update"]);
         }
@@ -114,11 +117,11 @@ class DevicesController extends Controller
             $this->sendPublishMessage("player_screen_$device->code", ["message" => "check_screen_update"]);
         }
 
-        if ($input['qr_id'] != $oldDevice->qr_id) {
-            $this->sendPublishMessage("player_qr_$device->code", ["message" => "check_qr_update"]);
+        if ($input['user_id'] != $oldDevice->user_id) {
+            $this->sendPublishMessage("user_$device->code", ["message" => "switch_account"]);
         }
 
-        return response()->json(['success'=>'success'], app('SUCCESS_STATUS'));
+        return response()->json(['success' => 'success', 'device' => $oldDevice], app('SUCCESS_STATUS'));
     }
 
     public function delete(Request $request): JsonResponse
