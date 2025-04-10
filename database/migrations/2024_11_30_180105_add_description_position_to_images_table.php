@@ -11,7 +11,7 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::table('images', function (Blueprint $table) {
-            $table->text('description_position')->nullable()->default('br');
+            $table->text('description_position')->nullable();
         });
     }
 
