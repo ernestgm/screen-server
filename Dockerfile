@@ -17,6 +17,10 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp --with-xpm \
     && docker-php-ext-install pdo_mysql mbstring zip gd ftp
 
+# Instalar dependencias y mysql-client
+RUN apt-get update && apt-get install -y \
+    default-mysql-client
+
 # Configuramos el directorio de trabajo
 WORKDIR /var/www
 
@@ -26,7 +30,7 @@ COPY . .
 # Instalamos Composer
 RUN curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer
 
-RUN composer install
+#RUN composer install
 
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
